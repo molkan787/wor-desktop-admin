@@ -1,0 +1,1803 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/products.css">
+    <link rel="stylesheet" type="text/css" href="css/orders.css">
+    <link rel="stylesheet" type="text/css" href="css/comps.css">
+    <link rel="stylesheet" type="text/css" href="css/customers.css">
+    <link rel="stylesheet" type="text/css" href="css/banners.css">
+    <link rel="stylesheet" type="text/css" href="css/categories.css">
+    <link rel="stylesheet" type="text/css" href="css/setting.css">
+    <link rel="stylesheet" type="text/css" href="css/mamp.css">
+    <link rel="stylesheet" type="text/css" href="css/users.css">
+    <link rel="stylesheet" type="text/css" href="css/pos.css">
+    <link rel="stylesheet" type="text/css" href="css/home.css">
+    <link rel="stylesheet" type="text/css" href="css/promos.css">
+    <link rel="stylesheet" type="text/css" href="css/utils.css">
+    <link rel="stylesheet" type="text/css" href="css/sidemenu.css">
+    <link rel="stylesheet" type="text/css" href="css/mtm.css">
+    <link rel="stylesheet" type="text/css" href="css/its.css">
+    <link rel="stylesheet" type="text/css" href="css/chartist.min.css">
+
+    <script type="text/javascript" src="scripts/cm/state.js"></script>
+    <script type="text/javascript" src="scripts/utils.js"></script>
+    <script type="text/javascript">const anime = require('animejs');</script>
+    <script type="text/javascript">const Sortable = require('sortablejs');</script>
+    <script type="text/javascript">const Chartist = require('chartist');</script>
+    <script type="text/javascript">const jQuery = require('jquery');const $ = jQuery;</script>
+    <!-- <script type="text/javascript" src="libs/chartist.min.js"></script> -->
+    <!-- <script>const Sortable = {create: () => {}}</script> -->
+    <script type="text/javascript" src="libs/semantic.min.js"></script>
+
+    <script type="text/javascript" src="scripts/ul/reacto.js"></script>
+
+    <script type="text/javascript" src="scripts/langs/en.js"></script>
+
+    <script type="text/javascript" src="scripts/cm/datamanager.js"></script>
+    <script type="text/javascript" src="scripts/cm/rtdc.js"></script>
+    <script type="text/javascript" src="scripts/cm/dds/oca.js"></script>
+    <script type="text/javascript" src="scripts/cm/gc.js"></script>
+    <script type="text/javascript" src="scripts/cm.js"></script>
+
+    <script type="text/javascript" src="scripts/sl.js"></script>
+    <script type="text/javascript" src="scripts/sl/actions.js"></script>
+    <script type="text/javascript" src="scripts/sl/barcodeScanner.js"></script>
+    <script type="text/javascript" src="scripts/sl/printer.js"></script>
+    <script type="text/javascript" src="scripts/sl/POSReceiptBuilder.js"></script>
+    <script type="text/javascript" src="scripts/sl/receipt.js"></script>
+
+    <script type="text/javascript" src="scripts/ui.js"></script>
+    <script type="text/javascript" src="scripts/ul/dosk.js"></script>
+    <script type="text/javascript" src="scripts/ul/pagination.js"></script>
+    <script type="text/javascript" src="scripts/ul/floatingList.js"></script>
+    <script type="text/javascript" src="scripts/ul/dailyReport.js"></script>
+    <script type="text/javascript" src="scripts/ui/leftmenu.js"></script>
+    <script type="text/javascript" src="scripts/ui/uiis.js"></script>
+    <script type="text/javascript" src="scripts/ui/fasc.js"></script>
+    <script type="text/javascript" src="scripts/ui/header.js"></script>
+    <script type="text/javascript" src="scripts/ui/mx.js"></script>
+    <script type="text/javascript" src="scripts/ui/home.js"></script>
+    <script type="text/javascript" src="scripts/ui/products.js"></script>
+    <script type="text/javascript" src="scripts/ui/product.js"></script>
+    <script type="text/javascript" src="scripts/ui/orders.js"></script>
+    <script type="text/javascript" src="scripts/ui/order.js"></script>
+    <script type="text/javascript" src="scripts/ui/customers.js"></script>
+    <script type="text/javascript" src="scripts/ui/banners.js"></script>
+    <script type="text/javascript" src="scripts/ui/banner.js"></script>
+    <script type="text/javascript" src="scripts/ui/categories.js"></script>
+    <script type="text/javascript" src="scripts/ui/category.js"></script>
+    <script type="text/javascript" src="scripts/ui/setting.js"></script>
+    <script type="text/javascript" src="scripts/ui/users.js"></script>
+    <script type="text/javascript" src="scripts/ui/stores.js"></script>
+    <script type="text/javascript" src="scripts/ui/master_setting.js"></script>
+    <script type="text/javascript" src="scripts/ui/pos.js"></script>
+    <script type="text/javascript" src="scripts/ui/dialogs.js"></script>
+    <script type="text/javascript" src="scripts/ui/account.js"></script>
+    <script type="text/javascript" src="scripts/ui/promos.js"></script>
+    <script type="text/javascript" src="scripts/ui/promo.js"></script>
+    <script type="text/javascript" src="scripts/ui/itsVendors.js"></script>
+    <script type="text/javascript" src="scripts/ui/itsPurchase.js"></script>
+    <script type="text/javascript" src="scripts/ui/itsPayments.js"></script>
+    <script type="text/javascript" src="scripts/ui/ls.js"></script>
+    <script type="text/javascript" src="scripts/ui/popup.js"></script>
+    <script type="text/javascript" src="scripts/ui/uiu.js"></script>
+    <script type="text/javascript" src="scripts/ui/pdr.js"></script>
+    <script type="text/javascript" src="scripts/ui/receipt.js"></script>
+    <script type="text/javascript" src="scripts/ui/message.js"></script>
+    <script type="text/javascript" src="scripts/tests.js"></script>
+    <script type="text/javascript" src="scripts/cm/reno/FSDB.js"></script>
+    <script type="text/javascript" src="scripts/cm/reno.js"></script>
+    <script type="text/javascript" src="scripts/index.js"></script>
+    <script type="text/javascript" src="libs/quo.js"></script>
+    <script type="text/javascript" src="libs/long-press-event.js"></script>
+    <!--<script type="text/javascript" src="scripts/pulltorefresh.min.js"></script>-->
+    <title>WOR Admin</title>
+</head>
+<body onclick="">
+
+    <div id="header">
+        <img id="header_menu_img" src="images/icons/menu.png" />
+        <h4 class="toe" id="title">WalkOn Retail Admin</h4>
+    </div>
+
+    <div class="bbp p0" id="bbp_0"></div>
+    <div class="bbp p1" id="bbp_1"></div>
+    <div class="bbp p2" id="bbp_2"></div>
+    <div class="bbp p3" id="bbp_3"></div>
+
+    <div id="left_menu">
+        <div id="left_menu_subcon" class="ui vertical menu hideScrollBar">
+            <div class="item">
+                <img src="images/slogo.png" />
+            </div>
+            <div id="lm_items">
+                <a id="lm_item_ms" class="item" action="master_setting">
+                    <i class="setting colored colored icon"></i> Master Setting
+                </a>
+                <a id="lm_item_mu" class="item" action="users" param="master">
+                    <i class="users colored colored icon"></i> Master Users
+                </a>
+                <a class="item" action="stores">
+                    <i class="building colored colored icon"></i> Stores
+                </a>
+                <a class="item" action="products" param="cps_admin">
+                    <i class="boxes colored colored icon"></i> CPS (Admin)
+                </a>
+                <a class="item" action="dashboard" rss="1">
+                    <i class="chart line colored colored icon"></i> Dashboard
+                </a>
+                <!-- <a class="item" action="its" rss="1" parent="true">
+                    <i class="balance scale colored icon"></i> ITS
+                </a> -->
+                <!-- <div class="items_group" id="items_group_its">
+                    <div class="items">
+                        <a class="item" action="its_vendors" rss="1" group="its">
+                            <i class="handshake colored icon"></i> Vendors
+                        </a>
+                        <a class="item" action="its_purchases" rss="1" group="its">
+                            <i class="shopping basket colored icon"></i> Purchases
+                        </a>
+                        <a class="item" action="its_payments" rss="1" group="its">
+                            <i class="money bill alternate colored icon"></i> Payments
+                        </a>
+                    </div>
+                </div> -->
+                <a class="item" action="its_vendors" rss="1">
+                    <i class="handshake colored icon"></i> Vendors
+                </a>
+                <a class="item" action="pos" rss="1">
+                    <i class="fax colored colored icon"></i> POS
+                </a>
+                <a class="item" action="orders" rss="1">
+                    <i class="cart colored colored icon"></i> Orders
+                    <label id="lm_order_count" class="ui red label" style="border-radius: 50px;display: none">0</label>
+                </a>
+                <a class="item" action="products" param="" rss="1">
+                    <i class="box colored colored icon"></i> Products
+                </a>
+                <a class="item" action="products" param="cps">
+                    <i class="boxes colored colored icon"></i> CPS
+                </a>
+                <a class="item" action="customers" rss="1">
+                    <i class="users colored colored icon"></i> Customers
+                </a>
+                <a class="item" action="categories" param="0" rss="1">
+                    <i class="clone colored colored icon"></i> Categories
+                </a>
+                <a class="item" action="categories" param="1" rss="1">
+                    <i class="clone colored colored icon"></i> Brands
+                </a>
+                <a class="item" action="banners" rss="1">
+                    <i class="newspaper colored colored icon"></i> Banners
+                </a>
+                <a class="item" action="promos" rss="1">
+                    <i class="newspaper colored colored icon"></i> Promotion
+                </a>
+                <a class="item" action="users" param="normal">
+                    <i class="users colored colored icon"></i> Users
+                </a>
+                <a class="item" action="setting" rss="1">
+                    <i class="setting colored colored icon"></i> Setting
+                </a>
+                <a class="item" action="account">
+                    <i class="user circle colored colored icon"></i> Account
+                </a>
+                <a class="item" action="logout">
+                    <i class="sign-out colored colored icon"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h1 id="mtitle">Title</h1>
+
+    <div id="pages">
+
+        <div class="page mtm" id="page_home" hideTitle="1">
+            <div class="header">
+                <span>Dashboard</span>
+                <button right circle onclick="home.showOptions()">
+                    <i class="ellipsis vertical icon"></i>
+                </button>
+                <button right onclick="home.showPopup()">
+                    <i class="calendar icon"></i>
+                    <label id="home_filter_date_text" style="cursor: pointer"></label>
+                </button>
+                <button right circle onclick="reloadPage()" title="Reload">
+                    <i class="icon sync alternate"></i>
+                </button>
+            </div>
+            <div class="body scrollable">
+                <div id="home_chart_sales" class="ct-chart"></div>
+                <div class="ui segments root mtm_seg">
+                    <div class="ui segment mtm_seg sca">
+                        <div class="ui tiny orange statistic">
+                            <div class="value" id="stats_total_sales">
+                                0
+                            </div>
+                            <div class="label">
+                                Total Sales
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments mtm_seg">
+                        <div class="ui segment mtm_seg sca">
+                            <div class="ui mini statistic">
+                                <div class="value" id="stats_walkon_sales">
+                                    0
+                                </div>
+                                <div class="label">
+                                    Walk in Sales
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment mtm_seg sca">
+                            <div class="ui mini statistic">
+                                <div class="value" id="stats_online_sales">
+                                    0
+                                </div>
+                                <div class="label">
+                                    Online Sales
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="home_chart_orders" class="ct-chart"></div>
+                <div class="ui segments root mtm_seg">
+                    <div class="ui segment mtm_seg sca">
+                        <div class="ui tiny orange statistic">
+                            <div class="value" id="stats_total_orders">
+                                0
+                            </div>
+                            <div class="label">
+                                Total Orders
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal segments mtm_seg">
+                        <div class="ui segment mtm_seg sca">
+                            <div class="ui mini statistic">
+                                <div class="value" id="stats_completed_orders">
+                                    0
+                                </div>
+                                <div class="label">
+                                    Completed
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment mtm_seg sca">
+                            <div class="ui mini statistic">
+                                <div class="value" id="stats_pending_orders">
+                                    0
+                                </div>
+                                <div class="label">
+                                    Pending
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+
+                <div id="home_chart_customers" class="ct-chart"></div>
+                <div class="ui segments root mtm_seg">
+                    <div class="ui segment mtm_seg sca">
+                        <div class="ui tiny orange statistic">
+                            <div class="value" id="stats_total_customers">
+                                0
+                            </div>
+                            <div class="label">
+                                Total Customers
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui horizontal mtm_seg segments">
+                        <div class="ui segment mtm_seg sca">
+                            <div class="ui mini statistic">
+                                <div class="value" id="stats_verified_customers">
+                                    0
+                                </div>
+                                <div class="label">
+                                    Verified
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ui segment mtm_seg sca">
+                            <div class="ui mini statistic">
+                                <div class="value" id="stats_notverified_customers">
+                                    0
+                                </div>
+                                <div class="label">
+                                    Not Verified
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="page_pos" class="page custom" hideTitle="1">
+            <div id="pos_sec1" class="pos_sec sec1 pos_sec_h">
+                <table id="pos_table2" class="mtable header-fixed cols3" border="0">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price (&#8377;)</th>
+                            <th>Qty</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pos_c_items"></tbody>
+                </table>
+            </div>
+            <div id="pos_sec2" class="pos_sec sec2 pos_sec_h">
+                <div class="mtm page">
+                    <div class="header">
+                        <select id="pos_search_cats" class="nr_right" disabled>
+                            <option>Categories</option>
+                        </select>
+                        <input class="nr_left" id="pos_search" type="text" placeholder="Search by name or type Barcode" disabled />
+                    </div>
+                    <div class="body" style="padding: 10px !important">
+                        <div id="pos_a_items" class="items">
+                            <div id="pos_loaddata_con">
+                                <button id="pos_loaddata_btn" class="ui button">Load Products</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div id="pos_sec3" class="pos_totals pos_sec">
+                <div class="msegment">
+                    <label class="title">Sub Total</label>
+                    <input id="pos_subtotal" type="text" value="0.00" disabled />
+                </div>
+                <div class="msegment">
+                    <label class="title">GST</label>
+                    <input id="pos_tax" type="text" value="0.00" disabled />
+                </div>
+                <div class="msegment">
+                    <label class="title">Other</label>
+                    <input id="pos_other" type="text" value="0.00" />
+                </div>
+                <div class="msegment last">
+                    <label class="title">Total</label>
+                    <input id="pos_total" type="text" value="0.00" disabled />
+                </div>
+                <button id="pos_btn_submit" class="mtm button primary">Submit</button>
+                <button id="pos_btn_clear" class="mtm button">Clear</button>
+            </div>
+        </div>
+
+        <div class="page custom" id="page_products" hideTitle="1">
+            <h3>
+                <input id="prts_filter_name" class="mtm filters searchbox" placeholder="Search"/>
+                Filters:
+                <span id="prts_filters" style="line-height: 1.6;">
+                </span>
+                <div id="prts_btns1">
+                    <button onclick="products.showFilterPopup()" class="mtm textButton" circle title="Edit filters">
+                        <i class="icon filter"></i>
+                    </button>
+                    <button onclick="reloadPage()" class="mtm textButton" circle title="Reload">
+                        <i class="icon sync alternate"></i>
+                    </button>
+                </div>
+            </h3>
+            
+            <div class="mtm page prts_maincontent">
+                <div class="header">
+                    <button id="prts_select">
+                        Select all
+                    </button>
+                    <button id="prts_unselect" disabled>
+                        Unselect all
+                    </button>
+                    <button id="prts_enable" disabled>
+                        Enable
+                    </button>
+                    <button id="prts_disable" disabled>
+                        Disable
+                    </button>
+                    <button id="prts_delete" disabled>
+                        Delete
+                    </button>
+                    <button id="prts_copy" disabled onclick="products.copyProducts()">
+                        Import selected items
+                    </button>
+                    
+                    <button id="prts_add" right onclick="navigate('product', { pid: 'new', cps: products.ptype == 'cps_admin' })">
+                        <i class="plus icon"></i> add
+                    </button>
+                    <button id="prts_save_btn" right>Save Order</button>
+                </div>
+                <div id="prts_list" class="body scrollable">
+                
+                </div>
+            </div>
+
+            <div id="prts_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+
+            <!--Popup-->
+            
+
+        </div>
+
+        <div class="page mtm" id="page_product" rbb="1">
+            <div class="ui top attached tabular menu" for="prt_tabs">
+                <div class="active item">Description</div>
+                <div class="item">Data</div>
+                <div class="item">Category & Brand</div>
+            </div>
+            <div id="prt_tabs">
+                <div class="ui bottom attached active tab segment">
+                    <div class="ui form">
+
+                        <h4 class="ui dividing header">Product Id: <span id="prt_id"></span></h4>
+
+                        <div class="field">
+                            <div class="ui labeled input">
+                                <div class="ui label">
+                                    Language
+                                </div>
+                                <select id="prt_lang">
+                                    <option value="1">English</option>
+                                    <option value="2">Hindi</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label>Name</label>
+                            <input id="prt_title" type="text" placeholder="Product name">
+                        </div>
+                        <div class="field">
+                            <label>Description</label>
+                            <textarea id="prt_description" style="resize: none;"></textarea>
+                        </div>
+                        <div class="field">
+                            <label>Primary image</label>
+                            <img id="prt_image" class="inputed image" src="" style="float: left;margin-right: 10px;border-radius: 12px;" />
+                            <button class="ui button" id="prt_btn_change_img">
+                                <i class="edit icon"></i>
+                                Change image
+                            </button>
+                        </div>
+                        <div class="field" style="margin-top: 80px">
+                            <label>Additional images</label>
+                            <div id="prt_images">
+                                <div class="prt_image_item" isbtn="1" id="prt_add_image_btn">
+                                    <label class="ui label"> <i class="plus icon"></i> </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="ui bottom attached tab segment">
+                    <div class="ui form">
+
+                        <div class="field">
+                            <label>Price (&#8377;)</label>
+                            <input id="prt_price" type="text" placeholder="0.00 &#8377;">
+                        </div>
+                        <div class="field">
+                            <label>Discount</label>
+                            <div class="ui right labeled input if">
+                                <input id="prt_discount" type="text" placeholder="0.00">
+
+                                <select id="prt_discount_type" class="ui dropdown right_attached_dropdown" style="width: 50px">
+                                    <option value="1">%</option>
+                                    <option value="2">&#8377;</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field" id="prt_stock_field">
+                            <label>Stock</label>
+                            <input id="prt_stock" type="text" placeholder="0">
+                        </div>
+                        <div class="field">
+                            <label>Spf</label>
+                            <input id="prt_spf" type="text" placeholder="0">
+                        </div>
+                        <div class="field">
+                            <label>Spf unit</label>
+                            <input id="prt_spf_unit" type="text" placeholder="Ex: Kg">
+                        </div>
+                        <div class="field">
+                            <label>Barcode</label>
+                            <input id="prt_barcode" type="text" placeholder="100100100100">
+                        </div>
+                        <div class="field">
+                            <label>GST</label>
+                            <select id="prt_gst">
+                                <option value="0">0%</option>
+                                <option value="5">5%</option>
+                                <option value="12">12%</option>
+                                <option value="18">18%</option>
+                                <option value="28">28%</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>HSN</label>
+                            <input id="prt_hsn" type="text" placeholder="HSN">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui bottom attached tab segment">
+                    <div class="ui form">
+                        <div class="field">
+                            <label>Category</label>
+                            <select id="prt_cat" subelt="prt_subcat">
+                                <option value="0"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Sub category</label>
+                            <select id="prt_subcat" subelt="prt_child_subcat">
+                                <option value="0"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Child Sub category</label>
+                            <select id="prt_child_subcat">
+                                <option value="0"></option>
+                            </select>
+                        </div>
+                        <hr /> <!------------------------->
+                        <div class="field">
+                            <label>Brand</label>
+                            <select id="prt_brand" subelt="prt_subbrand">
+                                <option value="0"></option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>Sub Brand</label>
+                            <select id="prt_subbrand">
+                                <option value="0"></option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="prt_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+        </div>
+
+        <div id="page_orders" class="page custom" hideTitle="1">
+            <h3>
+                <input id="orders_searchbox" class="mtm filters searchbox" placeholder="Search"/>
+                Filters:
+                <span id="ords_filters" style="line-height: 1.6;">
+                </span>
+                <div id="ords_btns1">
+                    <button onclick="orders.showFilters()" class="mtm textButton" circle title="Edit filters">
+                        <i class="icon filter"></i>
+                    </button>
+                    <button onclick="reloadPage()" class="mtm textButton" circle title="Reload">
+                        <i class="icon sync alternate"></i>
+                    </button>
+                </div>
+            </h3>
+
+            <table class="mtable header-fixed cols5 bottom_attached" id="ords_list">
+                <thead>
+                    <tr> <!-- Customer | Order Date & Time | Total | Status | Paid -->
+                        <th>Customer</th>
+                        <th>Order Date</th>
+                        <th class="half6">Total</th>
+                        <th class="pl60_f">Status</th>
+                        <th class="half6">Paid</th>
+                        <th class="pl60_f">Options</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <h4 class="mtm footer th1 top_attached">
+                <label class="mtm blue"><i class="box icon"></i>Total:</label>
+                <span class="nomargin mtm blue" id="ords_stats_total">0</span>
+                <label class="mtm green"><i class="circle check icon"></i>Completed:</label>
+                <span class="nomargin mtm green" id="ords_stats_completed">0</span>
+                <label class="mtm orange"><i class="clock icon"></i>Pending:</label>
+                <span class="nomargin mtm orange" id="ords_stats_pending">0</span>
+                <label class="mtm yellow"><i class="plus circle icon"></i>New:</label>
+                <span class="nomargin mtm yellow" id="ords_stats_new">0</span>
+            </h4>
+
+            <div id="ords_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+            <!--Filters Popup-->
+
+        </div>
+
+        <div id="page_order" class="page" rbb="1">
+            <div class="ui segments">
+                <div class="ui horizontal segments">
+                    <div class="ui segment">
+                        <span>Status:</span>
+                        <h4 class="status pending" id="ord_status_con" style="font-size: 18px;">
+                            <i class="time icon" id="ord_status_icon"></i>
+                            <span id="ord_status_text"></span>
+                        </h4>
+                    </div>
+                    <div class="ui segment">
+                        <span>Order total:</span>
+                        <h4 class="total"> <i class="rupee sign icon"></i> <span id="ord_total"></span> </h4>
+                        <h4 id="paid_status"> <i id="paid_icon"></i> <span id="paid_text"></span> </h4>
+                    </div>
+                    <div class="ui segment">
+                        <span>Customer:</span>
+                        <h4> <i class="address card icon"></i> <span id="ord_customer"></span> </h4>
+                        <h4> <i class="phone icon"></i> <span id="ord_phone"></span> </h4>
+                    </div>
+                </div>
+
+                <div class="ui horizontal segments">
+                    <div class="ui segment" id="ord_del_seg">
+                        <span>Delivery date:</span>
+                        <h4> <i class="calendar alternate icon"></i> <span id="ord_del_date"></span> </h4>
+                        <span>Delivery timing:</span>
+                        <h4> <i class="time icon"></i> <span id="ord_del_timing"></span> </h4>
+                        <span>Delivery address:</span>
+                        <h4> <i class="map marker alternate icon"></i> <span id="ord_del_addr"></span> </h4>
+                    </div>
+                    <div class="ui segment">
+                        <span>Order date:</span>
+                        <h4> <i class="calendar alternate icon"></i> <span id="ord_order_date"></span> </h4>
+                    </div>
+                </div>
+
+                <div class="ui segment">
+                    <h4>
+                        <i class="box icon"></i> Order items:
+                        <button id="ord_receipt_btn" class="ui tiny button"
+                            style="float: right;margin-top: -8px;margin-bottom: 8px;">
+                            Show receipt
+                        </button>
+                    </h4>
+                    <table class="order_table" cellspacing="0" style="width: 100%;">
+                        <thead>
+                            <tr>
+                                <th class="first">Product</th>
+                                <th class="second">Q</th>
+                                <th class="third">Price (&#8377;)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ord_items_table"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="ord_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+        </div>
+
+        <div id="page_customers" class="page custom" hideTitle="1">
+            <h3>
+                Filters:
+                <span id="cust_filters" style="line-height: 1.6;">
+                </span><div id="cust_btns1">
+                    <button onclick="customers.showFilters()" class="mtm textButton" circle title="Edit filters">
+                        <i class="icon filter"></i>
+                    </button>
+                    <button onclick="reloadPage()" class="mtm textButton" circle title="Reload">
+                        <i class="icon sync alternate"></i>
+                    </button>
+                </div>
+            </h3>
+
+            <table id="cust_list" class="header-fixed mtable cols5 bottom_attached">
+                <thead>
+                    <tr>
+                        <th>Customer Name</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                        <th>Registration date</th>
+                        <th class="cust_search_con">
+                            <input id="cust_searchbox" placeholder="Search customers" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <h4 class="mtm footer th1 top_attached">
+                <label class="mtm blue"><i class="user circle icon"></i>Total:</label>
+                <span class="nomargin mtm blue" id="cust_stats_total">0</span>
+                <label class="mtm green"><i class="circle check icon"></i>Verified:</label>
+                <span class="nomargin mtm green" id="cust_stats_verified">0</span>
+                <label class="mtm red"><i class="ban icon"></i>Not verified:</label>
+                <span class="nomargin mtm red" id="cust_stats_notverified">0</span>
+            </h4>
+
+            <div id="cust_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+            
+
+        </div>
+
+        <div id="page_banners" class="page mtm">
+
+            <div class="header">
+                <button onclick="banners.save()">
+                    <i class="save icon"></i>
+                    save order
+                </button>
+                <button id="bans_add" right>
+                    <i class="plus icon"></i>
+                    add
+                </button>
+            </div>
+
+            <div id="bans_list" class="scrollable body">
+
+            </div>
+
+            <div id="bans_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+        </div>
+
+        <div id="page_banner" class="page" rbb="1">
+            <div class="ui form">
+                <div class="field">
+                    <label>Image</label>
+                    <img id="banner_img" src="" />
+                    <button id="banner_img_btn" class="ui button" style="margin: 10px;">Change image</button>
+                </div>
+                <hr />
+                <div class="field">
+                    <label>Link</label>
+                    <textarea id="banner_link" placeholder="Seperate products IDs by ',' ex: 47,57,32"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="page_categories" class="page mtm">
+            <div class="header">
+                <button id="cats_save_btn">
+                    <i class="save icon"></i>
+                    Save order
+                </button>
+                <button onclick="cats.addBtnClick()" right>
+                    <i class="plus icon"></i>
+                    Add
+                </button>
+            </div>
+            <div id="cats_list" class="scrollable body">
+            </div>
+            <div id="cats_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+        </div>
+
+        <div id="page_category" class="page" rbb="1">
+            <div class="ui form">
+                <div class="field cat_namesec">
+                    <label>Name</label>
+                    <div class="ui labeled input">
+                        <div class="ui label">
+                            English
+                        </div>
+                        <input type="text" id="cat_name_1" placeholder="Category name in English">
+                    </div>
+                    <div class="ui labeled input">
+                        <div class="ui label">
+                            Hindi
+                        </div>
+                        <input type="text" id="cat_name_2" placeholder="Category name in Hindi">
+                    </div>
+                </div>
+                <div id="cat_img_sec" class="field cat_imgsec">
+                    <label>Image</label>
+                    <img id="cat_img" src="" />
+                    <button id="cat_img_btn" class="ui button">Change image</button>
+                </div>
+                <div id="cat_subs_sec" class="field cat_imgsec" style="padding-top: 10px">
+                    <label id="cat_subs_text">Sub categories</label>
+                    <div id="subcats_add">
+                        <i class="plus circle icon"></i>
+                        Add
+                    </div>
+
+                    <div id="subcats_subs">
+                    </div>
+                </div>
+            </div>
+
+            <div id="subcats_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+        </div>
+
+        <div id="page_setting" class="page">
+            <div class="ui top attached tabular menu" for="set_tabs">
+                <div class="active item">Store</div>
+                <div class="item">Contact</div>
+                <div class="item">Payment</div>
+                <div class="item">Other</div>
+                <button onclick="setting.saveBtnClick()" class="tabMenuRightButton">
+                    <i class="save icon"></i>
+                    save changes
+                </button>
+            </div>
+
+            <div id="set_tabs">
+
+                <div class="ui bottom attached active tab segment">
+
+                    <div class="ui form">
+                        <div class="field">
+                            <label>Minimum order value</label>
+                            <div class="ui right labeled input if">
+                                <input id="set_min_total" type="text" placeholder="0">
+                                <label class="ui label">&#8377;</label>
+                            </div>
+                        </div>
+                        <div class="field set_timing_sec">
+                            <label>Regular delivery</label>
+                            <div class="ui labeled input">
+                                <label class="ui label">Starting time</label>
+                                <select id="set_timing_from"></select>
+                            </div>
+                            <div class="ui labeled input">
+                                <label class="ui label">Ending time</label>
+                                <select id="set_timing_to"></select>
+                            </div>
+                        </div>
+                        <div class="field set_timing_sec">
+                            <label>Fast delivery</label>
+                            <div class="ui labeled input">
+                                <label class="ui label">Delivery Time</label>
+                                <select id="set_timing_slot"></select>
+                            </div>
+                            <div class="ui labeled input">
+                                <label class="ui label">Delivery Cost</label>
+                                <input id="set_delcost" type="number" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Order on phone</label>
+                            <div class="ui labeled input">
+                                <label class="ui label">Phone</label>
+                                <input type="text" id="set_order_phone" placeholder="7007007000" />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="ui bottom attached tab segment">
+                    <form class="ui form">
+                        <div class="field set_contact_field">
+                            <label>Store name</label>
+                            <div class="ui labeled input">
+                                <label class="ui label">Name</label>
+                                <input id="set_name" type="text" placeholder="Store name">
+                            </div>
+                        </div>
+                        <div class="field set_contact_field">
+                            <label>Contact information</label>
+                            <div class="ui labeled input">
+                                <label class="ui label">Phone</label>
+                                <input id="set_phone" type="text" placeholder="Phone number">
+                            </div>
+                            <div class="ui labeled input">
+                                <label class="ui label">Email</label>
+                                <input id="set_email" type="text" placeholder="Email address">
+                            </div>
+                        </div>
+                        <div class="field set_addr_field">
+                            <label>Store address</label>
+                            <textarea id="set_address"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="ui bottom attached tab segment">
+                    <div class="ui form">
+                        <div class="field set_contact_field">
+                            <label>RazorPay</label>
+                            <div class="ui labeled input">
+                                <label class="ui label">Key</label>
+                                <input type="text" id="set_razor_key" placeholder="RazorPya Key" />
+                            </div>
+                            <div class="ui labeled input">
+                                <label class="ui label">Secret</label>
+                                <input type="text" id="set_razor_secret" placeholder="(Leave empty to make no changes)" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui bottom attached tab segment">
+                    <form class="ui form">
+                        <div class="field set_contact_field">
+                            <label>SMS Notification about new Orders</label>
+                            <div class="ui labeled input">
+                                <label class="ui label">Phone</label>
+                                <input id="set_not_phone" type="text" placeholder="Phone number">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div id="setting_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+
+        </div>
+
+        <div id="page_users" class="page custom">
+            <table id="users_list" class="mtable header-fixed">
+                <thead>
+                    <tr>
+                        <th class="pixed">Username</th>
+                        <th class="pixed">Full Name</th>
+                        <th class="pixed">Acount type</th>
+                        <th class="pixed">Status</th>
+                        <th style="padding: 10px !important">
+                            <button class="mtm headerButton" right onclick="users.hbBtnClick()">
+                                <i class="plus icon"></i>
+                                create user
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+
+            <div id="users_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+        </div>
+
+        <div id="page_stores" class="page mtm" hideTitle="1">
+            <div class="header">
+                <span>Stores</span>
+                <button right onclick="stores.showAddForm()">
+                    <i class="plus icon"></i>Create new store
+                </button>
+            </div>
+            <div id="stores_list" class="body">
+            </div> 
+
+            <div id="stores_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+
+        </div>
+
+        <div id="page_master_setting" class="page">
+
+            <div class="ui top attached tabular menu" for="mset_tabs">
+                <div class="active item">General</div>
+                <div class="item">Cities</div>
+                <div class="item">GLS</div>
+                <div class="item">Other</div>
+                <button onclick="masterSetting.save()" class="tabMenuRightButton">
+                    <i class="save icon"></i>
+                    save changes
+                </button>
+            </div>
+
+            <div id="mset_tabs">
+                <div class="ui bottom attached active tab segment">
+
+                    <div class="ui form">
+                        <div class="field mset_logo_sec">
+                            <label>Store Logo</label>
+                            <img id="mset_logo" src="" /> <br />
+                            <button id="mset_logo_btn" class="ui button">Change</button>
+                        </div>
+                        <div class="field mset_logo_sec">
+                            <label>Loading Screen Ad</label>
+                            <img id="mset_ls_ad" src="" /> <br />
+                            <button id="mset_ls_ad_btn" class="ui button">Change</button>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="ui bottom attached tab segment">
+                    <div id="mset_add_city"> <i class="plus circle icon"></i>Add city </div>
+                    <div id="mset_cities"></div>
+                </div>
+
+                <div class="ui bottom attached tab segment">
+                    <div class="ui form">
+                        <div class="field">
+                            <div class="ui labeled input" id="mset_lang_con">
+                                <div class="ui label">
+                                    Language
+                                </div>
+                                <select id="mset_lang">
+                                    <option value="1">English</option>
+                                    <option value="2">Hindi</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Company info</label>
+                            <textarea id="mset_company_info"></textarea>
+                        </div>
+                        <div class="field">
+                            <label>Share app text</label>
+                            <textarea id="mset_share_app_text"></textarea>
+                        </div>
+                        <div class="field">
+                            <label>Welcome text</label>
+                            <textarea id="mset_welcome_text"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui bottom attached tab segment">
+                    <div class="ui form">
+                        <div class="field">
+                            <label>Time to cancel order</label>
+                            <div class="ui labeled input labeled_select">
+                                <div class="ui label">
+                                    Time
+                                </div>
+                                <select id="mset_cancel_timeout"></select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Order on Phone</label>
+                            <div class="ui labeled input">
+                                <div class="ui label">
+                                    Default number
+                                </div>
+                                <input type="text" id="mset_order_phone" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="master_setting_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+        </div>
+
+        <div id="page_account" class="page custom">
+            <h4 class="mtm header">
+                <label>Type:</label>
+                <span class="nomargin" id="acc_type"></span>
+                <label>Username:</label>
+                <span class="nomargin" id="acc_username"></span>
+            </h4>
+            <div class="mtm page page_account_maincontent">
+                <div class="header">
+                    <span id="acc_fullname"></span>
+                </div>
+                <div class="body">
+                    <h4>Change password</h4>
+                    <div class="mform">
+                        <div class="field">
+                            <label>Current password</label>
+                            <input id="acc_pwd_old" type="password" placeholder="Current password" />
+                        </div>
+                        <div class="field">
+                            <label>New password</label>
+                            <input id="acc_pwd_new" type="password" placeholder="New password" />
+                        </div>
+                        <div class="field">
+                            <label>Retype new password</label>
+                            <input id="acc_pwd_ret" type="password" placeholder="Retype new password" />
+                        </div>
+                    </div>
+                    <button id="acc_pwd_btn" class="submitButton fullw">Change password</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div id="page_promos" class="page mtm">
+            <div class="header">
+                <button onclick="promos.saveBtnClick()">
+                    <i class="save icon"></i>Save order
+                </button>
+                <button id="promos_add_btn" right>
+                    <i class="plus icon"></i>Add
+                </button>
+            </div>
+            <div id="promos_items" class="scrollable body"></div>
+        </div>
+
+        <div id="page_promo" class="page" rbb="1">
+            <div class="ui form">
+                <div class="field">
+                    <label>Format</label>
+                    <select id="promo_format">
+                        <option value="1">Full width</option>
+                        <option value="2">Half width</option>
+                        <option value="3">1/3 of width</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Image</label>
+                    <div id="promo_img_con" class="promo_format1">
+                        <img id="promo_img" src="" />
+                        <span>Demo</span>
+                        <span class="third">Demo</span>
+                    </div>
+                    <button id="promo_img_btn" class="ui button" style="margin: 10px;">Change image</button>
+                </div>
+                <hr />
+                <div class="field">
+                    <label>Link</label>
+                    <textarea id="promo_link" placeholder="Seperate products IDs by ',' ex: 47,57,32"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div id="page_its_vendors" class="page custom" hideTitle="1">
+            <div class="header">
+                <input id="vendors_search" oninput="ITS_VENDORS.search(this.value)" class="in_void" placeholder="Search vendors by Name/ID/Place"/>
+                <button class="mtm shadowed button add_new_button" onclick="navigate('its_vendors_edit')">
+                    <i class="plus icon"></i> add new vendor
+                </button>
+            </div>
+            <table id="its_vendors_table" class="mtable header-fixed">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Place</th>
+                        <th>Balance</th>
+                        <th>Last Payment</th>
+                        <th>Last Purchase</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div id="page_its_edit_vendor" class="mtm page" rbb="1">
+            <div class="ui form">
+                <h4 class="ui dividing header">Vendor Id: <span id="page_its_edit_vendor_id"></span></h4>
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui label">Vendor name</label>
+                        <input placeholder="Name" name="name"/>
+                    </div>
+                </div>
+
+                <h4 class="ui dividing header">Vendor address</h4>
+                <div class="field address">
+                    <div class="ui labeled input">
+                        <label class="ui label">Address</label>
+                        <input placeholder="Address" name="address"/>
+                    </div>
+                    <div class="ui labeled input">
+                        <label class="ui label">Place/City</label>
+                        <input placeholder="Place/City" name="place"/>
+                    </div>
+                    <div class="ui labeled input">
+                        <label class="ui label">State</label>
+                        <input placeholder="State" name="state"/>
+                    </div>
+                </div>
+
+                <h4 class="ui dividing header">GST</h4>
+                <div class="field gst">
+                    <div class="ui labeled input">
+                        <label class="ui label">GST Registered</label>
+                        <select name="gst">
+                            <option value=""></option>
+                            <option value="1">YES</option>
+                            <option value="0">NO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="its_vendor_edit_gst_number" class="field gst" style="display: none">
+                    <div class="ui labeled input">
+                        <label class="ui label">GST number</label>
+                        <input placeholder="GST number" name="gst_number"/>
+                    </div>
+                </div>
+
+                <h4 class="ui dividing header">Bank details</h4>
+                
+                <div class="field bank">
+                    <div class="ui labeled input">
+                        <label class="ui label">Bank name</label>
+                        <input placeholder="Bank name" name="bank_name"/>
+                    </div>
+                </div>
+                
+                <div class="field bank">
+                    <div class="ui labeled input">
+                        <label class="ui label">Account number</label>
+                        <input placeholder="Bank account number" name="bank_account_number"/>
+                    </div>
+                </div>
+                
+                <div class="field bank">
+                    <div class="ui labeled input">
+                        <label class="ui label">IFSC code</label>
+                        <input placeholder="IFSC code" name="bank_ifsc_code"/>
+                    </div>
+                </div>
+                
+                <div class="field bank">
+                    <div class="ui labeled input">
+                        <label class="ui label">Account type</label>
+                        <input placeholder="Account type" name="bank_account_type"/>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="page_its_purchases" class="mtm custom page">
+            <table id="page_its_purchases_table" class="header-fixed mtable">
+                <thead>
+                    <tr>
+                        <th>Purchase Date</th>
+                        <th>Purchase value</th>
+                        <th>Invoice/Bill No.</th>
+                        <th>Total items</th>
+                        <th>Added date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="page_its_add_purchase" class="mtm page" rbb="1">
+            <div class="ui form">
+                <h4 class="ui dividing header">
+                        Vendor name: <span id="page_its_add_purchase_vendor_name"></span>
+                        <span style="float: right">
+                            Vendor Id: <span id="page_its_add_purchase_vendor_id"></span>
+                        </span>
+                </h4>                
+                <div class="two fields">
+                    <div class="field">
+                        <label>Invoice/Bill No.</label>
+                        <input name="invoice_no" placeholder="Invoice/Bill No."/>
+                    </div>
+                    <div class="field">
+                        <label>Purchase date</label>
+                        <input type="date" name="purchase_date"/>
+                    </div>
+                </div>
+            </div>
+            <table id="page_its_add_purchase_table" class="header-fixed shadowed mtable tr_free shadow_hover">
+                <thead>
+                    <tr>
+                        <th>Product name</th>
+                        <th>Qty</th>
+                        <th>Rate</th>
+                        <th>GST Rate</th>
+                        <th>Purchase Price</th>
+                        <th>Sell Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="its_purchase_addrow_row">
+                        <td>
+                            <button class="ui tiny button" onclick="ITS_Purchase.createProductRow()">Add row</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="page_its_payments" class="mtm custom page">
+            <table id="page_its_payments_table" class="header-fixed mtable cols6">
+                <thead>
+                    <tr>
+                        <th>Payment Date</th>
+                        <th>Amount Paid</th>
+                        <th>Payment made</th>
+                        <th>Payment Details</th>
+                        <th>Receiver Name</th>
+                        <th>Uploaded Receipt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="page_its_add_payment" class="mtm page" rbb="1">
+            <div class="ui form">
+                <h4 class="ui dividing header">
+                        Vendor name: <span id="page_its_add_payment_vendor_name"></span>
+                        <span style="float: right">
+                            Vendor Balance: <span id="page_its_add_payment_vendor_balance"></span>
+                        </span>
+                </h4>                
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui label">Amount to Pay</label>
+                        <input name="amount" placeholder="0.00 ₹"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui label">Date of Payment</label>
+                        <input type="date" name="payment_date"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui label">Made of Payment</label>
+                        <select name="payment_method">
+                            <option></option>
+                            <option value="cash">Cash</option>
+                            <option value="cheque">Cheque</option>
+                            <option value="neft">NEFT</option>
+                            <option value="rtgs">RTGS</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui label">Payment Details</label>
+                        <input name="reference" placeholder="Cheque No. / Reference No."/>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui label">Receiver Name</label>
+                        <input name="receiver_name" placeholder="Receiver name"/>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui labeled input">
+                        <label class="ui label">Upload Receipt</label>
+                        <input type="file" name="attachment"/>
+                    </div>
+                </div>
+
+                <div class="field buttons" style="padding-top: 20px">
+                    <button class="mtm button" onclick="goBacak()">Cancel</button>
+                    <button class="mtm button" onclick="ITS_Payments.clearForm()">Clear</button>
+                    <button class="mtm primary button" onclick="ITS_Payments.confirm()">Confirm</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="page" id="page_receipt" rbb="1">
+            <div class="pr_content_con">
+                <pre id="pr_content" class="pr_content"></pre>
+                <button class="ui button" onclick="ReceiptPage.print()">
+                    <i class="file icon"></i>
+                    Print
+                </button>
+                <button class="ui button second" onclick="ReceiptPage.close()">Close</button>
+            </div>
+        </div>
+
+        <!-- <div class="ui active inverted dimmer">
+            <div class="ui text loader"></div>
+        </div> -->
+
+    </div>
+
+    <!-- Popups -->
+    <div>
+        <div class="popup ui segment" id="order_popup">
+            <button id="ord_btn_com" operation="status" status="5" class="ui green button"><i class="check icon"></i>Mark as Completed</button>
+            <button id="ord_btn_pen" operation="status" status="1" class="ui orange button"><i class="time icon"></i>Mark as Pending</button>
+            <button id="ord_btn_del" operation="delete" class="ui button last"><i class="delete icon"></i>Delete order</button>
+            <div id="ord_popup_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+        </div>
+
+        <div class="popup" id="ords_popup">
+            <h3>Filters</h3>
+            <div class="ui form">
+                <div class="field">
+                    <label>Status</label>
+                    <select id="ords_filters_status">
+                        <option value="">All</option>
+                        <option value="1">Pending</option>
+                        <option value="5">Completed</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Order date</label>
+                    <input type="date" id="ords_filters_order_date" />
+                </div>
+        
+                <button id="ords_filters_submit" class="ui button fullw" type="submit">Submit</button>
+            </div>
+        </div>
+        
+        <div id="mset_cities_popup" class="popup ui segment">
+            <h4 id="mset_cities_pp_title" class="pp_title">Rename city</h4>
+            <div class="ui form">
+                <div class="field">
+                    <label>English</label>
+                    <input type="text" id="mset_cities_pp_name_1" placeholder="Name in english" />
+                </div>
+                <div class="field">
+                    <label>Hindi</label>
+                    <input type="text" id="mset_cities_pp_name_2" placeholder="Name in hindi" />
+                </div>
+                <button id="mset_cities_pp_btn" class="ui button fullw">Save</button>
+            </div>
+            <div id="mset_cities_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+        </div>
+
+        <div class="popup" id="prts_popup">
+            <h3>Filters</h3>
+            <div class="ui form">
+                <div class="field">
+                    <label>Category</label>
+                    <select id="prts_filter_cat">
+                        <option>All</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Sub Category</label>
+                    <select disabled id="prts_filter_subcat"></select>
+                </div>
+                <div class="field">
+                    <label>Stock</label>
+                    <select id="prts_filter_stock">
+                        <option value="">All</option>
+                        <option value="high">High Stock</option>
+                        <option value="low">Low Stock</option>
+                        <option value="out">Out of Stock</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Discount</label>
+                    <select id="prts_filter_discount">
+                        <option value="">All</option>
+                        <option value="with">With Discount</option>
+                        <option value="without">Without Discount</option>
+                    </select>
+                </div>
+                <!-- <div class="field">
+                    <label>Name</label>
+                    <input id="prts_filter_name" type="text" placeholder="Search by product name" />
+                </div> -->
+        
+                <button id="prts_filters_submit" class="ui button fullw" type="submit">Submit</button>
+            </div>
+        </div>
+
+        <!--Customer Popup-->
+        <div class="popup ui segment" id="cust_popup">
+            <h3>
+                <i class="user icon"></i>
+                <span id="cust_pp_name">Hadjrus Balak</span>
+            </h3>
+            <h3>
+                <i class="phone icon"></i>
+                <span id="cust_pp_phone">7005003050</span>
+            </h3>
+            <h3>
+                <i class="at icon"></i>
+                <span id="cust_pp_email">balak@hotmail.fr</span>
+            </h3>
+            <h3>
+                <i class="shield alternate icon"></i>
+                <label id="cust_pp_status_label" class="ui tiny green label">
+                    <i id="cust_pp_status_icon" class="check icon"></i>
+                    <span id="cust_pp_status_text"></span>
+                </label>
+            </h3>
+            <div class="spacer"></div>
+            <button id="cust_pp_show_orders" class="ui button fullw">
+                <i class="box icon"></i>
+                Show orders
+            </button>
+            <button id="cust_pp_delete" class="ui button fullw">
+                <i class="delete icon"></i>
+                Delete customer
+            </button>
+        
+            <div id="cust_pp_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+        
+        </div>
+        
+        <!--Filters Popup-->
+        <div class="popup" id="cust_filters_popup">
+            <h3>Filters</h3>
+            <div class="ui form">
+                <div class="field">
+                    <label>Status</label>
+                    <select id="cust_filters_status">
+                        <option value="">All</option>
+                        <option value="1">Verified</option>
+                        <option value="0">Not verified</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Registration date</label>
+                    <input type="date" id="cust_filters_reg_date" />
+                </div>
+                <div class="field">
+                    <label>Customer name</label>
+                    <input type="text" id="cust_filters_name" placeholder="Customer name" />
+                </div>
+                <div class="field">
+                    <label>Phone number</label>
+                    <input type="text" id="cust_filters_phone" placeholder="Phone number" />
+                </div>
+        
+                <button id="cust_filters_submit" class="ui button fullw" type="submit">Submit</button>
+            </div>
+        </div>
+
+        <div id="users_options_popup" class="popup ui segment">
+            <h4 class="toe">User</h4>
+            <label><i class="user icon"></i>Username: <span id="user_opts_username"></span></label> <br />
+            <label><i class="user circle icon"></i>Name: <span id="user_opts_name"></span></label> <br />
+            <label><i class="shield alternate icon"></i>Access: <span id="user_opts_type"></span></label> <br />
+            <label id="user_options_status_lbl">
+                <i id="user_opts_status_icon" class="check circle icon"></i>
+                Status: <span id="user_opts_status"></span>
+            </label>
+            <div style="height: 36px;"></div>
+            <button class="ui button fullw" id="user_opts_reset" action="reset"> <i class="lock icon"></i> Reset password
+            </button>
+            <button class="ui button fullw" id="user_opts_change_status" action="suspend">
+                <i id="user_opts_change_status_icon" class="ban icon"></i> <span id="user_opts_change_status_text"></span>
+            </button>
+            <button class="ui button fullw" id="user_opts_delete" action="delete"> <i class="delete icon"></i> Delete user
+            </button>
+        
+            <div id="users_options_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader">Loading</div>
+            </div>
+        </div>
+        
+        <div id="users_add_popup" class="popup ui segment">
+            <h4 id="users_add_header" class="toe">Add new user</h4>
+            <div class="ui form">
+                <div class="field">
+                    <label>Type</label>
+                    <select id="users_add_type"></select>
+                </div>
+                <div class="field">
+                    <label>Fullname</label>
+                    <input type="text" id="users_add_name" placeholder="Fullname" />
+                </div>
+                <div class="field">
+                    <label>Username</label>
+                    <input type="text" id="users_add_username" placeholder="Username" />
+                </div>
+                <button class="ui button fullw" id="users_add_btn">
+                    <i class="plus icon"></i>
+                    Create
+                </button>
+            </div>
+        
+            <div id="users_add_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+        </div>
+
+        <div id="stores_popup_add" class="popup">
+            <h4 class="pp_title">Create new store</h4>
+            <div class="ui form">
+                <div class="field">
+                    <label>Store City</label>
+                    <select id="stores_pp_add_city"></select>
+                </div>
+                <div class="field">
+                    <label>Store Region</label>
+                    <select id="stores_pp_add_region"></select>
+                </div>
+                <div class="field">
+                    <label>Store name</label>
+                    <input id="stores_pp_add_name" type="text" placeholder="Store name">
+                </div>
+                <div class="field">
+                    <label>Store owner</label>
+                    <input id="stores_pp_add_owner" type="text" placeholder="Fullname">
+                </div>
+            </div>
+        
+            <button id="stores_pp_add_btn" class="ui button fullw"><i class="plus icon"></i>Create store</button>
+        
+            <div id="stores_pp_add_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+        </div>
+        
+        <div id="stores_popup_options" class="popup">
+            <h4>Store options</h4>
+            <label>Store name</label>
+            <span id="stores_pp_options_name"></span>
+            <button id="stores_pp_options_visit" class="ui button fullw"><i class="periscope icon"></i>Visit as this
+                Store</button>
+            <button id="stores_pp_options_del" class="ui button fullw"><i class="delete icon"></i>Delete permanetly</button>
+            <div id="stores_pp_options_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+        </div>
+        
+        <div id="stores_popup_del" class="popup">
+            <h4>Delete Store</h4>
+            <div class="ui red message" style="text-align: center;">
+                Store "<span id="stores_pp_del_name">Surjan Kiarana</span>" will be deleted permanetly
+            </div>
+            <label>Type the password</label>
+            <div class="ui input fullw">
+                <input id="stores_pp_del_pwd" type="password" placeholder="Master admin password" autofocus>
+            </div>
+            <button id="stores_pp_del_btn" class="ui red button fullw"><i class="delete icon"></i>Delete permanetly</button>
+            <div id="stores_pp_del_dimmer" class="ui active inverted dimmer" style="display: none">
+                <div class="ui text loader"></div>
+            </div>
+        </div>
+
+        <div id="home_popup" class="popup">
+            <div class="ui form">
+                <div class="field">
+                    <label>Show data from</label>
+                    <input type="date" id="home_pp_from" />
+                </div>
+                <div class="field">
+                    <label>Show data to</label>
+                    <input type="date" id="home_pp_to" />
+                </div>
+                <button id="home_pp_submit" class="ui button fullw">Submit</button>
+            </div>
+        </div>
+
+        
+        <div id="pos_popup" class="popup">
+            <div class="mform" id="pos_pp_form">
+                <div class="field">
+                    <label>Total</label>
+                    <label id="pos_pp_total" class="input" value="0.00"></label>
+                </div>
+                <div class="field">
+                    <label>Customer name</label>
+                    <input id="pos_pp_customer" placeholder="Customer name"/>
+                </div>
+                <div class="field">
+                    <label>Phone number</label>
+                    <input id="pos_pp_phone" placeholder="Phone number"/>
+                </div>
+            </div>
+            <button id="pos_pp_submit" onclick="pos.submit()" class="ui button fullw">Submit</button>
+        </div>
+
+    </div>
+
+    <div id="offline_bubble" class="offline_bubble">
+        <span id="offline_bubble_text">Offline</span>
+        <img src="images/icons/no_net_outline.png"/>
+    </div>
+
+    <div id="msg_popup" class="popup msg">
+        <div class="text" id="msg_pp_text">
+            Are you sure you want to delete this products ?
+        </div>
+        <div class="buttons">
+            <button class="mtm button secondary" id="msg_pp_cancel">CANCEL</button>
+            <button class="mtm button primary" id="msg_pp_ok">OK</button>
+        </div>
+    </div>
+
+    <div id="page_modal" class="ui small modal">
+        <div class="header">
+            <span id="pm_title" style="user-select: none">Header</span>
+            <button id="pm_back_btn" class="ui button" style="float: right;margin: -7px;border-radius: 50px;">Go back</button>
+            <div id="fab" class="fab">
+                <i id="fab_icon" class="filter icon"></i>
+            </div>
+            <div class="fab" id="hb-fab">
+                <i id="headbar_action_icon" class="setting icon"></i>
+            </div>
+        </div>
+        <div id="pm_content" class="content">
+            <p>Foo bar</p>
+        </div>
+    </div>
+
+    <div id="loading_screen">
+        <div class="card">
+            <img src="images/slogo.png" />
+            <h3>Administration</h3>
+            <img id="ls_spinner" class="spinner" src="images/spinner.gif" />
+            <div id="ls_login" style="display: none">
+                <form class="mform" style="margin-bottom: 20px" onsubmit="ls.login(); return false;">
+                    <div class="field">
+                        <label>Username</label>
+                        <input id="ls_login_username" type="text" placeholder="Username" autofocus />
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input id="ls_login_password" type="password" placeholder="Password" />
+                    </div>
+                    <input type="submit" style="display: none"/>
+                </form>
+                <button id="ls_login_btn" class="submitButton fullw">sign in</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="users_password_popup" class="popup ui segment">
+        <h4 id="users_pwd_header" class="toe">User password</h4>
+
+        <label>
+            <i class="user icon"></i>
+            Username<br /> <span id="users_pwd_user"></span>
+        </label>
+        <br />
+        <label>
+            <i class="lock icon"></i>
+            Password<br /> <span id="users_pwd_pwd"></span>
+        </label>
+
+        <button class="ui tiny button fullw" id="users_pwd_btn">Close</button>
+
+    </div>
+
+    <div id="menu_popup" tabIndex="0">
+        <!-- <h4 id="menu_popup_title"></h4> -->
+        <div id="menu_popup_list" disabled>
+        </div>
+    </div>
+
+    <div id="pdr">
+        <span id="pdr_txt">Pull down to refresh</span>
+    </div>
+
+    <div id="holder"></div>
+
+    <div class="void_container"></div>
+
+    <div id="toPrint"></div>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+{
+  "name": "pl.drmstudio.wor.admindesktop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dist": "build"
+  },
+  "author": "DrmStudio.pl",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-builder": "^20.39.0"
+  },
+  "build": {
+    "appId": "pl.drmstudio.wor.admindesktop",
+    "productName": "WOR Admin",
+    "win": {
+      "target": "nsis",
+      "icon": "wor-logo.ico"
+    },
+    "buildDependenciesFromSource": true
+  },
+  "dependencies": {
+    "animejs": "^3.0.1",
+    "axios": "^0.19.0",
+    "chartist": "^0.11.2",
+    "escpos": "^2.4.11",
+    "jquery": "^3.4.0",
+    "print-js": "^1.0.61",
+    "sortablejs": "^1.8.4",
+    "tippy.js": "^4.3.5",
+    "uuid": "^3.3.3"
+  }
+}

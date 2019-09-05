@@ -1,0 +1,29 @@
+﻿#page_setting{
+    padding: 1px;
+}
+#set_tabs > div{
+    border: none !important;
+}
+.set_timing_sec > div {
+    margin-bottom: 5px;
+}
+.set_timing_sec > div > label {
+    width: 150px !important;
+    text-align: center;
+}
+.set_timing_sec > div > select {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+.set_contact_field > div{
+    margin-bottom: 5px;
+}
+.set_contact_field > div > label {
+    width: 110px !important;
+    text-align: center;
+}
+.set_addr_field > textarea{
+    width: 100%;
+    height: 110px !important;
+    resize: none !important;
+}

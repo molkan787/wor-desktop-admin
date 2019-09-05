@@ -1,0 +1,56 @@
+﻿#page_banners{
+    width: 450px;
+}
+.bans_item {
+    width: 100%;
+    height: 80px;
+    padding: 5px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+.bans_item > img {
+    height: 100%;
+    border-radius: 12px;
+}
+.bans_item.disabled > img {
+    opacity: 0.2;
+}
+.bans_item.disabled > div > label, .bans_item.disabled > div > button.edit_btn {
+    opacity: 0.3;
+}
+.bans_item > div {
+    float: right !important;
+    text-align: right;
+    width: 110px;
+}
+.bans_item > div > label, .bans_item > div > button {
+    margin-top: 5px !important;
+}
+.bans_item > div > button{
+    width: 70px !important;
+    float: left;
+    margin-right: 0 !important;
+}
+.bans_item > div > label > i {
+    margin: 0 !important;
+}
+.bans_add {
+    width: 100%;
+    height: 50px;
+    box-sizing: border-box;
+    background-color: #eee;
+    text-align: center;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+.bans_add > i{
+    font-size: 30px;
+    color: #999;
+}
+
+#banner_img {
+    width: 100%;
+    height: 38vw;
+    max-width: 400px;
+    max-height: 160px;
+}

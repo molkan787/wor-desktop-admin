@@ -1,0 +1,205 @@
+#page_its_vendors .header {
+  margin-bottom: 20px;
+}
+
+#page_its_vendors .header .add_new_button {
+  float: right;
+}
+
+#vendors_search {
+  width: 350px;
+  background-image: url(../images/icons/search.png);
+  background-repeat: no-repeat;
+  background-size: 22px;
+  background-position-x: 10px;
+  background-position-y: 12px;
+  padding-left: 41px !important;
+}
+
+#its_vendors_table {
+  height: calc(100% - 66px);
+}
+
+#its_vendors_table tr:hover button {
+  background-color: white !important;
+}
+
+#its_vendors_table th, #its_vendors_table td {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+#its_vendors_table th:nth-child(1), #its_vendors_table td:nth-child(1) {
+  width: 5%;
+  font-weight: bold;
+}
+
+#its_vendors_table th:nth-child(2), #its_vendors_table td:nth-child(2) {
+  width: 13%;
+}
+
+#its_vendors_table th:nth-child(3), #its_vendors_table td:nth-child(3) {
+  width: 10%;
+}
+
+#its_vendors_table th:nth-child(4), #its_vendors_table td:nth-child(4) {
+  width: 13%;
+}
+
+#its_vendors_table th:nth-child(5), #its_vendors_table td:nth-child(5) {
+  width: 13%;
+}
+
+#its_vendors_table th:nth-child(6), #its_vendors_table td:nth-child(6) {
+  width: 13%;
+}
+
+#its_vendors_table th:nth-child(7), #its_vendors_table td:nth-child(7) {
+  width: 32%;
+  padding: 7px 30px !important;
+}
+
+.row_btn {
+  margin-right: 7px;
+}
+
+#page_its_edit_vendor .form {
+  padding: 30px;
+}
+
+#page_its_edit_vendor .form .field.address > .input {
+  margin-bottom: 10px;
+}
+
+#page_its_edit_vendor .form .field.address > .input .label {
+  width: 130px;
+  text-align: center;
+}
+
+#page_its_edit_vendor .form .field.gst .label {
+  width: 170px;
+  text-align: center;
+}
+
+#page_its_edit_vendor .form .field.bank .label {
+  width: 180px;
+  text-align: center;
+}
+
+#page_its_add_purchase {
+  padding: 30px !important;
+  padding-bottom: 10px !important;
+}
+
+#page_its_add_purchase table {
+  width: 100%;
+  height: 370px;
+  margin-top: 30px;
+}
+
+#page_its_add_purchase table thead tr th:nth-child(1), #page_its_add_purchase table tbody tr th:nth-child(1) {
+  padding-left: 20px !important;
+}
+
+#page_its_add_purchase table thead tr td, #page_its_add_purchase table thead tr th, #page_its_add_purchase table tbody tr td, #page_its_add_purchase table tbody tr th {
+  font-weight: bold;
+}
+
+#page_its_add_purchase table thead tr td:not(th), #page_its_add_purchase table thead tr th:not(th), #page_its_add_purchase table tbody tr td:not(th), #page_its_add_purchase table tbody tr th:not(th) {
+  height: 45px !important;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(1), #page_its_add_purchase table thead tr th:nth-child(1), #page_its_add_purchase table tbody tr td:nth-child(1), #page_its_add_purchase table tbody tr th:nth-child(1) {
+  width: 25% !important;
+  padding-left: 10px;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(1) .pname, #page_its_add_purchase table thead tr th:nth-child(1) .pname, #page_its_add_purchase table tbody tr td:nth-child(1) .pname, #page_its_add_purchase table tbody tr th:nth-child(1) .pname {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-radius: 12px;
+  padding: 0 10px;
+  margin-top: 2.5px;
+  background-color: #F9F9F9;
+  line-height: 2.2;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(1) .pname:focus, #page_its_add_purchase table thead tr th:nth-child(1) .pname:focus, #page_its_add_purchase table tbody tr td:nth-child(1) .pname:focus, #page_its_add_purchase table tbody tr th:nth-child(1) .pname:focus {
+  background-color: #eee;
+  text-overflow: clip;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(2), #page_its_add_purchase table thead tr th:nth-child(2), #page_its_add_purchase table tbody tr td:nth-child(2), #page_its_add_purchase table tbody tr th:nth-child(2) {
+  width: 10% !important;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(3), #page_its_add_purchase table thead tr th:nth-child(3), #page_its_add_purchase table tbody tr td:nth-child(3), #page_its_add_purchase table tbody tr th:nth-child(3) {
+  width: 10% !important;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(4), #page_its_add_purchase table thead tr th:nth-child(4), #page_its_add_purchase table tbody tr td:nth-child(4), #page_its_add_purchase table tbody tr th:nth-child(4) {
+  width: 15% !important;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(5), #page_its_add_purchase table thead tr th:nth-child(5), #page_its_add_purchase table tbody tr td:nth-child(5), #page_its_add_purchase table tbody tr th:nth-child(5) {
+  width: 20% !important;
+}
+
+#page_its_add_purchase table thead tr td:nth-child(6), #page_its_add_purchase table thead tr th:nth-child(6), #page_its_add_purchase table tbody tr td:nth-child(6), #page_its_add_purchase table tbody tr th:nth-child(6) {
+  width: 20% !important;
+}
+
+#page_its_add_purchase table input, #page_its_add_purchase table div[contentEditable], #page_its_add_purchase table select {
+  width: 100% !important;
+  height: 30px;
+}
+
+#page_its_add_purchase table input::-webkit-input-placeholder, #page_its_add_purchase table div[contentEditable]::-webkit-input-placeholder, #page_its_add_purchase table select::-webkit-input-placeholder {
+  color: #cccccc;
+}
+
+#page_its_add_purchase table input:-ms-input-placeholder, #page_its_add_purchase table div[contentEditable]:-ms-input-placeholder, #page_its_add_purchase table select:-ms-input-placeholder {
+  color: #cccccc;
+}
+
+#page_its_add_purchase table input::-ms-input-placeholder, #page_its_add_purchase table div[contentEditable]::-ms-input-placeholder, #page_its_add_purchase table select::-ms-input-placeholder {
+  color: #cccccc;
+}
+
+#page_its_add_purchase table input::placeholder, #page_its_add_purchase table div[contentEditable]::placeholder, #page_its_add_purchase table select::placeholder {
+  color: #cccccc;
+}
+
+#page_its_add_purchase table select {
+  margin-top: 2.5px;
+  padding: 0 10px !important;
+}
+
+#page_its_add_purchase table button {
+  border-radius: 50px;
+  width: 100%;
+}
+
+#page_its_add_payment {
+  padding: 30px !important;
+}
+
+#page_its_add_payment .ui.form .ui.label {
+  width: 190px !important;
+  text-align: center;
+}
+
+#page_its_add_payment .ui.form .field.buttons {
+  text-align: right;
+}
+
+#page_its_add_payment .ui.form .field.buttons button {
+  width: 120px !important;
+}
+
+#page_its_purchases table {
+  width: 100%;
+  height: 100%;
+}
+/*# sourceMappingURL=its.css.map */

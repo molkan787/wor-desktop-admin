@@ -1,0 +1,183 @@
+#page_its_vendors{
+    .header{
+        margin-bottom: 20px;
+        .add_new_button{
+            float: right;
+        }
+    }
+}
+#vendors_search{
+    width: 350px;
+    background-image: url(../images/icons/search.png);
+    background-repeat: no-repeat;
+    background-size: 22px;
+    background-position-x: 10px;
+    background-position-y: 12px;
+    padding-left: 41px !important;
+}
+
+#its_vendors_table{
+    height: calc(100% - 66px);
+    tr:hover{
+        button{
+            background-color: white !important;
+        }
+    }
+    th, td{
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        &:nth-child(1){
+            width: 5%;
+            font-weight: bold;
+        }
+        &:nth-child(2){
+            width: 13%;
+        }
+        &:nth-child(3){
+            width: 10%;
+        }
+        &:nth-child(4){
+            width: 13%;
+        }
+        &:nth-child(5){
+            width: 13%;
+        }
+        &:nth-child(6){
+            width: 13%;
+        }
+        &:nth-child(7){
+            width: 32%;
+            padding: 7px 30px !important;
+        }
+    }
+}
+
+.row_btn{
+    margin-right: 7px;
+}
+
+
+// -------------------------------
+
+#page_its_edit_vendor{
+    .form{
+        padding: 30px;
+        .field.address > .input{
+            margin-bottom: 10px;
+            .label{
+                width: 130px;
+                text-align: center;
+            }
+        }
+        .field.gst{
+            .label{
+                width: 170px;
+                text-align: center;
+            }
+        }
+        .field.bank{
+            .label{
+                width: 180px;
+                text-align: center;
+            }
+        }
+    }
+}
+
+// ------------------------
+
+#page_its_add_purchase{
+    padding: 30px !important;
+    padding-bottom: 10px !important;
+    table{
+        width: 100%;
+        height: 370px;
+        margin-top: 30px;
+        thead, tbody{
+            tr th:nth-child(1){
+                padding-left: 20px !important;
+            }
+            tr td, tr th{
+                font-weight: bold;
+                &:not(th){
+                    height: 45px !important;
+                }
+                &:nth-child(1){
+                    width: 25% !important;
+                    padding-left: 10px;
+                    .pname{
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        border-radius: 12px;
+                        padding: 0 10px;
+                        margin-top: 2.5px;
+                        background-color: #F9F9F9;
+                        line-height: 2.2;
+                        &:focus{
+                            background-color: #eee;
+                            text-overflow: clip;
+                        }
+                    }
+                }
+                &:nth-child(2){
+                    width: 10% !important;
+                }
+                &:nth-child(3){
+                    width: 10% !important;
+                }
+                &:nth-child(4){
+                    width: 15% !important;
+                }
+                &:nth-child(5){
+                    width: 20% !important;
+                }
+                &:nth-child(6){
+                   width:  20% !important;
+                }
+            }
+        }
+        input, div[contentEditable], select{
+            width: 100% !important;
+            height: 30px;
+            &::placeholder{
+                color: rgb(204, 204, 204);
+            }
+        }
+        select{
+            margin-top: 2.5px;
+            padding: 0 10px !important;
+        }
+        button{
+            border-radius: 50px;
+            width: 100%;
+        }
+    }
+}
+
+// -----------------------
+
+#page_its_add_payment{
+    padding: 30px !important;
+
+    .ui.form .ui.label{
+        width: 190px !important;
+        text-align: center;
+    }
+
+    .ui.form .field.buttons{
+        text-align: right;
+        button{
+            width: 120px !important;
+        }
+    }
+}
+
+// ------------------------------
+
+#page_its_purchases{
+    table{
+        width: 100%;
+        height: 100%;
+    }
+}

@@ -1,0 +1,25 @@
+﻿#page_home{
+    padding: 0;
+}
+#page_home > div.segments{
+    border-radius: 0 !important;
+}
+#page_home > div.ct-chart {
+    margin-left: -12px;
+    margin-top: 20px;
+    margin-bottom: -20px;
+    width: 100%;
+}
+.sca{
+    text-align: center;
+}
+
+#home_popup {
+    width: 60%;
+    height: 270px;
+    margin-left: -30%;
+    margin-top: -135px;
+}
+#home_popup > div > button {
+    margin-top: 27px !important;
+}

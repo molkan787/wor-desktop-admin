@@ -1,0 +1,67 @@
+﻿#page_orders{
+    padding: 10px;
+}
+
+.status.pending{
+    color: orangered;
+}
+.status.completed{
+    color: limegreen;
+}
+.status.canceled {
+    color: red;
+}
+
+#page_order{
+    padding: 20px;
+}
+#page_order > div.segments{
+    box-shadow: none !important;
+    border-radius: 14px !important;
+    overflow: hidden;
+}
+#page_order > div > div.segment > h4, #page_order > div > div.segments > div > h4 {
+    margin: 3px 0 5px 0;
+}
+#page_order > div > div.segment > span{
+    margin: 0;
+    font-size: 13px;
+}
+#page_order > div > div > div.segment > h4.total {
+    font-size: 17px;
+    color: limegreen;
+}
+
+#ords_list{
+    width: 100%;
+    height: calc(100% - 90px);
+}
+
+#order_popup{
+    width: 62%;
+    height: 230px !important;
+    margin-left: -31%;
+    margin-top: -115px;
+}
+#order_popup > button{
+    width: 100% !important;
+    margin-bottom: 10px;
+}
+#order_popup > button.last {
+    margin-top: 50px;
+}
+
+#ords_popup {
+    height: 274px;
+    margin-top: -137px;
+}
+
+.paid_status{
+    font-size: 16px;
+}
+.paid_status.paid{
+    color: limegreen;
+}
+.paid_status.not_paid{
+    color: grey;
+}

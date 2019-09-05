@@ -1,0 +1,74 @@
+﻿#users_list > div{
+    border: 1px solid #bbb;
+    padding: 5px;
+    margin-bottom: -1px;
+    color: #000;
+}
+#users_list > div > label > span{
+    font-weight: bold;
+}
+#users_list > div > button{
+    float: right;
+}
+#users_list > div > button > i {
+    margin: 0;
+}
+#users_options_popup{
+    width: 70%;
+    height: 350px;
+    margin-left: -35%;
+    margin-top: -175px;
+}
+#users_options_popup > h4, .pp_title {
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 10px;
+    text-align: center;
+}
+#users_options_popup > label{
+    font-size: 16px;
+    margin-bottom: 6px;
+    display: inline-block;
+}
+#users_options_popup > label > span {
+    font-weight: bold;
+}
+#users_options_popup > button{
+    margin-top: 3px;
+}
+
+#users_add_popup {
+    width: 70%;
+    height: 356px;
+    margin-left: -35%;
+    margin-top: -188px;
+}
+#users_add_popup > h4 {
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#users_password_popup {
+    width: 70%;
+    height: 280px;
+    margin-left: -35%;
+    margin-top: -140px;
+    text-align: center;
+}
+#users_password_popup > h4 {
+    border-bottom: 1px solid #aaa;
+    padding-bottom: 10px;
+}
+#users_password_popup > label{
+    display: inline-block;
+    margin-top: 10px;
+}
+#users_password_popup > label > span {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+#users_password_popup > button{
+    margin-top: 42px;
+}

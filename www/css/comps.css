@@ -1,0 +1,22 @@
+﻿.inputed.image{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #eee;
+}
+
+.fullw{
+    width: 100%;
+}
+
+*{
+    outline: none;
+}
+select:focus, select:active {
+    border-color: #F36F24 !important;
+}
+
+.toe {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
