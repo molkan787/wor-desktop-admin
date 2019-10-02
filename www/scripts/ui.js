@@ -8,6 +8,10 @@ var page_prev;
 var page_current;
 var param_current;
 
+function forceNextReload(){
+    forceReload = true;
+}
+
 const init_funcs = [];
 function registerInitFunc(func){
     init_funcs.push(func);
@@ -16,6 +20,8 @@ function registerInitFunc(func){
 var ui = {};
 
 function ui_init() {
+
+    document.title = config.appNameShort + ` [${config.appVersionName}]`;
 
     ui.voidContainer = get('void_container');
     pageModalTitle = get('pm_title');
@@ -215,6 +221,13 @@ function navigate(page_slug, params, isBack, forceReload) {
         })
     }
 
+}
+
+function hideFab(){
+    ui.fab.style.display = 'none';
+}
+function hideHbFab(){
+    ui.hb.setActionIcon(null);
 }
 
 function confirmLogout() {

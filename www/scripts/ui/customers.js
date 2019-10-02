@@ -42,11 +42,11 @@ function ui_customers_init() {
 
         // Methods 
 
-        createPanel: function (data, table) {
+        createPanel: function (data, table, showContactInfo) {
 
             const row = table.tBodies[0].insertRow(table.rows.length-1);
             const td1 = crt_elt('td', row);
-            const td2 = crt_elt('td', row);
+            const td2 = crt_elt('td', showContactInfo ? row : null);
             const td3 = crt_elt('td', row);
             const td4 = crt_elt('td', row);
             const td5 = crt_elt('td', row);
@@ -58,7 +58,12 @@ function ui_customers_init() {
             const b_span = crt_elt('span', btn);
 
             val(td1, data.name);
-            val(td2, data.telephone || '---');
+
+            if(showContactInfo){
+                val(td2, data.telephone || '---');
+            }else{
+                td5.style.float = 'right';
+            }
 
             const date_added = data.date_added.substr(0, data.date_added.length-3);
             val(td4, date_added);
@@ -79,11 +84,12 @@ function ui_customers_init() {
 
         loadCustomers: function (data) {
             this.items = {};
-            clearRows(this.listElt)
+            clearRows(this.listElt);
+            const showContactInfo = Rights.check('customer_contact_info');
             for (var i = 0; i < data.length; i++) {
                 var item = data[i];
                 this.items[item.customer_id] = item;
-                this.createPanel(item, this.listElt);
+                this.createPanel(item, this.listElt, showContactInfo);
             }
         },
 
@@ -99,6 +105,14 @@ function ui_customers_init() {
             this.loadAction.do(this.filters);
             this.filters.pop();
             this.filters.pop();
+
+            const showContactInfo = Rights.check('customer_contact_info');
+
+            if(showContactInfo){
+                get('cust_phone_column').style.display = 'unset';
+            }else{
+                get('cust_phone_column').style.display = 'none';
+            }
         },
 
         showFilters: function () {
@@ -120,20 +134,34 @@ function ui_customers_init() {
         },
 
         showCustomer: function (customer_id) {
+            const showContactInfo = Rights.check('customer_contact_info');
+
             var customer = this.items[customer_id];
             if (!customer) return;
             this.currentCustomer = customer;
             val(this.elts.popupName, customer.name);
-            val(this.elts.popupPhone, customer.telephone);
-            var no_email = (customer.email.substr(0, 9) == 'customer_');
-            var email = (no_email ? ' (Empty) ' : customer.email);
+            if(showContactInfo){
+                val(this.elts.popupPhone, customer.telephone);
+                var no_email = (customer.email.trim().substr(0, 9) == 'customer_') || customer.email.trim().length == 0;
+                var email = (no_email ? ' (Empty) ' : customer.email);
+                val(this.elts.popupEmail, email);
+                this.elts.popupEmail.style.fontStyle = (no_email ? 'italic' : 'unset');
+                this.elts.popupEmail.style.color = (no_email ? '#666' : 'unset');
+                showElt('cust_pp_phone_con', 'block');
+                showElt('cust_pp_email_con', 'block');
+                hideElt('cust_pp_placeholder');
+            }else{
+                hideElt('cust_pp_phone_con');
+                hideElt('cust_pp_email_con');
+                showElt('cust_pp_placeholder', 'block');
+            }
+           
             var verified = (parseInt(customer.verified) == 1);
-            val(this.elts.popupEmail, email);
-            this.elts.popupEmail.style.fontStyle = (no_email ? 'italic' : 'unset');
-            this.elts.popupEmail.style.color = (no_email ? '#666' : 'unset');
             val(this.elts.popupStatusText, verified ? 'Verified' : 'Not verified');
             this.elts.popupStatusLabel.className = 'ui tiny label ' + (verified ? 'green' : 'red');
             this.elts.popupStatusIcon.className = 'icon ' + (verified ? 'check circle' : 'ban');
+
+            hosElt(this.elts.popupDeleteBtn, Rights.check('customer_del'));
 
             ui.popup.show(this.elts.customerPopup);
         },

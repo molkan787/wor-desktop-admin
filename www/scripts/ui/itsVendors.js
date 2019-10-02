@@ -25,6 +25,7 @@ class ITS_VENDORS{
 
         this.loadAction = fetchAction.create('vendor/list');
         this.editAction = fetchAction.create('vendor/edit');
+        this.deleteAction = fetchAction.create('vendor/deleteVendor');
     }
 
     static async update(){
@@ -88,6 +89,9 @@ class ITS_VENDORS{
 
         tippy_config.content = 'Purchase history';
         tippy('.its_ven_pur_his', tippy_config);
+
+        tippy_config.content = 'Delete';
+        tippy('.its_ven_delete', tippy_config);
     }
 
     static _createRow(data){
@@ -106,19 +110,22 @@ class ITS_VENDORS{
         const btn_payment = crt_elt('button', el_buttons);
         const btn_pay_his = crt_elt('button', el_buttons);
         const btn_pur_his = crt_elt('button', el_buttons);
+        const btn_delete = crt_elt('button', el_buttons);
 
         btn_edit.className = 'its_ven_edit';
         btn_purchase.className = 'its_ven_purchase';
         btn_payment.className = 'its_ven_payment';
         btn_pay_his.className = 'its_ven_pay_his';
         btn_pur_his.className = 'its_ven_pur_his';
+        btn_delete.className = 'its_ven_delete';
 
-        class_add([btn_edit, btn_purchase, btn_payment, btn_pay_his, btn_pur_his], 'mtm inverted button row_btn')
+        class_add([btn_edit, btn_purchase, btn_payment, btn_pay_his, btn_pur_his, btn_delete], 'mtm inverted button row_btn')
         crt_icon('edit nm', btn_edit)
         crt_icon('shopping basket nm', btn_purchase)
         crt_icon('money bill nm', btn_payment)
         crt_icon('history nm', btn_pay_his)
         crt_icon('history nm', btn_pur_his)
+        crt_icon('delete nm', btn_delete)
 
         val(el_id, data.id);
         val(el_name, data.name);
@@ -126,6 +133,14 @@ class ITS_VENDORS{
         val(el_balance, fasc.formatPrice(data.balance));
         val(el_payment, data.last_payment || '---');
         val(el_purchase, data.last_purchase || '---');
+
+        tooltip(el_name, 'Vendor Name:<br>' + data.name);
+
+        const balance = parseFloat(data.balance);
+        if(balance){
+            el_balance.style.fontWeight = 'bold';
+            el_balance.style.color = balance > 0 ? '#49E869' : '#F35E50';
+        }
         
         btn_edit.onclick = () => navigate('its_vendors_edit', {data});
         btn_purchase.onclick = () => navigate('its_add_purchase', {
@@ -135,6 +150,12 @@ class ITS_VENDORS{
         btn_payment.onclick = () => navigate('its_payment_edit', { vendor: data });
         btn_pur_his.onclick = () => navigate('its_purchases', { vendor: data });
         btn_pay_his.onclick = () => navigate('its_payments', { vendor: data });
+
+        if(Rights.check('its_del')){
+            btn_delete.onclick = () => this.deleteVendor(data, tr);
+        }else{
+            hideElt(btn_delete);
+        }
     }
 
     static async save(){
@@ -173,6 +194,19 @@ class ITS_VENDORS{
             }
         }
         return result;
+    }
+
+    static async deleteVendor(data, elt){
+        if(await confirm(`Do you realy want to delete vendor "${data.name}" ?`)){
+            this.dimmer.show('Deleting');
+            try {
+                await this.deleteAction.do({id: data.id});
+                rm_elt(elt);
+            } catch (error) {
+                error_msg1();
+            }
+            this.dimmer.hide();
+        }
     }
 
 }

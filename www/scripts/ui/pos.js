@@ -68,7 +68,7 @@ function pos_init() {
                 }
             }
             if (prts.length < 1) return;
-            this.dimmer.show('Submiting');pos_pp_submit
+            this.dimmer.show('Submiting');
             this.popupLoading(true);
             this.submitAction.do({ 
                 products: JSON.stringify({ items: prts }),
@@ -78,6 +78,7 @@ function pos_init() {
             })
             .then((data) => {
                 rtdc.addExcludes(data.order_id);
+                if(other_val > 0) prts.push({name: "Other", price: other_val, q: 1, gst: 0, hsn: null});
                 navigate('receipt', {
                     orderData: {
                         id: data.order_id,
@@ -103,10 +104,17 @@ function pos_init() {
             const ids = [];
             for(let p of data){
                 const cp = this.products[p.id];
-                if(!cp) continue;
+                if(!cp){
+                    this.products[p.id] = p;
+                    this.products_arr.push(p);
+                    continue;
+                }
                 ids.push(p.id);
                 cp.quantity = p.quantity; 
-                cp.price = p.price; 
+                cp.price = p.price;
+                cp.name = p.name;
+                cp.cat = p.cat;
+                cp.barcode = p.barcode;
             }
             this.updateDisplayedItems(ids);
         },
@@ -118,12 +126,12 @@ function pos_init() {
                 const cp = this.cartItemsData[id];
                 const cc = this.cart[id];
                 if(dp){
-                    if(dp.price != p.price || dp.quantity != p.quantity){
+                    if(dp.price != p.price || dp.quantity != p.quantity || dp.name != p.name){
                         this.updatePanelData(p);
                     }
                 }
                 if(cp && cc){
-                    if(cp.price != p.price || cc > parseInt(p.quantity)){
+                    if(cp.price != p.price || cc > parseInt(p.quantity) || cp.name != p.name){
                         this.updateCartRowData(p);
                         icc = true;
                     }
@@ -135,7 +143,6 @@ function pos_init() {
         },
 
         loadData: function (data) {
-            console.log(data.items);
             this.products_arr = data.items;
             var l = data.items.length;
             var ai = [];
@@ -148,7 +155,7 @@ function pos_init() {
             }
             this.setAvItems(ai);
             try {
-                setOptions(this.elts.searchCats, dm.cats.filter(c => c.gtype == '0'), true);
+                setOptions(this.elts.searchCats, alphaSort(dm.cats.filter(c => c.gtype == '0'), 'text'), true);
             } catch (error) {
                 
             }
@@ -189,8 +196,12 @@ function pos_init() {
             this.cart = {};
             this.cartItemsData = {};
             this.elts.cItems.innerHTML = '';
-            val(this.elts.other, '0');
+            val(this.elts.other, '');
             this.updateTotal();
+        },
+
+        removeProduct(pid){
+            this.setProductCount(pid, -parseInt(this.cart[pid]));
         },
 
         setProductCount: function (p_id, dir) {
@@ -309,8 +320,11 @@ function pos_init() {
             const el_sel = '#pos_row_' + id;
             const el = document.querySelector(el_sel);
             if(!el) return;
+            const name_el = el.querySelector('td span');
             const price_el = el.querySelector('.price');
             val(price_el, fasc.formatPrice(data.price, true));
+            console.log('name el:', name_el);
+            val(name_el, data.name);
             const diff = this.cart[id] - parseInt(data.quantity);
             if(diff > 0){
                 this.setProductCount(id, -diff);
@@ -322,11 +336,13 @@ function pos_init() {
             var td1 = crt_elt('td', tr);
             var td2 = crt_elt('td', tr);
             var td3 = crt_elt('td', tr);
+            var td4 = crt_elt('td', tr);
             var img = crt_elt('img', td1);
             var lbl = crt_elt('label', td3);
             var l_i1 = crt_elt('i', lbl);
             var l_lbl = crt_elt('label', lbl);
             var l_i2 = crt_elt('i', lbl);
+            var rm_icon = crt_icon('trash bin', td4)
 
             td1.className = 'first toe';
             td1.appendChild(crt_txt(data.name));
@@ -343,8 +359,10 @@ function pos_init() {
 
             attr(l_i1, 'pid', data.id);
             attr(l_i2, 'pid', data.id);
+            attr(rm_icon, 'pid', data.id);
             l_i1.onclick = this.minusBtnClick;
             l_i2.onclick = this.plusBtnClick;
+            rm_icon.onclick = this.removeBtnClick;
 
             this.elts.cItems.appendChild(tr);
         },
@@ -356,6 +374,8 @@ function pos_init() {
             if(!el) return;
             const nsp = el.querySelector('.no_stock_pane');
             const label = el.querySelector('label');
+            const stock_label = el.querySelector('label.stock');
+            const h4 = el.querySelector('h4');
             anime({
                 targets: el_sel,
                 opacity: 0,
@@ -369,7 +389,9 @@ function pos_init() {
                         el.style.pointerEvents = 'unset';
                         nsp.style.display = 'none';
                     }
+                    val(stock_label, 'Stock: ' + data.quantity);
                     val(label, fasc.formatPrice(data.price));
+                    val(h4, data.name);
                     anime({
                         targets: el_sel,
                         opacity: 1,
@@ -451,6 +473,9 @@ function pos_init() {
         },
         minusBtnClick: function () {
             pos.setProductCount(attr(this, 'pid'), -1);
+        },
+        removeBtnClick: function (){
+            pos.removeProduct(attr(this, 'pid'));
         },
         searchBoxChanged: function () {
             pos.search(this.value);

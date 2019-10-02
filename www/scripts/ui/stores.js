@@ -50,6 +50,8 @@ function stores_init() {
             }
         },
         update: function () {
+            const fn = userType() <= 2 ? showElt : hideElt;
+            fn('page_stores_add_button');
             this.dimc.show();
             this.loadAction.do();
         },
@@ -199,6 +201,7 @@ function stores_init() {
             for (var i = 0; i < stores.length; i++) {
                 this.createPanel(stores[i]);
             }
+            data.cities = alphaSort(data.cities, 'name_1');
             setOptions(this.elts.addCity, data.cities, '---', 'name_1', 'city_id');
         },
 
@@ -288,7 +291,7 @@ function stores_init() {
         },
         cityChanged: function () {
             var city = stores.citiesData[this.value];
-            var cities = (city) ? city.childs : [];
+            var cities = (city) ? alphaSort(city.childs, 'name_1') : [];
             setOptions(stores.elts.addRegion, cities, '---', 'name_1', 'city_id');
         }
     };

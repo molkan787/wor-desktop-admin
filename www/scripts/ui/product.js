@@ -223,7 +223,7 @@ function ui_product_init() {
 
         catChanged: function () {
             var subElt = get(attr(this, 'subelt'));
-            setOptions(subElt, dm.subcats[val(this)], '---');
+            setOptions(subElt, alphaSort(dm.subcats[val(this)] || []), '---');
             if (typeof subElt.onchange == 'function') {
                 subElt.onchange();
             }
@@ -263,8 +263,8 @@ function ui_product_init() {
             if (item.gtype == '1') brands.push(item);
             else cats.push(item);
         }
-        setOptions(product.elts.Cat, cats, '---');
-        setOptions(product.elts.Brand, brands, '---');
+        setOptions(product.elts.Cat, alphaSort(cats), '---');
+        setOptions(product.elts.Brand, alphaSort(brands), '---');
     });
 
     product.imgSlt = imageSelector.init(get('prt_btn_change_img'), get('prt_image'));

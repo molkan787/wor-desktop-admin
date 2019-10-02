@@ -72,6 +72,8 @@ function account_init() {
         }
     };
 
+    window.userType = () => parseInt(account.data.user_type);
+
 
     account.saveAction = fetchAction.create('account/changepassword', function (action) { account.saveActionCallback(action) });
 

@@ -61,7 +61,7 @@ function _fetch_action_create(req, callback) {
 
         do: function (params, req, ref) {
             return new Promise((resolve, reject) => {
-                if (this.isBusy) return false;
+                // if (this.isBusy) return false;
                 this.offlineData = false;
                 this.resolve = resolve;
                 this.reject = reject;
@@ -75,7 +75,6 @@ function _fetch_action_create(req, callback) {
                 this.__url = url;
                 if (action_debug) log(url);
                 if (isPostReq) {
-                    log('Post request');
                     // httpPostText(url, params, function (resp) {
                     //     _this.__cb(resp);
                     // }, function () {
@@ -90,7 +89,6 @@ function _fetch_action_create(req, callback) {
                         Reno.handle(url).then(data => this.__cb(data));
                         return;
                     }
-                    log('Get request');
                     httpGetAsync(url, function (resp) {
                         _this.__cb(resp);
                     }, function () {
@@ -124,6 +122,9 @@ function _fetch_action_create(req, callback) {
             } catch (ex) {
                 this.release('FAIL', 'invalid_json');
                 return;
+            }
+            if(resp.updates){
+                Updater.checkVersion(resp.updates);
             }
             if (resp.status == 'OK') {
                 this.data = resp.data;

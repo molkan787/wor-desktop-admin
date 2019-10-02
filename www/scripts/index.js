@@ -32,9 +32,32 @@
         });
         document.addEventListener("keydown", (e) => {
             if (e.which === 116) {
+                window.onbeforeunload = null;
                 window.location.reload(true);
             }
         });
+        // const win = require('electron').remote.getCurrentWindow();
+        // win.on('close', (e) => {
+        //     if (win) {
+        //       e.preventDefault();
+        //       console.log('on close')
+        //     }
+        // });
+        window.quit = function (){
+            window.onbeforeunload = null;
+            require('electron').remote.app.quit();
+        }
+        window.onbeforeunload = async function (event) {
+            const message = 'Are you sure you want quit the app?';
+            
+            const resp = await confirm(message);
+
+            if(resp){
+                window.quit();
+            }
+            
+            return message;
+        };
     };
 
     function openDevTools(){

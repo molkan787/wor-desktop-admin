@@ -71,7 +71,7 @@ function home_init() {
             spd_l.reverse();
             spd_v[0].reverse();
             spd_v[1].reverse();
-            initChart('home_chart_sales', spd_l, spd_v);
+            initChart('home_chart_sales', spd_l, spd_v, val => fasc.formatPrice(val));
 
             spd = data.ordersPerDay;
             spd_l = [];
@@ -84,7 +84,7 @@ function home_init() {
             }
             spd_l.reverse();
             spd_v.reverse();
-            initChart('home_chart_orders', spd_l, [spd_v]);
+            initChart('home_chart_orders', spd_l, [spd_v], val => val + ' order(s)');
 
             spd = data.customersPerDay;
             spd_l = [];
@@ -97,7 +97,7 @@ function home_init() {
             }
             spd_l.reverse();
             spd_v.reverse();
-            initChart('home_chart_customers', spd_l, [spd_v]);
+            initChart('home_chart_customers', spd_l, [spd_v], val => val + ' registration(s)');
         },
 
         showPopup: function () {
@@ -113,6 +113,7 @@ function home_init() {
         // Callbacks
         loadActionCallback: function (action) {
             if (action.status == 'OK') {
+                // console.log(action.data);
                 this.loadData(action.data);
             } else {
                 msg.show(txt('error_3'));
@@ -164,12 +165,12 @@ function home_init() {
     // attr(home.elts.popupFrom, 'max', dateToString(d));
 }
 
-function initChart(elt, labels, series) {
+function initChart(elt, labels, series, formater) {
     var data = {
         labels: labels,
         series: series
     };
-    const chart = new Chartist.Bar('#' + elt, data, { width: '100%', height: '300px', seriesBarDistance: 10});
+    const chart = new Chartist.Line('#' + elt, data, { width: '100%', height: '300px', showArea: true, low: 0});
 
     const tippy_config = {
         content: '',
@@ -182,10 +183,13 @@ function initChart(elt, labels, series) {
 
     const values = series[0];
     chart.on('draw', function(data) {
-        if(data.type == 'bar') {
-            const content = `<br><span style="font-size: 18px !important">${values[data.index]}</span>`;
+        if(data.type == 'point') {
+            let val =  values[data.index];
+            if(formater) val = formater(val);
+            const content = `<br><span style="font-size: 16px !important">${val}</span>`;
             tippy_config.content = labels[data.index] + content;
             tippy(data.element._node, tippy_config);
+            data.element._node.className += ' hover_zoom';
             data.element.animate({
                 y2: {
                     dur: '1s',

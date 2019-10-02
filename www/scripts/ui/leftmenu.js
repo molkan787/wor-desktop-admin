@@ -115,21 +115,28 @@ function leftmenu_init() {
 
         setAvPages: function (userData) {
             //navigate('order', 81); return;
+            const user_type = parseInt(userData.user_type);
             var ai = userData.ai;
             var items = get_bt('a', get('lm_items'));
             for (var i = 0; i < items.length; i++) {
                 var item = items[i];
                 var act = attr(item, 'action');
+                var param = attr(item, 'param');
                 this.itemsMap[act] = item;
                 if (act == 'promos') act = 'banners';
                 var aii = ai[act];
-                if ((typeof aii != 'undefined' && parseInt(aii) == 0) || (act == 'its_vendors' && parseInt(userData.user_type) > 12)) { // || act == 'stores'
+                if(Rights.known(act)){
+                    const haveRight = Rights.check(userData, act);
+                    item.style.display = haveRight ? 'block' : 'none';
+                } else if ((typeof aii != 'undefined' && parseInt(aii) == 0)) { // || act == 'stores'
+                    item.style.display = 'none';
+                } else if (act == 'products' && param == 'cps_admin' && user_type > 2){
                     item.style.display = 'none';
                 } else {
                     item.style.display = 'block';
                 }
             }
-            if (parseInt(userData.user_type) == 1) {
+            if (user_type == 1) {
                 get('lm_item_ms').style.display = 'block';
                 get('lm_item_mu').style.display = 'block';
             } else {
@@ -139,8 +146,12 @@ function leftmenu_init() {
 
             const page = navPerUser[userData.user_type];
             this.setCurrentItem(this.itemsMap[page])
-            navigate(page);
-            // navigate('products');
+            
+            if(config.devMode){
+                navigate(config.dev.firstPage);
+            }else{
+                navigate(page);
+            }
         },
 
         setOrdersCount: function (count) {

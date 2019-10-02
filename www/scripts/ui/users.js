@@ -65,10 +65,11 @@ function users_init() {
 
         loadData: function (items) {
             clearRows(this.elts.list);
+            console.log(items)
             for (var i = 0; i < items.length; i++) {
                 var user = items[i];
-                if (user.user_type == 11 && account.data.user_type != 1) continue;
-                if (user.user_type == 1) continue;
+                if (int(user.user_type) == 11 && int(account.data.user_type) != 1) continue;
+                if (int(user.user_type) == 1) continue;
                 this.data.users[user.user_id] = user;
                 this.createPanel(user, this.elts.list);
             }

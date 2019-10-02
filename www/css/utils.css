@@ -52,6 +52,9 @@
 .header-fixed.cols5>tbody>tr>td, .header-fixed.cols5>thead>tr>th {
     width: calc(100% / 5);
 }
+.header-fixed.cols7>tbody>tr>td, .header-fixed.cols7>thead>tr>th {
+    width: calc(100% / 7);
+}
 
 .header-fixed.cols5>tbody>tr>td.half6, .header-fixed.cols5>thead>tr>th.half6 {
     width: calc(100% / 12);
@@ -67,4 +70,11 @@
 
 .pl60_f {
     padding-left: 60px !important;
+}
+
+.hover_zoom{
+    transition: transform 0.3s;
+}
+.hover_zoom:hover{
+    transform: scale(1.3);
 }

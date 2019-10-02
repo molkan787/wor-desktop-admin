@@ -35,7 +35,9 @@
 }
 
 #its_vendors_table th:nth-child(2), #its_vendors_table td:nth-child(2) {
-  width: 13%;
+  width: 15%;
+  overflow: hidden;
+  padding-right: 0 !important;
 }
 
 #its_vendors_table th:nth-child(3), #its_vendors_table td:nth-child(3) {
@@ -43,7 +45,7 @@
 }
 
 #its_vendors_table th:nth-child(4), #its_vendors_table td:nth-child(4) {
-  width: 13%;
+  width: 8%;
 }
 
 #its_vendors_table th:nth-child(5), #its_vendors_table td:nth-child(5) {
@@ -55,7 +57,7 @@
 }
 
 #its_vendors_table th:nth-child(7), #its_vendors_table td:nth-child(7) {
-  width: 32%;
+  width: 35%;
   padding: 7px 30px !important;
 }
 
@@ -201,5 +203,9 @@
 #page_its_purchases table {
   width: 100%;
   height: 100%;
+}
+
+#page_its_purchases table td {
+  white-space: nowrap;
 }
 /*# sourceMappingURL=its.css.map */

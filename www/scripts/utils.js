@@ -65,6 +65,10 @@ function attr_rm(elt, attr_name) {
     elt.removeAttribute(attr_name);
 }
 
+function rm_elt(elt){
+    elt.parentNode.removeChild(elt);
+}
+
 function class_rm(elt, className) {
     if(elt instanceof Array){
         for(let el of elt) class_rm(el, className);
@@ -291,11 +295,26 @@ function setChild(child, parent){
     parent.appendChild(child);
 }
 
+function hosElt(elt, cond){
+    cond ? showElt(elt) : hideElt(elt);
+}
+
 function hideElt(elt) {
     get(elt).style.display = 'none';
 }
-function showElt(elt) {
-    get(elt).style.display = 'unset';
+function showElt(elt, disVal) {
+    get(elt).style.display = disVal || 'unset';
+}
+
+function lockElt(elt){
+    const el = get(elt);
+    el.style.opacity = 0;
+    el.style.pointerEvents = 'none';
+}
+function unLockElt(elt){
+    const el = get(elt);
+    el.style.opacity = 1;
+    el.style.pointerEvents = 'all';
 }
 
 function isDigitsOnly(str){
@@ -311,3 +330,83 @@ function onSubmit(elt, handler){
         }
     });
 }
+
+function alphaSort(arr, prop){
+    if(!(arr instanceof Array)) return arr;
+    const _prop = prop || 'text';
+    return arr.sort(function(a, b){
+        if(a[_prop] < b[_prop]) { return -1; }
+        if(a[_prop] > b[_prop]) { return 1; }
+        return 0;
+    })
+}
+
+async function downloadFile(sourceUrl, targetFile, progressCallback, length) {
+  const request = new Request(sourceUrl, {
+    headers: new Headers({'Content-Type': 'application/octet-stream'})
+  });
+
+  const response = await fetch(request);
+  if (!response.ok) {
+    throw Error(`Unable to download, server returned ${response.status} ${response.statusText}`);
+  }
+
+  const body = response.body;
+  if (body == null) {
+    throw Error('No response body');
+  }
+  
+  const finalLength = length || parseInt(response.headers.get('Content-Length') || '0', 10);
+  const reader = body.getReader();
+  const writer = fs.createWriteStream(targetFile);
+
+  await streamWithProgress(finalLength, reader, writer, progressCallback);
+  writer.end();
+}
+
+async function streamWithProgress(length, reader, writer, progressCallback) {
+  let bytesDone = 0;
+  
+  while (true) {
+    const result = await reader.read();
+    if (result.done) {
+      if (progressCallback != null) {
+        progressCallback(100, length);
+      }
+      return;
+    }
+    
+    const chunk = result.value;
+    if (chunk == null) {
+      throw Error('Empty chunk received during download');
+    } else {
+      writer.write(Buffer.from(chunk));
+      if (progressCallback != null) {
+        bytesDone += chunk.byteLength;
+        const percent = length === 0 ? null : Math.floor(bytesDone / length * 100);
+        progressCallback(percent, bytesDone);
+      }
+    }
+  }
+}
+
+
+function millis(){
+    return new Date().getTime()
+}
+
+const _tooltip_tippy_config = {
+    content: '',
+    placement: 'top',
+    arrow: true,
+    animation: 'scale',
+    theme: 'light',
+    duration: 200
+};
+function tooltip(elt, content){
+    _tooltip_tippy_config.content = content;
+    tippy(elt, _tooltip_tippy_config);
+}
+
+const int = v => parseInt(v);
+const flaot = v => parseFloat(v);

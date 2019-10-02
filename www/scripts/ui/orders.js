@@ -30,6 +30,7 @@ function ui_orders_init() {
         createRow: function (data, table) {
             // Customer | Order Date & Time | Total | Status | Paid
             const tr = table.tBodies[0].insertRow(table.rows.length-1);
+            const td0 = crt_elt('td', tr);
             const td3 = crt_elt('td', tr);
             const td5 = crt_elt('td', tr);
             const td2 = crt_elt('td', tr);
@@ -48,6 +49,7 @@ function ui_orders_init() {
             td2.className = td6.className = 'half6 nw';
             td4.className = 'pl60_f';
 
+            val(td0, data.order_id);
             val(span, ord_getStatusText(status_id));
             val(td2, ui.fasc.formatPrice(data.total));
             val(td3, data.customer.trim() || '---');
@@ -65,7 +67,7 @@ function ui_orders_init() {
         updatePanelStatus: function (order_id, status) {
             var pan = get('ord_pan_' + order_id);
             if (!pan) return;
-            var td = pan.children[3];
+            var td = pan.children[4];
             var i = get_bt('i', td)[0];
             var span = get_bt('span', td)[0];
             td.className = ord_getStatusClass(status);
@@ -160,7 +162,9 @@ function ui_orders_init() {
 
 function ord_getStatusText(status_id) {
     if (status_id == 5)
-        return 'Completed';
+        return 'Delivered';
+    else if (status_id == 4)
+        return 'Out for Delivery';
     else if (status_id == 7)
         return 'Canceled';
     else
@@ -169,6 +173,8 @@ function ord_getStatusText(status_id) {
 function ord_getStatusIcon(status_id) {
     if (status_id == 5)
         return 'check circle';
+    else if (status_id == 4)
+        return 'truck';
     else if (status_id == 7)
         return 'ban';
     else
@@ -177,6 +183,8 @@ function ord_getStatusIcon(status_id) {
 function ord_getStatusClass(status_id) {
     if (status_id == 5)
         return 'status completed';
+    else if (status_id == 4)
+        return 'status out4delivery';
     else if (status_id == 7)
         return 'status canceled';
     else

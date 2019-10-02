@@ -19,6 +19,7 @@ function ui_order_init() {
 
             optionsPopup: get('order_popup'),
             btnCompleted: get('ord_btn_com'),
+            btnOut4Delivery: get('ord_btn_o4d'),
             btnPending: get('ord_btn_pen'),
             btnDelete: get('ord_btn_del'),
 
@@ -91,7 +92,7 @@ function ui_order_init() {
 
             val(this.elts.itemsTable, '');
 
-            var writeAccess = account.hasWriteAccess('orders');
+            var writeAccess = Rights.check('order_write') && account.hasWriteAccess('orders');
             
             for (var i = 0; i < data.items.length; i++) {
                 var item = data.items[i];
@@ -138,12 +139,15 @@ function ui_order_init() {
 
         showOptions: function () {
             var status = parseInt(this.currentOrder.order_status_id);
+            attr_rm(this.elts.btnCompleted, 'disabled');
+            attr_rm(this.elts.btnOut4Delivery, 'disabled');
+            attr_rm(this.elts.btnPending, 'disabled');
             if (status == 5) {
                 attr(this.elts.btnCompleted, 'disabled', '1');
-                attr_rm(this.elts.btnPending, 'disabled');
+            } else if (status == 4){
+                attr(this.elts.btnOut4Delivery, 'disabled', '1');
             } else {
                 attr(this.elts.btnPending, 'disabled', '1');
-                attr_rm(this.elts.btnCompleted, 'disabled');
             }
             var writeAccess = (parseInt(account.data.ai.orders) == 2);
             if (writeAccess) {
@@ -154,9 +158,9 @@ function ui_order_init() {
             ui.popup.show(this.elts.optionsPopup);
         },
 
-        removeProduct: function(product_id, product_name){
+        removeProduct: async function(product_id, product_name){
             var msg = txt('confirm_product_return', product_name);
-            if(confirm(msg)){
+            if(await confirm(msg)){
                 this.dimc.show('Please wait');
                 this.removeAction.do({order_id: this.currentOrder.order_id, product_id: product_id});
             }
@@ -205,6 +209,7 @@ function ui_order_init() {
     };
 
     order.elts.btnCompleted.onclick = order.btnsClick;
+    order.elts.btnOut4Delivery.onclick = order.btnsClick;
     order.elts.btnPending.onclick = order.btnsClick;
     order.elts.btnDelete.onclick = order.btnsClick;
 
@@ -214,8 +219,9 @@ function ui_order_init() {
     order.changeAction = fetchAction.create('orderadm/change', function (action) { order.changeActionCallback(action) });
     order.removeAction = fetchAction.create('orderadm/removeProduct', function (action) { order.removeActionCallback(action) });
 
-    registerPage('order', order.elt, 'Order Details', function (param) {
+    registerPage('order', order.elt, oid => `Order #${oid}`, function (param) {
         order.dimc.show();
         order.loadAction.do({ order_id: param });
+        if(!Rights.check('order_write')) hideHbFab();
     }, { icon: 'ellipsis vertical', handler: order.actionIconClick });
 }

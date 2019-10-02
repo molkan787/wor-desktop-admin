@@ -25,6 +25,8 @@
     <link rel="stylesheet" type="text/css" href="css/its.css">
     <link rel="stylesheet" type="text/css" href="css/chartist.min.css">
 
+    <script type="text/javascript" src="scripts/config.js"></script>
+    <script type="text/javascript" src="scripts/cm/rights.js"></script>
     <script type="text/javascript" src="scripts/cm/state.js"></script>
     <script type="text/javascript" src="scripts/utils.js"></script>
     <script type="text/javascript">const anime = require('animejs');</script>
@@ -34,6 +36,8 @@
     <!-- <script type="text/javascript" src="libs/chartist.min.js"></script> -->
     <!-- <script>const Sortable = {create: () => {}}</script> -->
     <script type="text/javascript" src="libs/semantic.min.js"></script>
+
+    <script type="text/javascript" src="scripts/updater.js"></script>
 
     <script type="text/javascript" src="scripts/ul/reacto.js"></script>
 
@@ -53,6 +57,7 @@
     <script type="text/javascript" src="scripts/sl/receipt.js"></script>
 
     <script type="text/javascript" src="scripts/ui.js"></script>
+    <script type="text/javascript" src="scripts/ui/notifypan.js"></script>
     <script type="text/javascript" src="scripts/ul/dosk.js"></script>
     <script type="text/javascript" src="scripts/ul/pagination.js"></script>
     <script type="text/javascript" src="scripts/ul/floatingList.js"></script>
@@ -332,12 +337,13 @@
 
         <div id="page_pos" class="page custom" hideTitle="1">
             <div id="pos_sec1" class="pos_sec sec1 pos_sec_h">
-                <table id="pos_table2" class="mtable header-fixed cols3" border="0">
+                <table id="pos_table2" class="mtable header-fixed cols4" border="0">
                     <thead>
                         <tr>
                             <th>Product</th>
                             <th>Price (&#8377;)</th>
                             <th>Qty</th>
+                            <th> </th>
                         </tr>
                     </thead>
                     <tbody id="pos_c_items"></tbody>
@@ -372,7 +378,7 @@
                 </div>
                 <div class="msegment">
                     <label class="title">Other</label>
-                    <input id="pos_other" type="text" value="0.00" />
+                    <input id="pos_other" type="text" value="" placeholder="0.00" />
                 </div>
                 <div class="msegment last">
                     <label class="title">Total</label>
@@ -605,6 +611,7 @@
             <table class="mtable header-fixed cols5 bottom_attached" id="ords_list">
                 <thead>
                     <tr> <!-- Customer | Order Date & Time | Total | Status | Paid -->
+                        <th>ID</th>
                         <th>Customer</th>
                         <th>Order Date</th>
                         <th class="half6">Total</th>
@@ -702,6 +709,7 @@
 
         <div id="page_customers" class="page custom" hideTitle="1">
             <h3>
+                <input id="cust_searchbox" class="mtm filters searchbox" placeholder="Search"/>
                 Filters:
                 <span id="cust_filters" style="line-height: 1.6;">
                 </span><div id="cust_btns1">
@@ -718,11 +726,11 @@
                 <thead>
                     <tr>
                         <th>Customer Name</th>
-                        <th>Phone</th>
+                        <th id="cust_phone_column">Phone</th>
                         <th>Status</th>
                         <th>Registration date</th>
                         <th class="cust_search_con">
-                            <input id="cust_searchbox" placeholder="Search customers" />
+                            <!-- <input id="cust_searchbox" placeholder="Search customers" /> -->
                         </th>
                     </tr>
                 </thead>
@@ -866,6 +874,15 @@
                                 <label class="ui label">&#8377;</label>
                             </div>
                         </div>
+                        <div class="field">
+                            <label>Time to cancel order</label>
+                            <div class="ui labeled input labeled_select">
+                                <div class="ui label">
+                                    Time
+                                </div>
+                                <select id="set_cancel_timeout"></select>
+                            </div>
+                        </div>
                         <div class="field set_timing_sec">
                             <label>Regular delivery</label>
                             <div class="ui labeled input">
@@ -990,7 +1007,7 @@
         <div id="page_stores" class="page mtm" hideTitle="1">
             <div class="header">
                 <span>Stores</span>
-                <button right onclick="stores.showAddForm()">
+                <button id="page_stores_add_button" right onclick="stores.showAddForm()">
                     <i class="plus icon"></i>Create new store
                 </button>
             </div>
@@ -1068,15 +1085,6 @@
 
                 <div class="ui bottom attached tab segment">
                     <div class="ui form">
-                        <div class="field">
-                            <label>Time to cancel order</label>
-                            <div class="ui labeled input labeled_select">
-                                <div class="ui label">
-                                    Time
-                                </div>
-                                <select id="mset_cancel_timeout"></select>
-                            </div>
-                        </div>
                         <div class="field">
                             <label>Order on Phone</label>
                             <div class="ui labeled input">
@@ -1269,7 +1277,7 @@
         </div>
 
         <div id="page_its_purchases" class="mtm custom page">
-            <table id="page_its_purchases_table" class="header-fixed mtable">
+            <table id="page_its_purchases_table" class="header-fixed mtable cols6">
                 <thead>
                     <tr>
                         <th>Purchase Date</th>
@@ -1325,7 +1333,7 @@
         </div>
 
         <div id="page_its_payments" class="mtm custom page">
-            <table id="page_its_payments_table" class="header-fixed mtable cols6">
+            <table id="page_its_payments_table" class="header-fixed mtable cols7">
                 <thead>
                     <tr>
                         <th>Payment Date</th>
@@ -1334,6 +1342,7 @@
                         <th>Payment Details</th>
                         <th>Receiver Name</th>
                         <th>Uploaded Receipt</th>
+                        <th> </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1395,7 +1404,7 @@
                 </div>
 
                 <div class="field buttons" style="padding-top: 20px">
-                    <button class="mtm button" onclick="goBacak()">Cancel</button>
+                    <button class="mtm button" onclick="goBack()">Cancel</button>
                     <button class="mtm button" onclick="ITS_Payments.clearForm()">Clear</button>
                     <button class="mtm primary button" onclick="ITS_Payments.confirm()">Confirm</button>
                 </div>
@@ -1423,7 +1432,8 @@
     <!-- Popups -->
     <div>
         <div class="popup ui segment" id="order_popup">
-            <button id="ord_btn_com" operation="status" status="5" class="ui green button"><i class="check icon"></i>Mark as Completed</button>
+            <button id="ord_btn_com" operation="status" status="5" class="ui green button"><i class="check icon"></i>Mark as Delivered</button>
+            <button id="ord_btn_o4d" operation="status" status="4" class="ui blue button"><i class="truck icon"></i>Mark as Out for Delivery</button>
             <button id="ord_btn_pen" operation="status" status="1" class="ui orange button"><i class="time icon"></i>Mark as Pending</button>
             <button id="ord_btn_del" operation="delete" class="ui button last"><i class="delete icon"></i>Delete order</button>
             <div id="ord_popup_dimmer" class="ui active inverted dimmer" style="display: none">
@@ -1439,7 +1449,7 @@
                     <select id="ords_filters_status">
                         <option value="">All</option>
                         <option value="1">Pending</option>
-                        <option value="5">Completed</option>
+                        <option value="5">Delivered</option>
                     </select>
                 </div>
                 <div class="field">
@@ -1512,15 +1522,15 @@
         <div class="popup ui segment" id="cust_popup">
             <h3>
                 <i class="user icon"></i>
-                <span id="cust_pp_name">Hadjrus Balak</span>
+                <span id="cust_pp_name"></span>
             </h3>
-            <h3>
+            <h3 id="cust_pp_phone_con">
                 <i class="phone icon"></i>
-                <span id="cust_pp_phone">7005003050</span>
+                <span id="cust_pp_phone"></span>
             </h3>
-            <h3>
+            <h3 id="cust_pp_email_con">
                 <i class="at icon"></i>
-                <span id="cust_pp_email">balak@hotmail.fr</span>
+                <span id="cust_pp_email"></span>
             </h3>
             <h3>
                 <i class="shield alternate icon"></i>
@@ -1529,6 +1539,7 @@
                     <span id="cust_pp_status_text"></span>
                 </label>
             </h3>
+            <div id="cust_pp_placeholder"></div>
             <div class="spacer"></div>
             <button id="cust_pp_show_orders" class="ui button fullw">
                 <i class="box icon"></i>
@@ -1717,6 +1728,10 @@
         <span id="offline_bubble_text">Offline</span>
         <img src="images/icons/no_net_outline.png"/>
     </div>
+    <div id="update_progress" class="offline_bubble">
+        <span id="update_progress_text">Downloading 0%</span>
+        <img src="images/icons/download.png"/>
+    </div>
 
     <div id="msg_popup" class="popup msg">
         <div class="text" id="msg_pp_text">
@@ -1786,6 +1801,18 @@
     <div id="menu_popup" tabIndex="0">
         <!-- <h4 id="menu_popup_title"></h4> -->
         <div id="menu_popup_list" disabled>
+        </div>
+    </div>
+
+    <div id="notify_pan" class="notify pan">
+        <h4 class="title">
+            <span id="notify_pan_title" name="title"></span>
+            <i class="close icon hideBtn" onclick="NotifyPan.closeButtonClick()"></i>
+        </h4>
+        <p class="content" name="content" id="notify_pan_content"></p>
+        <div class="buttons">
+            <button class="mtm smaller primary button" id="notify_pan_okbutton"
+                onclick="NotifyPan.primaryButtonClick()"></button>
         </div>
     </div>
 

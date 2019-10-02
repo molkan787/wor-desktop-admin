@@ -547,3 +547,14 @@ body{
     height: 100%;
     float: right;
 }
+
+#update_progress{
+    top: 100% !important;
+    margin-top: -50px !important;
+    width: 200px !important;
+    margin-left: -210px;
+    background-color: #ff7b30;
+
+    /* display: block !important; */
+    opacity: 1 !important;
+}

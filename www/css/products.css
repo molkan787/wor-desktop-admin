@@ -61,8 +61,8 @@
 }
 .prt.item > span.id_span{
     font-weight: bold;
-    margin-right: 50px;
     line-height: 2.6;
+    width: 100px;
 }
 .prt.item > span.dis_span {
     float: right;

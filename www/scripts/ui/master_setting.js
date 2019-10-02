@@ -18,8 +18,7 @@ function master_setting_init() {
             companyInfo: get('mset_company_info'),
             shareAppText: get('mset_share_app_text'),
             welcomeText: get('mset_welcome_text'),
-            orderPhone: get('mset_order_phone'),
-            cancelTimeout: get('mset_cancel_timeout')
+            orderPhone: get('mset_order_phone')
         },
 
         dimc: ui.dimmer.create('master_setting_dimmer'),
@@ -62,7 +61,6 @@ function master_setting_init() {
             val(this.elts.logo, data.logo);
             val(this.elts.lsAd, data.ls_ad);
             val(this.elts.orderPhone, data.order_phone);
-            val(this.elts.cancelTimeout, data.cancel_timeout);
             val(this.elts.cities, '');
             for (var i = 0; i < data.cities.length; i++) {
                 var city = data.cities[i];
@@ -210,7 +208,7 @@ function master_setting_init() {
                     logo: this.data.logo,
                     ls_ad: this.data.ls_ad,
                     order_phone: val(this.elts.orderPhone),
-                    cancel_timeout: val(this.elts.cancelTimeout),
+                    cancel_timeout: 0,
                     gls: this.getGls()
                 });
             }
@@ -300,10 +298,4 @@ function master_setting_init() {
         masterSetting.update(param);
     });
 
-
-    for (var i = 0; i < 9; i++) {
-        var opt1 = crt_elt('option', masterSetting.elts.cancelTimeout);
-        val(opt1, getTimeTextSS(i));
-        opt1.value = i * 900;
-    }
 }

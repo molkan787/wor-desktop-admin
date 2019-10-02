@@ -26,6 +26,7 @@ function rtdc_init() {
         // Callbacks
         actionCallback: function (action) {
             if (action.status == 'OK') {
+                // console.log('RTDC:', action.data)
                 this.setPingTime(action.data.time);
                 const orders = action.data.orders.filter(o => !this.excludes.includes(parseInt(o.order_id)));
                 var orders_count = orders.length;

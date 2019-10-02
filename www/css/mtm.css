@@ -140,6 +140,11 @@
   opacity: 0.9;
 }
 
+.mtm.button.smaller {
+  font-size: 11px;
+  padding: 10px;
+}
+
 .mtm.textButton {
   border: none;
   padding: 10px 25px;
@@ -698,5 +703,32 @@ select {
 
 .mtm.filters.searchbox::placeholder {
   color: #aaa;
+}
+
+.notify.pan {
+  position: fixed;
+  z-index: 100000;
+  top: 100%;
+  left: 100%;
+  margin-top: -175px;
+  margin-left: -320px;
+  width: 300px;
+  height: 155px;
+  background-color: white;
+  border-radius: 12px;
+  -webkit-box-shadow: 1px 1px 24px rgba(0, 0, 0, 0.15);
+          box-shadow: 1px 1px 24px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  opacity: 0;
+  display: none;
+}
+
+.notify.pan .hideBtn {
+  float: right;
+  cursor: pointer;
+}
+
+.notify.pan .buttons {
+  text-align: right;
 }
 /*# sourceMappingURL=mtm.css.map */

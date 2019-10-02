@@ -65,14 +65,14 @@ class POSReceiptBuilder {
 
     }
 
-    addItem(item) {
-        const num = ('0' + (this.numPointer++)).substr(-2);
+    addItem(item, minimal) {
+        const num = minimal ? '  ' : ('0' + (this.numPointer++)).substr(-2);
         const ltotal = item.q ? item.price * item.q : item.price;
         this._item({
             num,
             name: item.name,
-            q: this._qty(item.q),
-            price: this._price(item.price),
+            q: minimal ? ' ' : this._qty(item.q),
+            price: minimal ? ' ' : this._price(item.price),
             total: this._price(ltotal)
         });
     }

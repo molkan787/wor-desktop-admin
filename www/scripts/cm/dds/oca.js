@@ -1,11 +1,16 @@
 ﻿
 function dm_oca_init() {
     dm = {
+        // URL_BASE: 'http://fasc.local/',
+        // URL_BASE: 'https://www.walkonretail.com/',
+        URL_BASE: config.useLocalServer ? 'http://fasc.local/' : 'https://www.walkonretail.com/',
         // Properties
-        // apiBaseURL: 'http://fasc.local/index.php?store_id={%1}&api_token={%2}&route=api/',
-        // apiBaseURL: 'http://192.168.0.94/fasc/index.php?store_id={%1}&api_token={%2}&route=api/',
-        apiBaseURL: 'https://www.walkonretail.com/index.php?store_id={%1}&api_token={%2}&route=api/',
-        // apiBaseURL: 'https://surjankirana.com/api/index.php?store_id={%1}&api_token={%2}&route=api/',
+        
+
+        initProps(){
+            this.apiBaseURL = this.URL_BASE + 'index.php?store_id={%1}&api_token={%2}&route=api/';
+            this.FILES_DL_BASE = this.URL_BASE + 'files/';
+        },
 
         // Methods
         _getApiUrl: function (req, params) {
@@ -75,4 +80,5 @@ function dm_oca_init() {
             this._callApi(url, action);
         }
     };
+    dm.initProps();
 }

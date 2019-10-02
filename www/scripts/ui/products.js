@@ -137,6 +137,8 @@ function ui_products_init() {
                 this.filters.push({ name: 'ptype', value: param });
             }
 
+            this.itemsPerPage = param == 'cps' ? 150 : 20;
+
             const page_n = page || 0;
              
             this.filters.push({ name: 'start', value: page_n * this.itemsPerPage });
@@ -276,7 +278,9 @@ function ui_products_init() {
             }
         },
         filterCatChanged: function () {
-            setOptions(products.elts.filterSubcat, dm.subcats[products.elts.filterCat.value], true);
+            let subs = dm.subcats[products.elts.filterCat.value];
+            subs = alphaSort(subs, 'text');
+            setOptions(products.elts.filterSubcat, subs, true);
         },
         filterSubmitClick: function () {
             ui.popup.hide();
@@ -361,6 +365,7 @@ function ui_products_init() {
                 cats.push(cat);
             }
         }
+        cats = alphaSort(cats, 'text');
         setOptions(products.elts.filterCat, cats, true);
     });
 

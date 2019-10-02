@@ -15,6 +15,18 @@ class Dosk{
                     val(td, value);
                 }
             }
+            if(params.buttons){
+                const td = crt_elt('td', tr);
+                td.style.textAlign = 'right';
+                td.style.paddingLeft = '0';
+                for(let btn of params.buttons){
+                    const el = crt_elt('button', td);
+                    el.className = btn.className;
+                    el.onclick = () => btn.handler(row, tr);
+
+                    if(btn.icon) crt_icon(btn.icon, el);
+                }
+            }
         }
     }
 

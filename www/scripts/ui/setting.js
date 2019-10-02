@@ -15,7 +15,8 @@ function setting_init() {
             delCost: get('set_delcost'),
             razorKey: get('set_razor_key'),
             razorSecret: get('set_razor_secret'),
-            notPhone: get('set_not_phone')
+            notPhone: get('set_not_phone'),
+            cancelTimeout: get('set_cancel_timeout')
         },
 
         dimc: ui.dimmer.create('setting_dimmer'),
@@ -44,6 +45,7 @@ function setting_init() {
             val(this.elts.razorKey, data.razor_key || '');
             val(this.elts.razorSecret, '');
             val(this.elts.notPhone, data.not_phone);
+            val(this.elts.cancelTimeout, data.order_cancel_time);
         },
 
         save: function () {
@@ -60,7 +62,8 @@ function setting_init() {
                 fast_del_cost: val(this.elts.delCost),
                 razor_key: val(this.elts.razorKey),
                 razor_secret: val(this.elts.razorSecret),
-                not_phone: val(this.elts.notPhone)
+                not_phone: val(this.elts.notPhone),
+                order_cancel_time: val(this.elts.cancelTimeout)
             };
             this.dimc.show('Saving');
             this.saveAction.do(data);
@@ -109,6 +112,13 @@ function setting_init() {
     setting.saveAction = fetchAction.create('setting/store_setting_save', function (action) { setting.saveActionCallback(action) });
 
     registerPage('setting', setting.elt, 'Setting', function () { setting.update(); });
+
+
+    for (var i = 0; i < 9; i++) {
+        var opt1 = crt_elt('option', setting.elts.cancelTimeout);
+        val(opt1, getTimeTextSS(i));
+        opt1.value = i * 900;
+    }
 
 }
 

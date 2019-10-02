@@ -125,6 +125,11 @@
         transform: scale(0.97);
         opacity: 0.9;
     }
+
+    &.smaller{
+        font-size: 11px;
+        padding: 10px;
+    }
 }
 
 .mtm.textButton {
@@ -611,4 +616,35 @@ select {
     &::placeholder{
         color: #aaa;
     }
+}
+
+.notify.pan{
+    $w: 300px;
+    $h: 155px;
+    $sp: 20px;
+    position: fixed;
+    z-index: 100000;
+    top: 100%;
+    left: 100%;
+    margin-top: -$h - $sp;
+    margin-left: -$w - $sp;
+    width: $w;
+    height: $h;
+
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 1px 1px 24px rgba(0, 0, 0, 0.15);
+    padding: 20px;
+    opacity: 0;
+    display: none;
+
+    .hideBtn{
+        float: right;
+        cursor: pointer;
+    }
+
+    .buttons{
+        text-align: right;
+    }
+
 }

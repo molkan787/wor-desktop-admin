@@ -23,15 +23,17 @@ class Receipt{
         }, true);
         
         for(let p of orderData.items || []){
-            r.addItem(p);
+            const iov = p.name.toLowerCase() == 'other';
+            r.addItem(p, iov);
         }
-        if (orderData.other_val) {
-            r.addItem({
-                name: 'Other charge',
-                price: orderData.other_val,
-                q: 0,
-            });
-        }
+
+        // if (orderData.other_val) {
+        //     r.addItem({
+        //         name: 'Other charge',
+        //         price: orderData.other_val,
+        //         q: 0,
+        //     });
+        // }
 
         r.addTotalsItem({
             name: 'Total',

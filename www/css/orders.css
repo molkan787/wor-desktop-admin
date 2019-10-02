@@ -11,6 +11,9 @@
 .status.canceled {
     color: red;
 }
+.status.out4delivery {
+    color: #2185D0;
+}
 
 #page_order{
     padding: 20px;
@@ -36,12 +39,22 @@
     width: 100%;
     height: calc(100% - 90px);
 }
+#ords_list td, #ords_list th{
+    white-space: nowrap;
+}
+#ords_list td:nth-child(1), #ords_list th:nth-child(1){
+    width: 50px !important;
+}
+#ords_list td:nth-child(3), #ords_list th:nth-child(3){
+    width: calc(100% / 5 - 55px) !important;
+    padding-left: 15px !important;
+}
 
 #order_popup{
     width: 62%;
-    height: 230px !important;
+    height: 285px !important;
     margin-left: -31%;
-    margin-top: -115px;
+    margin-top: -142px;
 }
 #order_popup > button{
     width: 100% !important;

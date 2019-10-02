@@ -47,3 +47,9 @@
     width: 100%;
     height: 42px;
 }
+
+#cust_pp_placeholder{
+    width: 100%;
+    height: 68px;
+    display: block;
+}
