@@ -81,6 +81,7 @@ function ui_product_init() {
             this.loadedData = data;
             this.data.desc = data.d;
             this.data.lang = '1';
+            this.elts.tags.setItemsFromString(this.data.desc[1].tag);
             val(this.elts.Lang, 1);
             val(this.elts.ID, data.product_id);
             val(this.elts.Stock, data.quantity || '');
@@ -143,8 +144,10 @@ function ui_product_init() {
         },
 
         getData: function () {
-            this.data.desc[this.data.lang].name = val(this.elts.Title);
-            this.data.desc[this.data.lang].description = val(this.elts.Desc);
+            const d = this.data.desc;
+            d[this.data.lang].name = val(this.elts.Title);
+            d[this.data.lang].description = val(this.elts.Desc);
+            d[this.data.lang].tag = this.elts.tags.getItemsAsString();
             var data = {
                 ptype: this.cps ? 'cps_admin' : '',
                 pid: this.currentProduct,
@@ -167,15 +170,16 @@ function ui_product_init() {
                 images_to_keep: this.data.prtOldImages,
                 images_to_add: this.data.prtNewImages
             };
-            console.log('P Data:', data);
             return data;
         },
 
         switchLanguage: function (lang) {
             this.data.desc[this.data.lang].name = val(this.elts.Title);
             this.data.desc[this.data.lang].description = val(this.elts.Desc);
+            this.data.desc[this.data.lang].tag = this.elts.tags.getItemsAsString();
             val(this.elts.Title, this.data.desc[lang].name);
             val(this.elts.Desc, this.data.desc[lang].description);
+            this.elts.tags.setItemsFromString(this.data.desc[lang].tag);
             this.data.lang = lang;
         },
 
@@ -268,6 +272,11 @@ function ui_product_init() {
     });
 
     product.imgSlt = imageSelector.init(get('prt_btn_change_img'), get('prt_image'));
+
+    product.elts.tags = new TagInput({
+        parent: get('prt_tags_parent'),
+        placeholder: 'Comma separated'
+    });
 
     imageSelector.init(product.elts.AddImageBtn, null, product.imageAdded, false);
 

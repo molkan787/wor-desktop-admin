@@ -6,7 +6,12 @@ function promo_init() {
             img: get('promo_img'),
             imgCon: get('promo_img_con'),
             format: get('promo_format'),
-            link: get('promo_link')
+            link: new TagInput({
+                placeholder: 'Click & Search for products',
+                parent: get('promo_link_parent'),
+                mode: TagInput.SEARCH_MODE,
+                onSearch: q => DataAgent.searchProducts(q)
+            })
         },
 
         dimmer: ui.dimmer.create('page_promo', true),
@@ -29,22 +34,20 @@ function promo_init() {
             this.imgSlt.reset();
         },
 
-        loadData: function (data) {
+        async loadData (data) {
             val(this.elts.format, data.format || 1);
             this.elts.format.onchange();
             val(this.elts.img, data.image || 'images/grey_rect.png');
-            val(this.elts.link, data.link || '');
+            this.elts.link.clearItems();
+            if(data.link){
+                const ids = data.link.replace(/\g/s, '').split(',');
+                const items = await DataAgent.getProductsByIds(ids);
+                this.elts.link.setItems(items);
+            }
         },
 
         prepareData: function () {
-            var raw_link = val(this.elts.link).replace(' ', '').split(',');
-            var link = '';
-            for (var i = 0; i < raw_link.length; i++) {
-                if (link.length > 0) link += ',';
-                var l_item = parseInt(raw_link[i]);
-                if (l_item > 0) link += l_item;
-            }
-
+            const link = this.elts.link.getItemsValues().join(',');
             this.data = {
                 format: val(this.elts.format),
                 link: link,
@@ -102,11 +105,12 @@ function promo_init() {
     promo.saveAction = fetchAction.create('', function (action) { promo.saveActionCallback(action); });
 
     promo.elts.format.onchange = promo.formatChanged;
+    promo.elts.link.$el.style.height = '200px';
 
     promo.imgSlt = imageSelector.init(get('promo_img_btn'), get("promo_img"));
 
     registerPage('promo', promo.elt, function (param) {
-        return param == 'new' ? 'Add Promotion' : 'Promotion details'
+        return param == 'new' ? 'Add Promotion Box' : 'Promotion Box details'
     }, function (param) { promo.update(param); },
         { icon: 'save', handler: promo.saveBtnClick });
 }

@@ -1,4 +1,9 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('electron');
+const DownloadManager = require("electron-download-manager");
+
+DownloadManager.register({
+  downloadFolder: app.getPath('desktop') + '\\WalkOnRetail'
+});
 
 let win
 

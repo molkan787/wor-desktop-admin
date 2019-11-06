@@ -8,12 +8,33 @@ class Reacto{
             if(!name) continue;
             store._createProp(name);
             store.data[name] = el.value;
-            el.addEventListener('change', function(){
-                store.data[name] = this.value;
-            })
-            store.watch(name, val => el.value = val);
+            el.addEventListener('change', () => store.data[name] = this._getValue(el));
+            store.watch(name, val => this._setValue(el, val));
         }
         return store;
+    }
+
+    static _getValue(el){
+        const tagName = el.tagName;
+        switch (tagName) {
+            case 'INPUT':
+                return el.type == 'file' ? el.files : el.value;
+            case 'SELECT':
+                return el.value;
+            default:
+                return el.innerText;
+        }
+    }
+    static _setValue(el, val){
+        if(el.tagName == 'INPUT' || el.tagName == 'SELECT'){
+            if(el.type == 'file'){
+                if(!val) el.value = '';
+            }else{
+                el.value = val;
+            }
+        }else{
+            el.innerText = val;
+        }
     }
 
     static validateData(dataStore, config){

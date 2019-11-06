@@ -2,14 +2,17 @@ class Rights{
 
     static init(){
         this.checkers = { // ut = userType
-            its_vendors: ut => ut < 4 || (ut > 10 && ut < 13),
+            its_vendors: ut => ut < 4 || (ut > 10 && ut <= 13),
             its_del: ut => ut < 3 || (ut > 10 && ut < 13),
 
             order_write: ut => (ut < 3) || (ut > 10 && ut < 15 && ut != 13),
 
             customer_del: ut => ut < 3 || (ut > 10 && ut < 13),
             customer_contact_info: ut => ut < 3,
+            payment_setting: ut => ut < 3,
         };
+
+        window.userType = () => int(account.data.user_type);
     }
 
     static known(obj){

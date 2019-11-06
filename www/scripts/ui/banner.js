@@ -4,7 +4,12 @@ function banner_init() {
         elt: get('page_banner'),
         elts: {
             img: get('banner_img'),
-            link: get('banner_link')
+            link: new TagInput({
+                placeholder: 'Click & Search for products',
+                parent: get('banner_link_parent'),
+                mode: TagInput.SEARCH_MODE,
+                onSearch: q => DataAgent.searchProducts(q)
+            }),
         },
 
         dimmer: ui.dimmer.create('page_banner', true),
@@ -16,7 +21,7 @@ function banner_init() {
         saveAction: null,
 
         // Methods
-        update: function (param) {
+        update(param) {
             this.promo_id = param;
             if (param == 'new') {
                 this.loadData({});
@@ -27,20 +32,18 @@ function banner_init() {
             this.imgSlt.reset();
         },
 
-        loadData: function (data) {
+        async loadData(data) {
             val(this.elts.img, data.image || 'images/grey_rect.png');
-            val(this.elts.link, data.link || '');
+            this.elts.link.clearItems();
+            if(data.link){
+                const ids = data.link.replace(/\g/s, '').split(',');
+                const items = await DataAgent.getProductsByIds(ids);
+                this.elts.link.setItems(items);
+            }
         },
 
-        prepareData: function () {
-            var raw_link = val(this.elts.link).replace(/\s/g, '').split(',');
-            var link = '';
-            for (var i = 0; i < raw_link.length; i++) {
-                if (link.length > 0) link += ',';
-                var l_item = parseInt(raw_link[i]);
-                if (l_item > 0) link += l_item;
-            }
-
+        prepareData() {
+            const link = this.elts.link.getItemsValues().join(',');
             this.data = {
                 link: link,
                 banner_id: this.promo_id,
@@ -48,7 +51,7 @@ function banner_init() {
             };
         },
 
-        save: function () {
+        save() {
             this.dimmer.show('Saving');
             this.prepareData();
             if (this.imgSlt.changed) {
@@ -95,6 +98,8 @@ function banner_init() {
         },
 
     };
+
+    banner.elts.link.$el.style.height = '200px';
     
     banner.uploadAction = fetchAction.create('image/upBase64&folder=banners', function (action) { banner.uploadActionCallback(action); });
     banner.saveAction = fetchAction.create('banner/save_ob', function (action) { banner.saveActionCallback(action); });

@@ -9,14 +9,17 @@ function account_init() {
             pwdOld: get('acc_pwd_old'),
             pwdNew: get('acc_pwd_new'),
             pwdRet: get('acc_pwd_ret'),
-            pwdBtn: get('acc_pwd_btn')
+            pwdBtn: get('acc_pwd_btn'),
+            usernamePopup: get('username_popup')
         },
 
         data: {},
 
         dimmer: ui.dimmer.create('page_account', true),
+        popupDimmer: ui.dimmer.create('username_popup', true),
 
         saveAction: null,
+        usernameAction: null,
 
         changePwd: function () {
             var old = val(this.elts.pwdOld);
@@ -46,6 +49,28 @@ function account_init() {
             val(this.elts.pwdRet, '');
         },
 
+        showUsernamePopup(){
+            val('username_pp_input', '')
+            ui.popup.show('username_popup')
+        },
+
+        async chnageUsername(username){
+            try {
+                await this.usernameAction.do({username});
+                this.data.username = username;
+                val(this.elts.username, username);
+                await alert('Username was successfully changed!');
+                return true;
+            } catch (error) {
+                if(error == 'USERNAME_EXIST'){
+                    alert(`Username "${username}" is already used, Please type a diffrent one.`);
+                }else{
+                    error_msg1();
+                }
+                return false;
+            }
+        },
+
         // Callbacks
         saveActionCallback: function (action) {
             if (action.status == 'OK') {
@@ -59,6 +84,30 @@ function account_init() {
                 msg.show(txt('error_txt1'));
             }
             this.dimmer.hide();
+        },
+        
+        changeUsernameClick(){
+            this.showUsernamePopup();
+        },
+
+        async submitUsernameClick(){
+            const username = val('username_pp_input').trim();
+            if(username == this.data.username){
+                alert('You have entered the current username, Please use a diffrent one.');
+                return;
+            }
+            if(username.length < 6){
+                alert('The username should be at least 6 characters long.');
+                return;
+            }
+            if(isAlphaNumeric(username)){
+                this.popupDimmer.show('Changing...');
+                const success = await this.chnageUsername(username);
+                this.popupDimmer.hide();
+                if(success) ui.popup.hide();
+            }else{
+                alert('Special characters are not allowed.');
+            }
         },
 
         // Handlers
@@ -76,6 +125,7 @@ function account_init() {
 
 
     account.saveAction = fetchAction.create('account/changepassword', function (action) { account.saveActionCallback(action) });
+    account.usernameAction = fetchAction.create('account/changeUsername');
 
     account.elts.pwdBtn.onclick = account.pwdBtnClick;
 

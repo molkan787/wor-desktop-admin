@@ -17,13 +17,14 @@ class ITS_Purchase{
         this.productsMenu = new FloatingList({
             textProp: 'name',
             autoValueSet: true,
-            onSearch: query => this.onSearch(query)
+            onSearch: query => DataAgent.searchProducts(query),
+            onSelected: (data, el) => el.product_id = data.id
         });
 
         this.loadAction = fetchAction.create('vendor/getPurchases');
-        this.loadProductsAction = fetchAction.create('product/listNames');
         this.savePurchaseAction = fetchAction.create('vendor/addPurchase');
         this.deleteAction = fetchAction.create('vendor/deletePurchase');
+        this.uploadAction = fetchAction.create('files/upload');
 
         registerPage('its_purchases', get('page_its_purchases'),
         ({vendor}) => ({title: `Purchases from "${vendor.name}"`, ibb: true}),
@@ -58,9 +59,17 @@ class ITS_Purchase{
             const data = await this.loadAction.do({vendor_id: vendor.id});
             Dosk.setRows(this.elts.table, {
                 data: data.items,
-                cells: ['purchase_date', 'total_value', 'invoice_no', 'items_count', 'date_added'],
+                cells: ['purchase_date', 'total_value', 'invoice_no', 'date_added', 'attachment'],
+                defaults: {attachment: '---'},
                 formats: { total_value: val => fasc.formatPrice(val) },
-                buttons: btns
+                buttons: btns,
+                cellButtons: {
+                    attachment: {
+                        skipIfNoValue: true,
+                        text: 'Download',
+                        onClick: (fn, btn) => this.downloadAttachement(fn, btn)
+                    }
+                }
             });
             tooltip('.del_pur_btn', 'Delete');
             tooltip('.show_pur_btn', 'Show details');
@@ -69,6 +78,20 @@ class ITS_Purchase{
             error_msg3();
         }
         this.dimmer.hide();
+    }
+
+    static async downloadAttachement(filename, button){
+        loading(button, true);
+        try {
+            const file = await download(dm.URL_BASE + 'user_files/' + filename);
+            const showFile = await confirm(txt('attachment_download_success'), {yesText: 'Open', noText: 'Close'});
+            if(showFile){
+                showFileInExplorer(file.filePath);
+            }
+        } catch (error) {
+            error_msg1();
+        }
+        loading(button, false);
     }
 
     static async updateEdit(params){
@@ -96,6 +119,7 @@ class ITS_Purchase{
     static clearForm(skinAddingRow){
         this.editData.data.invoice_no = '';
         this.editData.data.purchase_date = '';
+        this.editData.data.attachment = '';
         const el = get('its_purchase_addrow_row');
         const tbody = this.elts.productsTable.tBodies[0];
         tbody.removeChild(el);
@@ -141,19 +165,32 @@ class ITS_Purchase{
 
     static async save(){
         const d = this.editData.data;
-        let items = Dosk.getRowsData(this.elts.productsTable);
-        items = items.filter(i => i.name && i.qty && i.buy_price && i.sell_price);
-
+        let items = Dosk.getRowsData(this.elts.productsTable, {
+            getters: {
+                product: el => ({name: el.value, id: el.product_id})
+            }
+        });
+        items = items.filter(i => i.product && i.qty && i.buy_price && i.sell_price);
         if(!d.invoice_no || !d.purchase_date || !items.length){
             alert('Please fill all inputs..')
             return;
         }
         
+        let attachment = '';
+        const file = d.attachment && d.attachment[0];
+        if(file){
+            log(file)
+            const resp = await this.uploadAction.do(file);
+            attachment = resp.filename;
+            log(attachment)
+        }
+
         const data = {
             vendor_id: this.currentVendorId,
             invoice_no: d.invoice_no,
             purchase_date: d.purchase_date,
             items,
+            attachment,
         }
         this.add_dimmer.show();
         try {
@@ -177,7 +214,7 @@ class ITS_Purchase{
         const td6 = crt_elt('td', tr);
 
         const pname = crt_elt('input', td1);
-        pname.name = 'name';
+        pname.name = 'product';
         pname.className = 'pname';
         pname.placeholder = 'Product name';
 
@@ -219,31 +256,6 @@ class ITS_Purchase{
         }
         
         this.productsMenu.link([pname]);
-    }
-
-    static async onSearch(query){
-        if(!this.data.products){
-            await this.loadProducts();
-        }
-
-        return this.searchProducts(query)
-    }
-
-    static async loadProducts(){
-        const data = await this.loadProductsAction.do();
-        this.data.products = data.items;
-    }
-
-    static searchProducts(query){
-        const s = query.toLowerCase();
-        const result = [];
-        for(let p of this.data.products){
-            if(p.name.toLowerCase().indexOf(s) != -1){
-                result.push(p);
-            }
-            if(result.length >= 20) break;
-        }
-        return result;
     }
 
 }

@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <link rel="stylesheet" type="text/css" href="css/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="css/products.css">
+    <link rel="stylesheet" type="text/css" href="css/account.css">
     <link rel="stylesheet" type="text/css" href="css/orders.css">
     <link rel="stylesheet" type="text/css" href="css/comps.css">
     <link rel="stylesheet" type="text/css" href="css/customers.css">
@@ -47,6 +48,7 @@
     <script type="text/javascript" src="scripts/cm/rtdc.js"></script>
     <script type="text/javascript" src="scripts/cm/dds/oca.js"></script>
     <script type="text/javascript" src="scripts/cm/gc.js"></script>
+    <script type="text/javascript" src="scripts/cm/dataAgent.js"></script>
     <script type="text/javascript" src="scripts/cm.js"></script>
 
     <script type="text/javascript" src="scripts/sl.js"></script>
@@ -98,6 +100,7 @@
     <script type="text/javascript" src="scripts/tests.js"></script>
     <script type="text/javascript" src="scripts/cm/reno/FSDB.js"></script>
     <script type="text/javascript" src="scripts/cm/reno.js"></script>
+    <script type="text/javascript" src="scripts/loader.js"></script>
     <script type="text/javascript" src="scripts/index.js"></script>
     <script type="text/javascript" src="libs/quo.js"></script>
     <script type="text/javascript" src="libs/long-press-event.js"></script>
@@ -182,7 +185,7 @@
                     <i class="newspaper colored colored icon"></i> Banners
                 </a>
                 <a class="item" action="promos" rss="1">
-                    <i class="newspaper colored colored icon"></i> Promotion
+                    <i class="newspaper colored colored icon"></i> Promo Boxes
                 </a>
                 <a class="item" action="users" param="normal">
                     <i class="users colored colored icon"></i> Users
@@ -378,7 +381,7 @@
                 </div>
                 <div class="msegment">
                     <label class="title">Other</label>
-                    <input id="pos_other" type="text" value="" placeholder="0.00" />
+                    <input id="pos_other" type="text" value="0.00" placeholder="0.00" />
                 </div>
                 <div class="msegment last">
                     <label class="title">Total</label>
@@ -477,6 +480,9 @@
                         <div class="field">
                             <label>Description</label>
                             <textarea id="prt_description" style="resize: none;"></textarea>
+                        </div>
+                        <div class="field" id="prt_tags_parent">
+                            <label>Tags</label>
                         </div>
                         <div class="field">
                             <label>Primary image</label>
@@ -785,9 +791,8 @@
                     <button id="banner_img_btn" class="ui button" style="margin: 10px;">Change image</button>
                 </div>
                 <hr />
-                <div class="field">
-                    <label>Link</label>
-                    <textarea id="banner_link" placeholder="Seperate products IDs by ',' ex: 47,57,32"></textarea>
+                <div id="banner_link_parent" class="field">
+                    <label>Link Products</label>
                 </div>
             </div>
         </div>
@@ -854,7 +859,7 @@
             <div class="ui top attached tabular menu" for="set_tabs">
                 <div class="active item">Store</div>
                 <div class="item">Contact</div>
-                <div class="item">Payment</div>
+                <div class="item" id="setting_menu_payment">Payment</div>
                 <div class="item">Other</div>
                 <button onclick="setting.saveBtnClick()" class="tabMenuRightButton">
                     <i class="save icon"></i>
@@ -1108,7 +1113,10 @@
                 <label>Type:</label>
                 <span class="nomargin" id="acc_type"></span>
                 <label>Username:</label>
-                <span class="nomargin" id="acc_username"></span>
+                <span class="nomargin" id="acc_username" style="margin-right: 0px !important;"></span>
+                <button class="mtm button flat" onclick="account.changeUsernameClick()">
+                    <i class="edit icon"></i>Change
+                </button>
             </h4>
             <div class="mtm page page_account_maincontent">
                 <div class="header">
@@ -1168,9 +1176,8 @@
                     <button id="promo_img_btn" class="ui button" style="margin: 10px;">Change image</button>
                 </div>
                 <hr />
-                <div class="field">
-                    <label>Link</label>
-                    <textarea id="promo_link" placeholder="Seperate products IDs by ',' ex: 47,57,32"></textarea>
+                <div id="promo_link_parent" class="field">
+                    <label>Link Products</label>
                 </div>
             </div>
         </div>
@@ -1283,8 +1290,8 @@
                         <th>Purchase Date</th>
                         <th>Purchase value</th>
                         <th>Invoice/Bill No.</th>
-                        <th>Total items</th>
                         <th>Added date</th>
+                        <th>Attachment</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1300,7 +1307,7 @@
                             Vendor Id: <span id="page_its_add_purchase_vendor_id"></span>
                         </span>
                 </h4>                
-                <div class="two fields">
+                <div class="three fields">
                     <div class="field">
                         <label>Invoice/Bill No.</label>
                         <input name="invoice_no" placeholder="Invoice/Bill No."/>
@@ -1308,6 +1315,10 @@
                     <div class="field">
                         <label>Purchase date</label>
                         <input type="date" name="purchase_date"/>
+                    </div>
+                    <div class="field">
+                        <label>Attachment</label>
+                        <input type="file" name="attachment"/>
                     </div>
                 </div>
             </div>
@@ -1703,13 +1714,8 @@
             </div>
         </div>
 
-        
         <div id="pos_popup" class="popup">
             <div class="mform" id="pos_pp_form">
-                <div class="field">
-                    <label>Total</label>
-                    <label id="pos_pp_total" class="input" value="0.00"></label>
-                </div>
                 <div class="field">
                     <label>Customer name</label>
                     <input id="pos_pp_customer" placeholder="Customer name"/>
@@ -1718,8 +1724,39 @@
                     <label>Phone number</label>
                     <input id="pos_pp_phone" placeholder="Phone number"/>
                 </div>
+                <div class="field">
+                    <label>Payment method</label>
+                    <select id="pos_pp_payment_method">
+                        <option value="cash">Cash</option>
+                        <option value="digital">Card/Net banking/UPI</option>
+                        <option value="credit">Credit</option>
+                    </select>
+                </div>
+                <div class="ui dimmable field change section">
+                    <label class="input" >Total</label>
+                    <label id="pos_pp_total" class="input total" ></label>
+                    <div class="ui labeled input paid">
+                        <label>Paid amount:</label>
+                        <input id="pos_pp_paid" class="paid" type="number" min="0" placeholder="0.00" style="width: unset !important;"/>
+                    </div>
+                    <label class="input" >Change: <span id="pos_pp_change">0.00 £</span></label>
+                    <div id="pos_pp_change_dimmer" class="ui inverted dimmer"></div>
+                </div>
             </div>
             <button id="pos_pp_submit" onclick="pos.submit()" class="ui button fullw">Submit</button>
+        </div>
+
+        <div id="username_popup" class="popup">
+            <h4 class="header">
+                Change Username
+            </h4>
+            <div class="mform">
+                <div class="field">
+                    <label>New Username</label>
+                    <input id="username_pp_input" type="text" placeholder="Username">
+                </div>
+            </div>
+            <button class="submitButton fullw" onclick="account.submitUsernameClick()">Change</button>
         </div>
 
     </div>

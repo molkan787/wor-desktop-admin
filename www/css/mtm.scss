@@ -22,17 +22,19 @@
     color: #DCDCDC;
 }
 
-.mform>.field>input, .mform>.field>.input {
-    display: inline-block;
-    border: none !important;
-    background-color: transparent !important;
-    width: 100% !important;
-    font-size: 15px !important;
-    font-weight: bold !important;
-    color: #212121 !important;
-    margin-top: 4px !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
+.mform>.field{
+    input, select, .input{
+        display: inline-block;
+        border: none !important;
+        background-color: transparent !important;
+        width: 100% !important;
+        font-size: 15px !important;
+        font-weight: bold !important;
+        color: #212121 !important;
+        margin-top: 4px !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+    }
 }
 
 .submitButton {
@@ -91,6 +93,10 @@
     padding: 14px;
     cursor: pointer;
     transition: background-color .5s;
+
+    &.flat{
+        background-color: transparent;
+    }
 
     &.inverted{
         background-color: rgb(252, 252, 252);
@@ -565,7 +571,7 @@ select {
 
 .floatingList{
     position: fixed;
-    z-index: 2001;
+    z-index: 3001;
     top: 0;
     left: 0;
     height: 200px;
@@ -647,4 +653,47 @@ select {
         text-align: right;
     }
 
+}
+
+.tagInput{
+    $item-height: 34px;
+    background-color: #F9F9F9;
+    padding: 10px 10px 6px 10px;
+    border-radius: 12px;
+    input{
+        height: $item-height !important;
+        display: inline-block !important;
+        background-color: transparent !important;
+        border: none !important;
+        width: 230px !important;
+    }
+    span{
+        height: $item-height !important;
+        display: inline-block !important;
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 4px;
+        box-sizing: border-box;
+        padding: 5px 14px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+        font-weight: bold;
+        i{
+            margin: 1px -6px 0 8px !important;
+            color: #bbb;
+            cursor: pointer;
+            &:hover{
+                color: #999;
+            }
+        }
+    }
+}
+
+.color{
+    &.positive{
+        color: #21BA45;
+    }
+    &.negative{
+        color: #DB2828;
+    }
 }

@@ -27,6 +27,7 @@ function setting_init() {
 
         // Methods
         update: function () {
+            Rights.check('payment_setting') ? showElt('setting_menu_payment', 'flex') : hideElt('setting_menu_payment');
             this.dimc.show();
             this.loadAction.do();
         },

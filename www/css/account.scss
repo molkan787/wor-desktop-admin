@@ -1,0 +1,11 @@
+#username_popup{
+    $w: 400px;
+    $h: 212px;
+    width: $w !important;
+    height: $h !important;
+    margin-left: $w / -2 !important;
+    margin-top: $h / -2 !important;
+    .mform{
+        margin: 22px 0;
+    }
+}

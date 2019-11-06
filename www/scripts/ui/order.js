@@ -169,9 +169,14 @@ function ui_order_init() {
 
         // Handlers
         actionIconClick: function () {
-            if (!account.hasWriteAccess('orders')) return;
+            const allowMarkAsDeliveredOnly = userType() == 14;
+            if (!account.hasWriteAccess('orders') && !allowMarkAsDeliveredOnly) return;
             if (!order.dimc.visibile) {
                 order.showOptions();
+                if(allowMarkAsDeliveredOnly){
+                    attr(order.elts.btnOut4Delivery, 'disabled', '1');
+                    attr(order.elts.btnPending, 'disabled', '1');
+                }
             }
         },
 

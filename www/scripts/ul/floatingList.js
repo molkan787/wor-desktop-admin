@@ -5,6 +5,7 @@ class FloatingList{
         this.elt = FloatingList.createElt();
 
         this.autoValueSet = config && config.autoValueSet || false;
+        this.autoClearInput = config && config.autoClearInput && !this.autoValueSet || false;
         this.textProp = config && config.textProp || 'text';
         this.onSelected = config && config.onSelected;
         this.onSearch = config && config.onSearch;
@@ -13,8 +14,10 @@ class FloatingList{
     link(selector){
         const elts = typeof selector == 'string' ? document.querySelectorAll(selector) : selector;
         for(let elt of elts){
+            elt.addEventListener('focus', () => this.open(elt));
             elt.addEventListener('input', () => this.open(elt));
             elt.addEventListener('blur', () => {
+                this._setInputValue();
                 elt.scrollLeft = 0
                 this.hide()
             });
@@ -57,12 +60,20 @@ class FloatingList{
 
     itemClick(data){
         if(this.autoValueSet && this._currentElt){
-            const prop = this._currentElt.tagName == 'INPUT' ? 'value' : 'innerText';
-            this._currentElt[prop] = data[this.textProp];
+            const text = data[this.textProp];
+            this._setInputValue(text);
+            this._currentElt.setAttribute('fl-bktext', text);
         }
         if(this.onSelected){
-            this.onSelected(data);
+            if(this.autoClearInput) this._setInputValue('');
+            this.onSelected(data, this._currentElt);
         }
+    }
+
+    _setInputValue(val){
+        const value = val || this._currentElt.getAttribute('fl-bktext');
+        const prop = this._currentElt.tagName == 'INPUT' ? 'value' : 'innerText';
+        this._currentElt[prop] = value;
     }
 
     show(attachElt){

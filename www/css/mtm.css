@@ -24,7 +24,7 @@
   color: #DCDCDC;
 }
 
-.mform > .field > input, .mform > .field > .input {
+.mform > .field input, .mform > .field select, .mform > .field .input {
   display: inline-block;
   border: none !important;
   background-color: transparent !important;
@@ -96,6 +96,10 @@
   cursor: pointer;
   -webkit-transition: background-color .5s;
   transition: background-color .5s;
+}
+
+.mtm.button.flat {
+  background-color: transparent;
 }
 
 .mtm.button.inverted {
@@ -626,7 +630,7 @@ select {
 
 .floatingList {
   position: fixed;
-  z-index: 2001;
+  z-index: 3001;
   top: 0;
   left: 0;
   height: 200px;
@@ -730,5 +734,51 @@ select {
 
 .notify.pan .buttons {
   text-align: right;
+}
+
+.tagInput {
+  background-color: #F9F9F9;
+  padding: 10px 10px 6px 10px;
+  border-radius: 12px;
+}
+
+.tagInput input {
+  height: 34px !important;
+  display: inline-block !important;
+  background-color: transparent !important;
+  border: none !important;
+  width: 230px !important;
+}
+
+.tagInput span {
+  height: 34px !important;
+  display: inline-block !important;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 5px 14px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.tagInput span i {
+  margin: 1px -6px 0 8px !important;
+  color: #bbb;
+  cursor: pointer;
+}
+
+.tagInput span i:hover {
+  color: #999;
+}
+
+.color.positive {
+  color: #21BA45;
+}
+
+.color.negative {
+  color: #DB2828;
 }
 /*# sourceMappingURL=mtm.css.map */

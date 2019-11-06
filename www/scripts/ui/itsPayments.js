@@ -9,6 +9,7 @@ class ITS_Payments{
         this.loadAction = fetchAction.create('vendor/getPayments');
         this.editAction = fetchAction.create('vendor/addPayment');
         this.deleteAction = fetchAction.create('vendor/deletePayment');
+        this.uploadAction = fetchAction.create('files/upload');
 
         this.dimmer = ui.dimmer.create('page_its_payments', true);
         this.editDimmer = ui.dimmer.create('page_its_add_payment', true);
@@ -45,7 +46,14 @@ class ITS_Payments{
                 cells: ['payment_date', 'amount', 'payment_method', 'reference', 'receiver_name', 'attachment'],
                 formats: { amount: val => fasc.formatPrice(val), payment_method: m => m.toUpperCase() },
                 defaults: {reference: '---', attachment: '---'},
-                buttons: btns
+                buttons: btns,
+                cellButtons: {
+                    attachment: {
+                        skipIfNoValue: true,
+                        text: 'Download',
+                        onClick: (fn, btn) => this.downloadAttachement(fn, btn)
+                    }
+                }
             });
             tooltip('.del_pay_btn', 'Delete')
             tooltip('.show_pay_btn', 'Show details')
@@ -54,6 +62,20 @@ class ITS_Payments{
             error_msg3();
         }
         this.dimmer.hide();
+    }
+
+    static async downloadAttachement(filename, button){
+        loading(button, true);
+        try {
+            const file = await download(dm.URL_BASE + 'user_files/' + filename);
+            const showFile = await confirm(txt('attachment_download_success'), {yesText: 'Open', noText: 'Close'});
+            if(showFile){
+                showFileInExplorer(file.filePath);
+            }
+        } catch (error) {
+            error_msg1();
+        }
+        loading(button, false);
     }
 
     static updateEdit(params){
@@ -77,12 +99,20 @@ class ITS_Payments{
 
         if(Reacto.validateData(this.editForm, {check: true, exclude: ['attachment', 'reference']})){
             this.editDimmer.show('Saving');
-            const data = {vendor_id: this.currentVendorId, ...this.editForm.__data};
+            
             try {
+                const data = {vendor_id: this.currentVendorId, ...this.editForm.__data};
+                const attachment = this.editForm.data.attachment && this.editForm.data.attachment[0];
+                // this.editForm.data.attachment = '';
+                if(attachment){
+                    const resp = await this.uploadAction.do(attachment);
+                    data.attachment = resp.filename;
+                }
                 await this.editAction.do({data});
                 await msg1();
                 goBack(true);
             } catch (error) {
+                console.error(error)
                 error_msg2();
             }
             this.editDimmer.hide();

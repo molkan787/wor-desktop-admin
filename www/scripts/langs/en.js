@@ -64,7 +64,9 @@
     user_11: 'Store Admin',
     user_12: 'Sub Admin',
     user_13: 'Inventory Boy',
-    user_14: 'Delivery Boy'
+    user_14: 'Delivery Boy',
+
+    attachment_download_success: 'The attachement was successfully downloaded and can be found inside folder "WalkOnRetail" on the desktop.',
 };
 
 function txt(textName) {

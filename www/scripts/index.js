@@ -16,9 +16,10 @@
     // global.req = name => require('electron').remote.require(name);
 
     window.alert = text => Message.info(text);
-    window.confirm = text => Message.ask(text);
+    window.confirm = (text, options) => Message.ask(text, options);
 
-    window.onload = function () {
+    window.onload = async function () {
+        await loadScripts();
         sl_init();
         cm_init();
         ui_init();

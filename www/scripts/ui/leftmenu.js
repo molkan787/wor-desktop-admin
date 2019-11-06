@@ -148,7 +148,7 @@ function leftmenu_init() {
             this.setCurrentItem(this.itemsMap[page])
             
             if(config.devMode){
-                navigate(config.dev.firstPage);
+                navigate(config.dev.firstPage, config.dev.firstPageParam);
             }else{
                 navigate(page);
             }

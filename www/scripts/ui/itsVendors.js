@@ -56,15 +56,23 @@ class ITS_VENDORS{
         val('page_its_edit_vendor_id', this.currentVendorId);
         if(this.currentVendorId == 'new'){
             this.editData.clear();
+            this.enableForm();
         }else{
             this.editData.patch(data);
+            if(userType() == 13){
+                this.disableForm();
+                hideHbFab();
+            }else{
+                this.enableForm();
+            }
         }
     }
 
     static loadItems(items){
+        const limited = userType() == 13;
         clearRows(this.elts.table)
         for(let item of items){
-            this._createRow(item);
+            this._createRow(item, limited);
         }
 
         const tippy_config = {
@@ -75,26 +83,28 @@ class ITS_VENDORS{
             theme: 'light',
             duration: 200
         };
-        tippy_config.content = 'Edit vendor details';
+        tippy_config.content = limited ? 'View vendor details' : 'Edit vendor details';
         tippy('.its_ven_edit', tippy_config);
 
         tippy_config.content = 'Add new purchase';
         tippy('.its_ven_purchase', tippy_config);
 
-        tippy_config.content = 'Make payment';
-        tippy('.its_ven_payment', tippy_config);
+        if(!limited){
+            tippy_config.content = 'Make payment';
+            tippy('.its_ven_payment', tippy_config);
 
-        tippy_config.content = 'Payments history';
-        tippy('.its_ven_pay_his', tippy_config);
+            tippy_config.content = 'Payments history';
+            tippy('.its_ven_pay_his', tippy_config);
 
-        tippy_config.content = 'Purchase history';
-        tippy('.its_ven_pur_his', tippy_config);
+            tippy_config.content = 'Purchase history';
+            tippy('.its_ven_pur_his', tippy_config);
 
-        tippy_config.content = 'Delete';
-        tippy('.its_ven_delete', tippy_config);
+            tippy_config.content = 'Delete';
+            tippy('.its_ven_delete', tippy_config);
+        }
     }
 
-    static _createRow(data){
+    static _createRow(data, limited){
         const table = this.elts.table;
         const tr = table.tBodies[0].insertRow(table.rows.length-1);
         const el_id = crt_elt('td', tr);
@@ -107,10 +117,12 @@ class ITS_VENDORS{
 
         const btn_edit = crt_elt('button', el_buttons);
         const btn_purchase = crt_elt('button', el_buttons);
-        const btn_payment = crt_elt('button', el_buttons);
-        const btn_pay_his = crt_elt('button', el_buttons);
-        const btn_pur_his = crt_elt('button', el_buttons);
-        const btn_delete = crt_elt('button', el_buttons);
+
+        const parent = limited ? null : el_buttons;
+        const btn_payment = crt_elt('button', parent);
+        const btn_pay_his = crt_elt('button', parent);
+        const btn_pur_his = crt_elt('button', parent);
+        const btn_delete = crt_elt('button', parent);
 
         btn_edit.className = 'its_ven_edit';
         btn_purchase.className = 'its_ven_purchase';
@@ -120,7 +132,7 @@ class ITS_VENDORS{
         btn_delete.className = 'its_ven_delete';
 
         class_add([btn_edit, btn_purchase, btn_payment, btn_pay_his, btn_pur_his, btn_delete], 'mtm inverted button row_btn')
-        crt_icon('edit nm', btn_edit)
+        crt_icon((limited ? 'info' : 'edit') + ' nm', btn_edit)
         crt_icon('shopping basket nm', btn_purchase)
         crt_icon('money bill nm', btn_payment)
         crt_icon('history nm', btn_pay_his)
@@ -156,6 +168,19 @@ class ITS_VENDORS{
         }else{
             hideElt(btn_delete);
         }
+    }
+
+    static disableForm(){
+        const inputs = document.querySelectorAll('#page_its_edit_vendor *[name]');
+        for(let inp of inputs) inp.disabled = true;
+        const btns = document.querySelectorAll('#page_its_edit_vendor button');
+        for(let btn of btns) btn.style.display = 'none';
+    }
+    static enableForm(){
+        const inputs = document.querySelectorAll('#page_its_edit_vendor *[name]');
+        for(let inp of inputs) inp.disabled = false;
+        const btns = document.querySelectorAll('#page_its_edit_vendor button');
+        for(let btn of btns) btn.style.display = 'unset';
     }
 
     static async save(){

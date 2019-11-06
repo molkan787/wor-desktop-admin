@@ -331,6 +331,11 @@ function onSubmit(elt, handler){
     });
 }
 
+const _alnum_exp = "^[a-zA-Z0-9]*$";
+function isAlphaNumeric(str){
+    return str.match(_alnum_exp);
+}
+
 function alphaSort(arr, prop){
     if(!(arr instanceof Array)) return arr;
     const _prop = prop || 'text';
@@ -357,6 +362,7 @@ async function downloadFile(sourceUrl, targetFile, progressCallback, length) {
   }
   
   const finalLength = length || parseInt(response.headers.get('Content-Length') || '0', 10);
+  log(response.headers)
   const reader = body.getReader();
   const writer = fs.createWriteStream(targetFile);
 
@@ -410,3 +416,73 @@ function tooltip(elt, content){
 
 const int = v => parseInt(v);
 const flaot = v => parseFloat(v);
+const float = v => parseFloat(v);
+
+const __emptyOnFocusInHandler = function(){
+    this.setAttribute('placeholder', this.value);
+    this.value = '';
+}
+const __emptyOnFocusOutHandler = function(){
+    if(!this.value){
+        this.value = this.getAttribute('placeholder');
+    }
+}
+function emptyOnFocus(elt){
+    elt.addEventListener('focus', __emptyOnFocusInHandler);
+    elt.addEventListener('blur', __emptyOnFocusOutHandler);
+}
+
+function loading(_elt, state){
+    const elt = get(_elt);
+    if(state){
+        class_add(elt, 'loading');
+        attr(elt, 'disabled', 1);
+    }else{
+        class_rm(elt, 'loading');
+        attr_rm(elt, 'disabled');
+    }
+}
+
+
+function postFile(url, file){
+    return new Promise((resolve, reject) => {
+        const form_data = new FormData();                  
+        form_data.append('file', file);                 
+        $.ajax({
+            url: url, // point to server-side PHP script 
+            dataType: 'json',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(response){
+                resolve(response);
+            },
+            error:function(jqXHR, textStatus, errorThrown){
+                console.log(jqXHR)
+                console.log(textStatus)
+                console.error(errorThrown)
+                reject(errorThrown);
+            }
+         });
+    });
+}
+
+const edm = require("electron").remote.require("electron-download-manager");
+function download(url){
+    return new Promise((resolve, reject) => {
+        edm.download({ url }, function (error, info) {
+            if (error) {
+                reject(error);
+                return;
+            }
+            resolve(info);
+        });
+    });
+}
+
+function showFileInExplorer(filename){
+    const shell = require('electron').remote.shell;
+    shell.showItemInFolder(filename);
+}

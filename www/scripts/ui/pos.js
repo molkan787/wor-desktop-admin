@@ -21,8 +21,19 @@ function pos_init() {
             ppTotal: get('pos_pp_total'),
             ppCustomer: get('pos_pp_customer'),
             ppPhone: get('pos_pp_phone'),
+            ppPaymentMethod: get('pos_pp_payment_method'),
+            ppPaid: get('pos_pp_paid'),
+            ppChange: get('pos_pp_change'),
             ppSubmit: get('pos_pp_submit'),
         },
+
+        customersMenu: new FloatingList({
+            autoValueSet: true,
+            textProp: 'name',
+            valueProp: 'customer_id',
+            onSearch: q => DataAgent.searchCustomers(q),
+            onSelected: data => pos.setCustomer(data),
+        }),
 
         dimmer: ui.dimmer.create('page_pos', true),
 
@@ -47,6 +58,11 @@ function pos_init() {
                 }
             }
             return true;
+        },
+
+        setCustomer(data){
+            this.customer = data;
+            val(this.elts.ppPhone, data.telephone);
         },
 
         submit: function () {
@@ -75,6 +91,7 @@ function pos_init() {
                 other_val: other_val,
                 customerName: val(this.elts.ppCustomer),
                 customerPhone: val(this.elts.ppPhone),
+                pay_method: val(this.elts.ppPaymentMethod),
             })
             .then((data) => {
                 rtdc.addExcludes(data.order_id);
@@ -196,7 +213,7 @@ function pos_init() {
             this.cart = {};
             this.cartItemsData = {};
             this.elts.cItems.innerHTML = '';
-            val(this.elts.other, '');
+            val(this.elts.other, '0.00');
             this.updateTotal();
         },
 
@@ -245,7 +262,7 @@ function pos_init() {
                     subtotal += net;
                 }
             }
-            var other_val = parseFloat(val(this.elts.other));
+            var other_val = parseFloat(val(this.elts.other) || '0');
 
             this._total = total;
             this.total = total + other_val;
@@ -258,7 +275,7 @@ function pos_init() {
         },
 
         _updateTotal: function () {
-            var other_val = parseFloat(val(this.elts.other));
+            var other_val = parseFloat(val(this.elts.other) || '0');
             this.total = this._total + other_val;
 
             val(this.elts.other, fasc.formatPrice(other_val, true));
@@ -331,6 +348,13 @@ function pos_init() {
             }
         },
 
+        updateItemCount(){
+            const pid = this.pid;
+            const count = int(this.value);
+            const diff = count - pos.cart[pid];
+            pos.setProductCount(pid, diff);
+        },
+
         createRow: function (data) {
             var tr = crt_elt('tr');
             var td1 = crt_elt('td', tr);
@@ -340,9 +364,13 @@ function pos_init() {
             var img = crt_elt('img', td1);
             var lbl = crt_elt('label', td3);
             var l_i1 = crt_elt('i', lbl);
-            var l_lbl = crt_elt('label', lbl);
+            var l_lbl = crt_elt('input', lbl);
             var l_i2 = crt_elt('i', lbl);
             var rm_icon = crt_icon('trash bin', td4)
+
+            l_i1.setAttribute('tabIndex', 2);
+            l_lbl.setAttribute('tabIndex', 3);
+            l_i2.setAttribute('tabIndex', 4);
 
             td1.className = 'first toe';
             td1.appendChild(crt_txt(data.name));
@@ -354,6 +382,11 @@ function pos_init() {
             val(l_lbl, '1');
             l_i2.className = 'plus icon';
 
+            l_lbl.type = 'number';
+            l_lbl.min = 0;
+            emptyOnFocus(l_lbl);
+            l_lbl.addEventListener('blur', this.updateItemCount);
+            l_lbl.pid = data.id;
             l_lbl.id = 'pos_row_count_' + data.id;
             tr.id = 'pos_row_' + data.id;
 
@@ -448,7 +481,6 @@ function pos_init() {
         },
 
         submitActionCallback: function (action) {
-            console.log(action.data);
             if (action.status == 'OK') {
                 // msg.show(txt('pos_success', action.data.order_id));
             } else {
@@ -459,9 +491,21 @@ function pos_init() {
 
         showSubmitPopup(){
             val(this.elts.ppTotal, fasc.formatPrice(this.total));
+            val(this.elts.ppPaid, float(this.total));
             val(this.elts.ppCustomer, '');
             val(this.elts.ppPhone, '');
+            val(this.elts.ppPaymentMethod, 'cash');
+            this.elts.ppPaymentMethod.onchange();
             ui.popup.show(this.elts.popup);
+        },
+
+        updateChange(){
+            const paid = float(val(this.elts.ppPaid));
+            const total = float(this.total);
+            const change = paid - total;
+            const colorClass = change == 0 ? '' : (change > 0 ? 'positive' : 'negative');
+            val(this.elts.ppChange, fasc.formatPrice(change))
+            this.elts.ppChange.className = colorClass + ' color';
         },
 
         // Handlers
@@ -478,10 +522,10 @@ function pos_init() {
             pos.removeProduct(attr(this, 'pid'));
         },
         searchBoxChanged: function () {
-            pos.search(this.value);
+            pos.search(this.value.trim());
         },
         searchCatChange(){
-            pos.search(pos.elts.search.value);
+            pos.search(pos.elts.search.value.trim());
         },
         clearBtnClick: function () {
             pos.clearCart();
@@ -500,12 +544,33 @@ function pos_init() {
         }
     };
 
+    pos.elts.other.onfocus = function () {
+        if(float(this.value || '0') == 0){
+            this.value = '';
+        }
+    };
+    pos.elts.other.onblur = function(){
+        if(!this.value){
+            this.value = '0.00';
+        }
+    };
+
+    pos.customersMenu.link([pos.elts.ppCustomer]);
+
     pos.elts.clearBtn.onclick = pos.clearBtnClick;
     pos.elts.search.onkeyup = pos.searchBoxChanged;
     pos.elts.loadDataBtn.onclick = pos.loadDataBtnClick;
     pos.elts.submitBtn.onclick = pos.submitBtnClick;
     pos.elts.searchCats.onchange = pos.searchCatChange;
     pos.elts.other.onchange = pos.otherValueChanged;
+
+    emptyOnFocus(pos.elts.ppPaid);
+    pos.elts.ppPaid.oninput = () => pos.updateChange();
+
+    pos.elts.ppPaymentMethod.onchange = function () {
+        const pane = get('pos_pp_change_dimmer');
+        pane.className = 'ui inverted dimmer ' + (this.value == 'cash' ? '' : 'active');
+    }
 
     pos.loadAction = fetchAction.create('pos/listProducts', function (action) { pos.loadActionCallback(action) });
     pos.submitAction = fetchAction.create('pos/addOrder', function (action) { pos.submitActionCallback(action) });

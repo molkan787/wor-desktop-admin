@@ -70,12 +70,13 @@ class Message{
         });
     }
 
-    static ask(text){
+    static ask(text, options){
+        const {yesText, noText} = (options || {});
         return new Promise(resolve => {
             this.callback = resolve;
             this.cancelBtn.style.visibility = 'visible';
-            val(this.okBtn, 'YES');
-            val(this.cancelBtn, 'NO');
+            val(this.okBtn, yesText || 'YES');
+            val(this.cancelBtn, noText || 'NO');
             val(this.textElt, text);
             this._show();
         });

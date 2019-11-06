@@ -58,6 +58,7 @@ function _fetch_action_create(req, callback) {
         req: req,
         callback: callback,
         data: null,
+        debug: false,
 
         do: function (params, req, ref) {
             return new Promise((resolve, reject) => {
@@ -68,18 +69,17 @@ function _fetch_action_create(req, callback) {
                 if (typeof req == 'string') this.req = req;
                 if (typeof ref == 'string') this.ref = ref;
                 this.isBusy = true;
-                var isPostReq = (typeof params == 'string');
+                const isPostReq = (typeof params == 'string');
                 this.params = params;
-                var _this = this;
-                var url = dm._getApiUrl(this.req, isPostReq ? null : params);
+                const _this = this;
+                const url = dm._getApiUrl(this.req, isPostReq ? null : params);
                 this.__url = url;
-                if (action_debug) log(url);
-                if (isPostReq) {
-                    // httpPostText(url, params, function (resp) {
-                    //     _this.__cb(resp);
-                    // }, function () {
-                    //     _this.__fcb();
-                    // });
+                if (action_debug || this.debug) log(url);
+                if(params instanceof File){
+                    postFile(url, params)
+                    .then(resp => this.__cb(resp))
+                    .catch(err => console.error(err));
+                }else if (isPostReq) {
                     axios.post(url, params)
                     .then(resp => this.__cb(resp.data))
                     .catch(err => this.__fcb(err));
@@ -116,7 +116,7 @@ function _fetch_action_create(req, callback) {
         },
 
         __cb: function (resp) {
-            if (action_debug) log(resp);
+            if (action_debug || this.debug) log(resp);
             try {
                 resp = typeof resp == 'object' ? resp : JSON.parse(resp);
             } catch (ex) {
