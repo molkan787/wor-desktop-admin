@@ -151,5 +151,5 @@ function promos_init() {
     promos.saveAction = fetchAction.create('promos/editOrder', function (action) { promos.saveActionCallback(action); });
     promos.deleteAction = fetchAction.create('promos/delete', function (action) { promos.deleteActionCallback(action); });
 
-    registerPage('promos', promos.elt, 'Branding and Promotion', function () { promos.update(); });
+    registerPage('promos', promos.elt, 'Promo Boxes', function () { promos.update(); });
 }

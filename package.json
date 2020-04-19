@@ -1,19 +1,21 @@
 {
-  "name": "pl.drmstudio.wor.admindesktop",
-  "version": "1.0.7",
+  "name": "pl.dahmane.wor.admindesktop",
+  "version": "1.0.18",
+  "versionCode": 10018,
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dist": "build"
   },
-  "author": "DrmStudio.pl",
+  "author": "Dahmane Seghier @ dahmane.pl",
   "license": "ISC",
   "devDependencies": {
+    "electron": "6.0.11",
     "electron-builder": "^20.39.0"
   },
   "build": {
-    "appId": "pl.drmstudio.wor.admindesktop",
+    "appId": "pl.dahmane.wor.admindesktop",
     "productName": "WOR Admin",
     "win": {
       "target": [
@@ -36,9 +38,10 @@
     "axios": "^0.19.0",
     "chartist": "^0.11.2",
     "electron-download-manager": "^2.1.2",
-    "escpos": "^2.4.11",
+    "escpos": "^2.5.2",
     "jquery": "^3.4.0",
     "print-js": "^1.0.61",
+    "request": "^2.88.0",
     "sortablejs": "^1.8.4",
     "tippy.js": "^4.3.5",
     "uuid": "^3.3.3"

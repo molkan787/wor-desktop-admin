@@ -3,7 +3,7 @@
 function dm_init() {
     dm_oca_init();
     cm.dm = dm;
-    dm.storeId = 1;
+    dm.storeId = -1;
     dm.apiToken = window.localStorage.getItem('api_token');
     dm.callbacks = [];
 
@@ -23,6 +23,7 @@ function dm_init() {
     };
 
     dm.setAsd = function (data) {
+        this.cps = data.cps_categories;
         this.cats = data.categories.cats;
         this.subcats = data.categories.subcats;
         this.contactInfo = data.contact_info;
@@ -31,7 +32,7 @@ function dm_init() {
     };
 
     dm.updateCat = function (parent, data, gtype) {
-        var items = parseInt(parent) ? this.subcats[parent] : this.cats;
+        var items = (parseInt(parent) ? this.subcats[parent] : this.cats) || [];
         var found = false;
         for (var i = 0; i < items.length; i++) {
             var item = items[i];

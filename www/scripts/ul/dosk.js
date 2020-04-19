@@ -45,9 +45,10 @@ class Dosk{
     }
 
     static getRowsData(table, options){
+        const selector = (options && options.selector) || 'tbody tr';
         const getters = options && options.getters;
         const result = [];
-        const rows = table.querySelectorAll('tbody tr');
+        const rows = table.querySelectorAll(selector);
         for(let row of rows){
             const data = this.getData(row, true, getters);
             if(data){

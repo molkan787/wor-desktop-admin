@@ -15,7 +15,7 @@ class POSReceiptBuilder {
         this.nameLength = this.lineLength - this.totalLength - this.priceLength - this.quantityLength - this.numLength - 4;
 
         this.tPriceLength = this.totalLength;
-        this.tNameLength = 15;
+        this.tNameLength = 23;
 
         this.spaceChar = ' ';
         this.separatorChar = '-';
@@ -54,8 +54,15 @@ class POSReceiptBuilder {
         }
         this._emptyLine();
 
-        this._line(`Order ID: ${data.orderId}`);
+        this._line(`Order Number: ${data.orderId}`);
+        this._line(`Order Date: ${data.date}`);
         this._line(`Customer Name: ${data.client}`);
+        this._line(`Mobile No: ${data.phone}`);
+        if(data.delivery_address_1){
+            this._line(`Address: ${data.delivery_address_1}`);
+            if(data.delivery_address_2) this._line(`         ${data.delivery_address_2}`);
+            if(data.delivery_city) this._line(`         ${data.delivery_city}`);
+        }
         // this._line(`Date: ${data.date}`);
         // this._line(`Cashier: ${data.cashier}`);
         this._emptyLine();
@@ -154,6 +161,33 @@ class POSReceiptBuilder {
             line += this._block(text, cell.len, cell.align || RIGHT);
         }
         this._line(line, LEFT);
+    }
+
+    paragraph(text, options){
+        const { indent } = options || {};
+        const words = text.split(' ');
+        let line = '';
+        let first = true;
+        for(let word of words){
+            const other = (indent && !first) ? indent + 1 : 1;
+            if(line.length + word.length + other > this.lineLength) {
+                if(!first && indent){
+                    this._line(' '.repeat(indent) + line);
+                }else{
+                    this._line(line);
+                }
+                first = false;
+                line = word;
+            }else{
+                if(line) line += ' ';
+                line += word;
+            }
+        }
+        if(!first && indent){
+            this._line(' '.repeat(indent) + line);
+        }else{
+            this._line(line);
+        }
     }
 
     // ===========================================

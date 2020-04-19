@@ -74,9 +74,9 @@
 
 #stores_popup_options {
     width: 70%;
-    height: 250px;
+    height: 288px;
     margin-left: -35%;
-    margin-top: -125px;
+    margin-top: -144px;
     text-align: center;
 }
 
@@ -94,7 +94,7 @@
     padding-top: 6px;
 }
 
-#stores_pp_options_visit {
+#stores_pp_options_visit, #stores_pp_options_edit {
     margin-bottom: 5px;
 }
 

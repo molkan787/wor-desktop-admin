@@ -102,6 +102,7 @@ function ui_order_init() {
 
         loadActionCallback: function (action) {
             if (action.status == 'OK') {
+                console.log(action.data)
                 this.orderData = action.data;
                 this.loadOrder(action.data);
             } else {

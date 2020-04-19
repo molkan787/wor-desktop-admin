@@ -1,19 +1,20 @@
+const packageJSON = require('../package.json');
 const config = {
 
     // =====================================
-    devMode: true,
-    useLocalServer: true,
+    devMode: false,
+    useLocalServer: false,
     // =====================================
 
-    appVersion: 10008,
-    appVersionName: '1.0.8',
+    appVersion: packageJSON.versionCode,
+    appVersionName: packageJSON.version,
 
     appNameShort: 'WOR Admin',
 
     // Dev config
     dev: {
-        firstPage: 'categories',
-        firstPageParam: '0'
+        firstPage: 'stores',
+        firstPageParam: ''
     },
     // =====================================
     dataAgentRetryTimeout: 5000,

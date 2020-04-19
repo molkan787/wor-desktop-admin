@@ -62,12 +62,17 @@ function master_setting_init() {
             val(this.elts.lsAd, data.ls_ad);
             val(this.elts.orderPhone, data.order_phone);
             val(this.elts.cities, '');
+            let regionsCount = 0;
             for (var i = 0; i < data.cities.length; i++) {
                 var city = data.cities[i];
                 this.data.cities[city.city_id] = city;
                 city._childs = {};
+                regionsCount += city.childs.length;
                 this.createCityPanel(city);
             }
+
+            val('msetts_cities_count', data.cities.length);
+            val('msetts_regions_count', regionsCount);
 
             var lang = val(this.elts.lang);
             val(this.elts.companyInfo, gls.company_info[lang]);
@@ -293,6 +298,9 @@ function master_setting_init() {
     masterSetting.elts.cppBtn.onclick = masterSetting.saveCityBtnClick;
     masterSetting.elts.addCityBtn.onclick = masterSetting.addCityBtnClick;
     masterSetting.elts.lang.onchange = masterSetting.langChanged;
+
+    get('mset_tabs_menu').onTabChanged =
+    idx =>get('msetts_stats_footer').style.display = idx == 1 ? 'block' : 'none'; 
 
     registerPage('master_setting', masterSetting.elt, 'Master Setting', function (param) {
         masterSetting.update(param);

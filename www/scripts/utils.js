@@ -486,3 +486,18 @@ function showFileInExplorer(filename){
     const shell = require('electron').remote.shell;
     shell.showItemInFolder(filename);
 }
+
+function waitUntil(checker){
+    return new Promise(resolve => {
+        const timer = setInterval(() => {
+            if(checker()){
+                clearInterval(timer)
+                resolve()
+            }
+        }, 25)
+    })
+}
+
+function rmSecFromDateTime(datetime){
+    return datetime.split(':').slice(0, 2).join(':');
+}

@@ -154,3 +154,13 @@
 .prt_image_item.disabled > img{
     opacity: 0.2;
 }
+
+
+#prt_qsplit .enabled.input{
+    line-height: 0.8;
+    zoom: 1.3;
+}
+#prt_qsplit_stbb{
+    height: 200px;
+    margin-top: -160px;
+}

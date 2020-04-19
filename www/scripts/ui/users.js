@@ -162,9 +162,10 @@ function users_init() {
             const td3 = crt_elt('td', tr);
             const td4 = crt_elt('td', tr);
             const td5 = crt_elt('td', tr);
+            const td6 = crt_elt('td', tr);
             const si = crt_elt('i', td4);
             const span = crt_elt('span', td4);
-            const btn = crt_elt('button', td5);
+            const btn = crt_elt('button', td6);
             const bi = crt_elt('i', btn);
 
             val(td1, data.username);
@@ -175,6 +176,8 @@ function users_init() {
             val(span, data.status == 1 ? 'Active' : 'Suspended');
             if (data.status != 1) td4.style.color = 'orangered';
             td4.className = 'pixed';
+
+            val(td5, rmSecFromDateTime(data.added_date));
 
             bi.className = 'setting icon';
             btn.append('Options');

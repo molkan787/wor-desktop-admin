@@ -20,6 +20,7 @@ function ui_products_init() {
             filterName: get('prts_filter_name'),
             filterDiscount: get('prts_filter_discount'),
             filterPopup: get('prts_popup'),
+            totalcount: get('prts_totalcount')
         },
         loadAction: null,
         deleteAction: null,
@@ -126,6 +127,7 @@ function ui_products_init() {
         update: function (param, page) {
             this.dimc.show();
             val(this.elts.prtsList, '');
+            val(this.elts.totalcount, '');
 
             this.ptype = param;
             this.prepareLayout();
@@ -137,16 +139,38 @@ function ui_products_init() {
                 this.filters.push({ name: 'ptype', value: param });
             }
 
+            this.ptype = param;
             this.itemsPerPage = param == 'cps' ? 150 : 20;
 
-            const page_n = page || 0;
-             
+            let page_n = page || 0;
+
+            if(typeof this.backup_pagen == 'number'){
+                if(this.ptype === this.backup_ptype){
+                    page_n = this.backup_pagen;
+                }
+                this.backup_pagen = null;
+            }
+            this.backup_ptype = this.ptype;
+
+            this.updateCatsList()
+            get('prts_cats').style.display = this.ptype == 'cps_admin' ? 'block' : 'none';
+            get('prts_copyByCat').style.display = this.ptype == 'cps' ? 'block' : 'none';
+            
+            this.page_n = page_n;
+
             this.filters.push({ name: 'start', value: page_n * this.itemsPerPage });
             this.filters.push({ name: 'limit', value: this.itemsPerPage });
             this.loadAction.refStart = page_n * this.itemsPerPage;
             this.loadAction.do(this.filters);
             this.filters.pop();
             this.filters.pop();
+        },
+
+        updateCatsList(){
+            const _cats = this.ptype ? dm.cps.cats : dm.cats;
+            var cats = _cats.filter(c => c.gtype == '0');
+            cats = alphaSort(cats, 'text');
+            setOptions(products.elts.filterCat, cats, true);
         },
 
         updateFilters: function () {
@@ -226,6 +250,9 @@ function ui_products_init() {
             if (action.status == 'OK') {
                 products.pagination.setState(action.refStart, action.data.items.length);
                 products.loadProducts(action.data.items);
+
+                if(products.ptype == 'cps_admin')
+                    val(products.elts.totalcount, 'Total count of products: ' + action.data.total);
             }
             products.dimc.hide();
         },
@@ -266,6 +293,7 @@ function ui_products_init() {
         },
 
         editButtonClick: function () {
+            products.backup_pagen = products.page_n;
             navigate('product', { 
                 pid: attr(this, 'pid'),
                 cps: products.ptype != ''
@@ -353,20 +381,10 @@ function ui_products_init() {
     products.cesl = cesl.init(products.elts.prtsList, null, function (sender, count) { products.ceslOnChange(sender, count); });
     products.elts.unselectBtn.onclick = () => products.cesl.uncheckAll();
 
+    tooltip(get('prts_cats'), 'Show CPS Categories');
+    
     registerPage('products', products.elt, 'Products', function (param, page) {
         products.update(param, page);
-    });
-
-    dm.registerCallback(function () {
-        var cats = [];
-        for (var i = 0; i < dm.cats.length; i++) {
-            var cat = dm.cats[i];
-            if (cat.gtype == '0') {
-                cats.push(cat);
-            }
-        }
-        cats = alphaSort(cats, 'text');
-        setOptions(products.elts.filterCat, cats, true);
     });
 
     Sortable.create(products.elts.prtsList, { handle: '.handle' });

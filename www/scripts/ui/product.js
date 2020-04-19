@@ -37,6 +37,8 @@ function ui_product_init() {
         saveAction: null,
         uploadAction: null,
         saveActionsChain: null,
+        
+        qsplitForm: Reacto.bindInputs('#prt_qsplit input'),
 
         dimc: ui.dimmer.create('prt_dimmer'),
 
@@ -78,13 +80,14 @@ function ui_product_init() {
             if (typeof data == 'string') {
                 data = { product_id: data, d: { 1: {}, 2: {} } };
             }
+            this.data.prtImage = '';
             this.loadedData = data;
             this.data.desc = data.d;
             this.data.lang = '1';
             this.elts.tags.setItemsFromString(this.data.desc[1].tag);
             val(this.elts.Lang, 1);
             val(this.elts.ID, data.product_id);
-            val(this.elts.Stock, data.quantity || '');
+            val(this.elts.Stock, this.cps ? '24' : (data.quantity || ''));
             val(this.elts.Barcode, data.barcode || '');
             val(this.elts.Spf, data.spf || '');
             val(this.elts.SpfUnit, data.spf_unit || '');
@@ -115,9 +118,16 @@ function ui_product_init() {
                     _this.createImageBlock(item.image, item.product_image_id);
                 });
             }
+
+            this.qsplitForm.data.enabled = true;
         },
 
         save: function () {
+            const name = val(this.elts.Title).trim();
+            if(name.length < 2){
+                alert('Please enter the name of the product.');
+                return;
+            }
             this.dimc.show('Saving');
 
             this.data.prtOldImages = [];
@@ -145,8 +155,8 @@ function ui_product_init() {
 
         getData: function () {
             const d = this.data.desc;
-            d[this.data.lang].name = val(this.elts.Title);
-            d[this.data.lang].description = val(this.elts.Desc);
+            d[this.data.lang].name = val(this.elts.Title).trim();
+            d[this.data.lang].description = val(this.elts.Desc).trim();
             d[this.data.lang].tag = this.elts.tags.getItemsAsString();
             var data = {
                 ptype: this.cps ? 'cps_admin' : '',
@@ -174,13 +184,26 @@ function ui_product_init() {
         },
 
         switchLanguage: function (lang) {
-            this.data.desc[this.data.lang].name = val(this.elts.Title);
-            this.data.desc[this.data.lang].description = val(this.elts.Desc);
+            this.data.desc[this.data.lang].name = val(this.elts.Title).trim();
+            this.data.desc[this.data.lang].description = val(this.elts.Desc).trim();
             this.data.desc[this.data.lang].tag = this.elts.tags.getItemsAsString();
             val(this.elts.Title, this.data.desc[lang].name);
             val(this.elts.Desc, this.data.desc[lang].description);
             this.elts.tags.setItemsFromString(this.data.desc[lang].tag);
             this.data.lang = lang;
+        },
+
+        updateCatsList(cps){
+            const _cats = cps ? dm.cps.cats : dm.cats;
+            var cats = [];
+            var brands = [];
+            for (var i = 0; i < _cats.length; i++) {
+                var item = _cats[i];
+                if (item.gtype == '1') brands.push(item);
+                else cats.push(item);
+            }
+            setOptions(product.elts.Cat, alphaSort(cats), '---');
+            setOptions(product.elts.Brand, alphaSort(brands), '---');
         },
 
         // Handlers
@@ -242,6 +265,8 @@ function ui_product_init() {
         }
 
     };
+    
+    product.qsplitForm.watch('enabled', val => get('prt_qsplit_stbb').style.display = val ? 'none' : 'block');
 
     product.loadAction = actions.create(function (id) { dm.getProduct(id, product.loadAction); }, product.loadActionCallback);
 
@@ -259,17 +284,9 @@ function ui_product_init() {
     product.elts.Cat.onchange = product.elts.Subcat.onchange = product.elts.Brand.onchange = product.catChanged;
     product.elts.Lang.onchange = product.langChanged;
 
-    dm.registerCallback(function () {
-        var cats = [];
-        var brands = [];
-        for (var i = 0; i < dm.cats.length; i++) {
-            var item = dm.cats[i];
-            if (item.gtype == '1') brands.push(item);
-            else cats.push(item);
-        }
-        setOptions(product.elts.Cat, alphaSort(cats), '---');
-        setOptions(product.elts.Brand, alphaSort(brands), '---');
-    });
+    // dm.registerCallback(function () {
+    //     product.updateCatsList();
+    // });
 
     product.imgSlt = imageSelector.init(get('prt_btn_change_img'), get('prt_image'));
 
@@ -284,16 +301,17 @@ function ui_product_init() {
         if (pid == 'new') return 'Add Product';
         else return 'Edit Product';
     }, function ({ pid, cps }) { // OnNavigate updater 
-        product.cps = cps;
-        (cps ? hideElt : showElt)('prt_stock_field');
-        product.currentProduct = pid;
-        product.imgSlt.reset();
-        if (pid == 'new') {
-            ui.product.load(pid)
-        }else {
-            ui.product.dimc.show();
-            product.loadAction.do(pid);
-        }
+            product.cps = cps;
+            product.updateCatsList(cps);
+            (cps ? hideElt : showElt)('prt_stock_field');
+            product.currentProduct = pid;
+            product.imgSlt.reset();
+            if (pid == 'new') {
+                ui.product.load(pid)
+            }else {
+                ui.product.dimc.show();
+                product.loadAction.do(pid);
+            }
         },  {
         icon: 'save',
         handler: function () {

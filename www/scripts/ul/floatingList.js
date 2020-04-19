@@ -9,6 +9,7 @@ class FloatingList{
         this.textProp = config && config.textProp || 'text';
         this.onSelected = config && config.onSelected;
         this.onSearch = config && config.onSearch;
+        this.allowCustom = config && config.allowCustom;
     }
 
     link(selector){
@@ -29,8 +30,9 @@ class FloatingList{
         if(this.onSearch){
             this.setLoading();
             const prop = attachElt.tagName == 'INPUT' ? 'value' : 'innerText';
-            this.onSearch(attachElt[prop], first).then(items => {
-                this.setItems(items);
+            const query = attachElt[prop];
+            this.onSearch(query, first).then(items => {
+                this.setItems(items, query);
             })
         }
         if(first){
@@ -38,8 +40,13 @@ class FloatingList{
         }
     }
 
-    setItems(items){
+    setItems(items, query){
         this.elt.innerHTML = '';
+        if(this.allowCustom && query){
+            this.createItemElt({
+                [this.textProp]: query
+            }, true);
+        }
         for(let item of items){
             this.createItemElt(item);
         }
@@ -52,9 +59,10 @@ class FloatingList{
         img.src = 'images/spinner.gif';
     }
 
-    createItemElt(data){
+    createItemElt(data, prependNew){
         const elt = crt_elt('div', this.elt);
-        val(elt, data[this.textProp]);
+        const pref = prependNew ? 'New: ' : '';
+        val(elt, pref + data[this.textProp]);
         elt.onclick = () => this.itemClick(data);
     }
 

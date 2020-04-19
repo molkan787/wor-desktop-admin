@@ -27,3 +27,18 @@
     height: 110px !important;
     resize: none !important;
 }
+
+
+/* ===================================== */
+
+#page_edit_store .ui.form{
+    padding: 30px;
+}
+
+#page_edit_store .ui.form .input{
+    margin-top: 6px;
+}
+
+#page_edit_store .ui.form .input .label{
+    width: 200px;
+}

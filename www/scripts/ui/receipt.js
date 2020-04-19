@@ -109,6 +109,11 @@ class ReceiptPage{
             del_date: data.del_date,
             del_timing: data.del_timing,
             saved_amount: data.saved_amount,
+            telephone: data.telephone,
+            shipping_address_1: data.shipping_address_1,
+            shipping_address_2: data.shipping_address_2,
+            shipping_city: data.shipping_city,
+            payment_method: data.payment_method,
         }
 
         const items = [];

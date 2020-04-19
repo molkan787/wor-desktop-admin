@@ -71,7 +71,7 @@ body{
 
 #left_menu {
     position: fixed;
-    z-index: 2100;
+    /* z-index: 2100; */
     top: 0;
     left: 0;
     width: 250px;
@@ -338,10 +338,24 @@ body{
     margin-right: 20px;
     float: right;
     cursor: pointer;
+    transition: background-color 0.4;
 }
 .fab:hover{
     background-color: rgb(196, 196, 196) !important;
 }
+.fab.important{
+    background-color: #F36F24 !important;
+    color: white !important;
+}
+.fab.important:hover{
+    background-color: rgb(255, 127, 52) !important;
+}
+.fab.text{
+    padding: 8px 17px;
+    border-radius: 50px;
+    width: fit-content;
+}
+
 #menu_popup {
     position: fixed !important;
     z-index: 10000 !important;
@@ -557,4 +571,16 @@ body{
 
     /* display: block !important; */
     opacity: 1 !important;
+}
+
+.bottomText{
+    display: inline-block;
+    margin: 6px 6px 6px 12px !important;
+    font-weight: bold;
+    color: #666;
+}
+
+.stbb{
+    background-color: white;
+    opacity: 0.8;
 }

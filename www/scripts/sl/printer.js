@@ -4,7 +4,6 @@ class Printer {
     // static printer: any;
 
     static setup() {
-        // @ts-ignore
         const escpos = imp('escpos');
         const device = new escpos.USB();
         const options = { encoding: "GB18030" };

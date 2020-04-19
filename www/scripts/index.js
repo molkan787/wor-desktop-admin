@@ -23,7 +23,7 @@
         sl_init();
         cm_init();
         ui_init();
-        do_tests();
+        if(config.devMode) do_tests();
 
         document.addEventListener("backbutton", ui_device_backBtn_click, false);
         document.addEventListener("keydown", (e) => {

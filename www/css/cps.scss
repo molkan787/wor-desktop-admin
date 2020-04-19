@@ -1,0 +1,48 @@
+#cps_import_pp {
+    width: 400px !important;
+    height: 500px !important;
+    margin-left: -200px !important;
+    margin-top: -250px !important;
+    text-align: center;
+    overflow: hidden;
+    h3{
+        margin-bottom: 25px;
+    }
+    .content{
+        height: 355px;
+        width: 300px;
+        margin: auto;
+        .tab{
+            opacity: 0;
+            display: none;
+            float: left;
+            overflow-y: scroll;
+            height: 340px;
+            width: 100%;
+            text-align: left;
+        }
+    }
+    .conclusion{
+        padding-top: 50px;
+        .parent{
+            height: 60px;
+        }
+        .cats_item{
+            background-color: #f1f1f1;
+        }
+        .arrow{
+            width: 100%;
+            padding: 5px;
+            text-align: center;
+            i{
+                font-size: 32px;
+                color: #adadad;
+                margin: auto;
+                opacity: 0.8;
+            }
+        }
+        button{
+            margin-top: 25px;
+        }
+    }
+}

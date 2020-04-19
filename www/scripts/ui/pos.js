@@ -31,6 +31,7 @@ function pos_init() {
             autoValueSet: true,
             textProp: 'name',
             valueProp: 'customer_id',
+            allowCustom: true,
             onSearch: q => DataAgent.searchCustomers(q),
             onSelected: data => pos.setCustomer(data),
         }),
@@ -66,6 +67,9 @@ function pos_init() {
         },
 
         submit: function () {
+            if(this.customer){
+                this.customer.telephone = val(this.elts.ppPhone);
+            }
             var prts = [];
             var other_val = parseFloat(val(this.elts.other));
             for (var pid in this.cart) {
@@ -86,6 +90,7 @@ function pos_init() {
             if (prts.length < 1) return;
             this.dimmer.show('Submiting');
             this.popupLoading(true);
+            const payment_method = this.elts.ppPaymentMethod.selectedOptions[0].innerText;
             this.submitAction.do({ 
                 products: JSON.stringify({ items: prts }),
                 other_val: other_val,
@@ -96,15 +101,18 @@ function pos_init() {
             .then((data) => {
                 rtdc.addExcludes(data.order_id);
                 if(other_val > 0) prts.push({name: "Other", price: other_val, q: 1, gst: 0, hsn: null});
+                if(data.roundoff != 0) prts.push({name: "Sales Roundoff account", price: data.roundoff, q: 1, gst: 0, hsn: null});
                 navigate('receipt', {
                     orderData: {
                         id: data.order_id,
                         items: prts,
-                        total: this.total,
+                        total: float(this.total) + data.roundoff,
                         tax: this.totalTax,
                         subTotal: this.subTotal,
                         customer: data.customer,
-                        saved_amount: data.saved
+                        telephone: val(this.elts.ppPhone),
+                        saved_amount: data.saved,
+                        payment_method: payment_method
                     }
                 });
                 this.clearCart();
@@ -284,6 +292,8 @@ function pos_init() {
 
         search: function (text, onlyBarcode) {
             if (!this.dataLoaded) return;
+            if(this.searchLocked) return;
+
             const cat = val(this.elts.searchCats);
             var arr = this.products_arr;
             var l = arr.length;
@@ -307,6 +317,8 @@ function pos_init() {
                         val(this.elts.search, '');
                         this.search('');
                     }
+                    this.searchLocked = true;
+                    setTimeout(() => this.searchLocked = false, 600);
                     return;
                 } else if (text.length > 1 && p.barcode && p.barcode.indexOf(text) != -1){
                     ai.push(p);
@@ -371,6 +383,10 @@ function pos_init() {
             l_i1.setAttribute('tabIndex', 2);
             l_lbl.setAttribute('tabIndex', 3);
             l_i2.setAttribute('tabIndex', 4);
+
+            td1.style.paddingRight = '10px';
+            td2.style.paddingLeft = '10px';
+            td3.style.paddingLeft = '10px';
 
             td1.className = 'first toe';
             td1.appendChild(crt_txt(data.name));
@@ -490,8 +506,9 @@ function pos_init() {
         },
 
         showSubmitPopup(){
-            val(this.elts.ppTotal, fasc.formatPrice(this.total));
-            val(this.elts.ppPaid, float(this.total));
+            const roundedTotal = Math.round(float(this.total));
+            val(this.elts.ppTotal, fasc.formatPrice(roundedTotal));
+            val(this.elts.ppPaid, roundedTotal);
             val(this.elts.ppCustomer, '');
             val(this.elts.ppPhone, '');
             val(this.elts.ppPaymentMethod, 'cash');
@@ -501,7 +518,7 @@ function pos_init() {
 
         updateChange(){
             const paid = float(val(this.elts.ppPaid));
-            const total = float(this.total);
+            const total = Math.round(float(this.total));
             const change = paid - total;
             const colorClass = change == 0 ? '' : (change > 0 ? 'positive' : 'negative');
             val(this.elts.ppChange, fasc.formatPrice(change))
@@ -527,8 +544,8 @@ function pos_init() {
         searchCatChange(){
             pos.search(pos.elts.search.value.trim());
         },
-        clearBtnClick: function () {
-            pos.clearCart();
+        clearBtnClick: async function () {
+            if(await confirm('Clear cart?')) pos.clearCart();
         },
         submitBtnClick: function () {
             if(!pos.cartIsEmpty()){

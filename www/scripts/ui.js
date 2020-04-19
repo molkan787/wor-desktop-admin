@@ -64,6 +64,8 @@ function ui_init() {
     ui_popup_init();
     dialogs_init();
 
+    updateUiScale();
+
     uiis.init_components();
     BarcodeScanner_init();
 
@@ -127,7 +129,8 @@ function navigate(page_slug, params, isBack, forceReload) {
 
     addToHistory(page_slug, param);
     
-    if (!forceReload && page_current && page_current.slug == page_slug && param == param_current) return;
+    const is_same = page_current && page_current.slug == page_slug && param == param_current;
+    if (!forceReload && is_same) return;
 
     page_prev = page_current;
     page_current = page;
@@ -180,44 +183,53 @@ function navigate(page_slug, params, isBack, forceReload) {
         }
     };
 
+    const targets = '#mtitle, #' + pagesElt.id;
+
+    const __prepare = function(){
+        if (hideTitle) {
+            get('mtitle').style.display = 'none';
+            class_rm(pagesElt, 'haveTitle');
+        } else {
+            if(inTitleBackButton){
+                val('mtitle', `
+                    <button onclick="goBack()"><i class="left arrow icon"></i></button>
+                    ${title}
+                `);
+            }else{
+                val('mtitle', title);
+            }
+            get('mtitle').style.display = 'block';
+            class_add(pagesElt, 'haveTitle');
+        }
+        setChild(page_current.element, pagesElt);
+        __update();
+        if(is_same) return;
+        anime({
+            targets,
+            scale: 1,
+            opacity: 1,
+            easing: 'easeOutQuad',
+            duration: 300,
+        })
+    }
+
     if (backButton) {
         openPageInModal(page_current.element, title);
         __update();
     } else {
+        const wasModalOpen = pageModalOpen;
         closePageModal();
-        const targets = '#mtitle, #' + pagesElt.id;
+        if(is_same || wasModalOpen){
+            __prepare();
+            return;
+        }
         anime({
             targets,
             scale: 0.99,
             opacity: 0,
             duration: 150,
             easing: 'easeOutQuad',
-            complete() {
-                if (hideTitle) {
-                    get('mtitle').style.display = 'none';
-                    class_rm(pagesElt, 'haveTitle');
-                } else {
-                    if(inTitleBackButton){
-                        val('mtitle', `
-                            <button onclick="goBack()"><i class="left arrow icon"></i></button>
-                            ${title}
-                        `);
-                    }else{
-                        val('mtitle', title);
-                    }
-                    get('mtitle').style.display = 'block';
-                    class_add(pagesElt, 'haveTitle');
-                }
-                setChild(page_current.element, pagesElt);
-                __update();
-                anime({
-                    targets,
-                    scale: 1,
-                    opacity: 1,
-                    easing: 'easeOutQuad',
-                    duration: 300,
-                })
-            }
+            complete: __prepare,
         })
     }
 
@@ -295,4 +307,17 @@ function visualOnlineIndicator(isOnline){
         });
     }
 
+}
+
+window.addEventListener('resize', updateUiScale)
+
+const {webFrame} = require('electron')
+let _uiScalePrevWidth = null;
+let _uiScale = 1;
+function updateUiScale(){
+    const w = Math.floor(window.innerWidth * _uiScale);
+    let scale = w > 1200 ? 1 : w / 1200;
+    if(scale < 0.7) scale = 0.7;
+    _uiScale = scale;
+    webFrame.setZoomFactor(scale);
 }

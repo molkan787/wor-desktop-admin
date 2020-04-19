@@ -11,6 +11,7 @@ function stores_init() {
             optionsPopup: get('stores_popup_options'),
             optionsName: get('stores_pp_options_name'),
             optionsDelBtn: get('stores_pp_options_del'),
+            optionsEditBtn: get('stores_pp_options_edit'),
             optionsVisit: get('stores_pp_options_visit'),
             addPopup: get('stores_popup_add'),
             addCity: get('stores_pp_add_city'),
@@ -199,6 +200,9 @@ function stores_init() {
             }
             val(this.elts.list, '');
             for (var i = 0; i < stores.length; i++) {
+                if(i == 0 && dm.storeId == -1){
+                    dm.setStoreId(stores[i].store_id, stores.storeChangedCallback);
+                }
                 this.createPanel(stores[i]);
             }
             data.cities = alphaSort(data.cities, 'name_1');
@@ -213,8 +217,10 @@ function stores_init() {
             val(this.elts.optionsName, data.name);
             if (writeAccess) {
                 attr_rm(this.elts.optionsDelBtn, 'disabled');
+                attr_rm(this.elts.optionsEditBtn, 'disabled');
             } else {
                 attr(this.elts.optionsDelBtn, 'disabled', '1');
+                attr(this.elts.optionsEditBtn, 'disabled', '1');
             }
             ui.popup.show(this.elts.optionsPopup);
         },
@@ -225,11 +231,12 @@ function stores_init() {
             ui.popup.show(this.elts.delPopup);
         },
         showAddForm: function () {
-            val(this.elts.addName, '');
-            val(this.elts.addCity, '');
-            val(this.elts.addOwner, '');
-            this.elts.addRegion.innerHTML = '';
-            ui.popup.show(this.elts.addPopup);
+            // val(this.elts.addName, '');
+            // val(this.elts.addCity, '');
+            // val(this.elts.addOwner, '');
+            // this.elts.addRegion.innerHTML = '';
+            // ui.popup.show(this.elts.addPopup);
+            navigate('editStore');
         },
 
         // Callbacks
@@ -272,19 +279,23 @@ function stores_init() {
             ui.popup.hide();
         },
         // Handlers
-        optionsBtnClick: function () {
+        editBtnClick(){
+            ui.popup.hide();
+            navigate('editStore', stores.currentStore);
+        },
+        optionsBtnClick() {
             stores.showOptions(attr(this, 'store_id'));
         },
-        deleteBtnClick1: function () {
+        deleteBtnClick1() {
             stores.confirmStoreDelete();
         },
-        deleteBtnClick2: function () {
+        deleteBtnClick2() {
             stores.deleteStore();
         },
-        addBtnClick: function () {
+        addBtnClick() {
             stores.addStore();
         },
-        visitBtnClick: function () {
+        visitBtnClick() {
             stores.dimcOptionsPopup.show();
             dm.setStoreId(stores.currentStore.store_id, stores.storeChangedCallback);
             //ui.popup.hide();
@@ -296,6 +307,7 @@ function stores_init() {
         }
     };
 
+    stores.elts.optionsEditBtn.onclick = stores.editBtnClick;
     stores.elts.optionsDelBtn.onclick = stores.deleteBtnClick1;
     stores.elts.delBtn.onclick = stores.deleteBtnClick2;
     stores.elts.addBtn.onclick = stores.addBtnClick;

@@ -4,7 +4,24 @@ function do_tests() {
     // setTimeout(() => navigate('promo', '1'), 1000)
     // setTimeout(() => test_addPayment(), 1000)
     // test_addPurchase()
-    test_category()
+    // test_category()
+    // setTimeout(() => test_addPayment(), 1000)
+    // openAddStoreForm()
+    setTimeout(() => navigate('pos'), 1500)
+    
+}
+
+function openAddStoreForm(){
+    stores.showAddForm()
+}
+
+function simBarcodeScanned(){
+    const barcode = '8901030743399'
+    BCS_simulateBarcodeScanned(barcode)
+
+    // const searchBox = get('pos_search')
+    // searchBox.value = barcode;
+    // searchBox.dispatchEvent(new Event('keyup', {keyCode: 'a'}))
 }
 
 async function test_category(){

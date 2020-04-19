@@ -11,7 +11,7 @@ function BarcodeScanner_init() {
             setTimeout(function () {
                 if (bcs_chars.length >= 10) {
                     var barcode = bcs_chars.join("");
-                    //console.log("Barcode Scanned: " + barcode);
+                    console.log("Barcode Scanned: " + barcode);
                     pos.search(barcode, true);
                 }
                 bcs_chars = [];
@@ -24,3 +24,14 @@ function BarcodeScanner_init() {
 }
 
 BarcodeScanner_init();
+
+function BCS_simulateBarcodeScanned(barcode){
+    for(let char of barcode){
+        BCS_simulateKeyPress(char)
+    }
+}
+
+function BCS_simulateKeyPress(char){
+    const evt = new KeyboardEvent('keypress', {'keyCode': char.charCodeAt(0), 'which': char.charCodeAt(0)});
+    window.dispatchEvent(evt);
+}

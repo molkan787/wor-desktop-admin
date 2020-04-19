@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="css/sidemenu.css">
     <link rel="stylesheet" type="text/css" href="css/mtm.css">
     <link rel="stylesheet" type="text/css" href="css/its.css">
+    <link rel="stylesheet" type="text/css" href="css/cps.css">
     <link rel="stylesheet" type="text/css" href="css/chartist.min.css">
 
     <script type="text/javascript" src="scripts/config.js"></script>
@@ -82,6 +83,7 @@
     <script type="text/javascript" src="scripts/ui/setting.js"></script>
     <script type="text/javascript" src="scripts/ui/users.js"></script>
     <script type="text/javascript" src="scripts/ui/stores.js"></script>
+    <script type="text/javascript" src="scripts/ui/editStore.js"></script>
     <script type="text/javascript" src="scripts/ui/master_setting.js"></script>
     <script type="text/javascript" src="scripts/ui/pos.js"></script>
     <script type="text/javascript" src="scripts/ui/dialogs.js"></script>
@@ -91,6 +93,7 @@
     <script type="text/javascript" src="scripts/ui/itsVendors.js"></script>
     <script type="text/javascript" src="scripts/ui/itsPurchase.js"></script>
     <script type="text/javascript" src="scripts/ui/itsPayments.js"></script>
+    <script type="text/javascript" src="scripts/ui/cps.js"></script>
     <script type="text/javascript" src="scripts/ui/ls.js"></script>
     <script type="text/javascript" src="scripts/ui/popup.js"></script>
     <script type="text/javascript" src="scripts/ui/uiu.js"></script>
@@ -343,9 +346,9 @@
                 <table id="pos_table2" class="mtable header-fixed cols4" border="0">
                     <thead>
                         <tr>
-                            <th>Product</th>
-                            <th>Price (&#8377;)</th>
-                            <th>Qty</th>
+                            <th style="padding-right: 10px;">Product</th>
+                            <th style="padding: 20px 10px;">Price (&#8377;)</th>
+                            <th style="padding: 20px 10px;">Qty</th style="padding: 10px;">
                             <th> </th>
                         </tr>
                     </thead>
@@ -428,16 +431,23 @@
                     <button id="prts_copy" disabled onclick="products.copyProducts()">
                         Import selected items
                     </button>
+                    <button right id="prts_copyByCat" onclick="CPS_UI.openImportPopup()">
+                        Import by category
+                    </button>
                     
                     <button id="prts_add" right onclick="navigate('product', { pid: 'new', cps: products.ptype == 'cps_admin' })">
                         <i class="plus icon"></i> add
                     </button>
                     <button id="prts_save_btn" right>Save Order</button>
+                    <button id="prts_cats" right onclick="navigate('categories', {gtype: '0', cps: true})">
+                        <i class="clone icon"></i>
+                    </button>
                 </div>
                 <div id="prts_list" class="body scrollable">
                 
                 </div>
             </div>
+            <span id="prts_totalcount" class="bottomText">Total products: 200</span>
 
             <div id="prts_dimmer" class="ui active inverted dimmer" style="display: none">
                 <div class="ui text loader">Loading</div>
@@ -454,6 +464,7 @@
                 <div class="active item">Description</div>
                 <div class="item">Data</div>
                 <div class="item">Category & Brand</div>
+                <div class="item">Quantity split</div>
             </div>
             <div id="prt_tabs">
                 <div class="ui bottom attached active tab segment">
@@ -590,6 +601,27 @@
 
                     </div>
                 </div>
+
+                <div id="prt_qsplit" class="ui bottom attached tab segment">
+                    <div class="ui form">
+                        <div class="field">
+                            <div class="enabled input">
+                                <input type="checkbox" name="enabled" id="prt_qsplit_enabled">
+                                <label for="prt_qsplit_enabled">Enable Quantity split?</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Unit</label>
+                            <input type="text" name="unit" placeholder="Ex: g">
+                        </div>
+                        <div class="field">
+                            <label>Options</label>
+                            <input type="text" name="options" placeholder="Comma separated, Ex: 150, 250, 500">
+                        </div>
+                    </div>
+                    <div id="prt_qsplit_stbb" class="stbb"></div>
+                </div>
+
             </div>
 
             <div id="prt_dimmer" class="ui active inverted dimmer" style="display: none">
@@ -832,6 +864,19 @@
                         <input type="text" id="cat_name_2" placeholder="Category name in Hindi">
                     </div>
                 </div>
+                <div class="field cat_namesec">
+                    <label>Tags</label>
+                    <div id="cat_tags_1" class="ui labeled input">
+                        <div class="ui label">
+                            English
+                        </div>
+                    </div>
+                    <div id="cat_tags_2" class="ui labeled input">
+                        <div class="ui label">
+                            Hindi
+                        </div>
+                    </div>
+                </div>
                 <div id="cat_img_sec" class="field cat_imgsec">
                     <label>Image</label>
                     <img id="cat_img" src="" />
@@ -985,13 +1030,14 @@
         </div>
 
         <div id="page_users" class="page custom">
-            <table id="users_list" class="mtable header-fixed">
+            <table id="users_list" class="mtable header-fixed cols6">
                 <thead>
                     <tr>
                         <th class="pixed">Username</th>
                         <th class="pixed">Full Name</th>
                         <th class="pixed">Acount type</th>
                         <th class="pixed">Status</th>
+                        <th class="pixed">Reg. Date</th>
                         <th style="padding: 10px !important">
                             <button class="mtm headerButton" right onclick="users.hbBtnClick()">
                                 <i class="plus icon"></i>
@@ -1025,9 +1071,48 @@
 
         </div>
 
+        <div class="page mtm" id="page_edit_store" rbb="1">
+            <div class="ui form">
+                <h4>Basic informations</h4>
+                <div class="ui field">
+                    <div class="ui labeled input">
+                        <div class="ui label">Store city</div>
+                        <select name="city_id" id="stores_pp_add_city"></select>
+                    </div>
+                    <div class="ui labeled input">
+                        <div class="ui label">Store region</div>
+                        <select name="region_id" id="stores_pp_add_region"></select>
+                    </div>
+                    <div class="ui labeled input">
+                        <div class="ui label">Store name</div>
+                        <input type="text" name="name" placeholder="Store name" />
+                    </div>
+                </div>
+                <h4>Legal informations</h4>
+                <div class="ui field">
+                    <div class="ui labeled input">
+                        <div class="ui label">Store owner</div>
+                        <input type="text" name="owner_name" placeholder="Fullname" />
+                    </div>
+                    <div class="ui labeled input">
+                        <div class="ui label">GSTIN</div>
+                        <input type="text" name="gstin" placeholder="GSTIN" />
+                    </div>
+                    <div class="ui labeled input">
+                        <div class="ui label">Shop Registraion No.</div>
+                        <input type="text" name="reg_no"" placeholder="Shop Registraion No." />
+                    </div>
+                    <div class="ui labeled input">
+                        <div class="ui label">FSSAI License</div>
+                        <input type="text" name="fssai" placeholder="FSSAI License" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div id="page_master_setting" class="page">
 
-            <div class="ui top attached tabular menu" for="mset_tabs">
+            <div class="ui top attached tabular menu" id="mset_tabs_menu" for="mset_tabs">
                 <div class="active item">General</div>
                 <div class="item">Cities</div>
                 <div class="item">GLS</div>
@@ -1102,6 +1187,13 @@
                     </div>
                 </div>
             </div>
+
+            <h4 class="mtm footer th1 top_attached" id="msetts_stats_footer" style="top: -43px; display: none">
+                <label class="mtm blue"><i class="map marker alternate icon"></i>Cities:</label>
+                <span class="nomargin mtm blue" id="msetts_cities_count">0</span>
+                <label class="mtm green"><i class="map marker alternate icon"></i>Regions:</label>
+                <span class="nomargin mtm green" id="msetts_regions_count">0</span>
+            </h4>
 
             <div id="master_setting_dimmer" class="ui active inverted dimmer" style="display: none">
                 <div class="ui text loader"></div>
@@ -1529,6 +1621,23 @@
             </div>
         </div>
 
+        <div class="popup" id="cps_import_pp">
+            <h3 id="cps_import_pp_header">Select category to import</h3>
+            <div class="content">
+                <div class="tab" id="cps_import_source_list"></div>
+                <div class="tab" id="cps_import_target_list"></div>
+                <div class="tab conclusion" id="cps_import_conclusion">
+                    <div class="source parent"></div>
+                    <div class="arrow">
+                        <i class="chevron circle down icon"></i>
+                    </div>
+                    <div class="target parent"></div>
+                    <button id="cps_import_pp_submitBtn" onclick="CPS_UI.submitImport()" class="mtm primary button fullw">Import</button>
+                </div>
+            </div>
+            <button onclick="CPS_UI.__buttonClick()" id="cps_import_pp_btn" class="mtm button fullw">Cancel</button>
+        </div>
+
         <!--Customer Popup-->
         <div class="popup ui segment" id="cust_popup">
             <h3>
@@ -1650,11 +1759,11 @@
             <div class="ui form">
                 <div class="field">
                     <label>Store City</label>
-                    <select id="stores_pp_add_city"></select>
+                    <!-- <select id="stores_pp_add_city"></select> -->
                 </div>
                 <div class="field">
                     <label>Store Region</label>
-                    <select id="stores_pp_add_region"></select>
+                    <!-- <select id="stores_pp_add_region"></select> -->
                 </div>
                 <div class="field">
                     <label>Store name</label>
@@ -1679,6 +1788,7 @@
             <span id="stores_pp_options_name"></span>
             <button id="stores_pp_options_visit" class="ui button fullw"><i class="periscope icon"></i>Visit as this
                 Store</button>
+            <button id="stores_pp_options_edit" class="ui button fullw"><i class="edit icon"></i>Edit store</button>
             <button id="stores_pp_options_del" class="ui button fullw"><i class="delete icon"></i>Delete permanetly</button>
             <div id="stores_pp_options_dimmer" class="ui active inverted dimmer" style="display: none">
                 <div class="ui text loader"></div>

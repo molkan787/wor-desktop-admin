@@ -13,34 +13,44 @@ function categories_init() {
         deleteAction: null,
         saveAction: null,
 
-        createPanel: function (data) {
+        createPanel: function (data, minimal) {
             var div = crt_elt('div');
             var img = crt_elt('img', div);
             var h3 = crt_elt('h3', div);
-            var btn = crt_elt('label', div);
-            var icon = crt_elt('i', btn);
-            var btn2 = crt_elt('label', div);
-            var icon2 = crt_elt('i', btn2);
+            if(!minimal){
+                var btn = crt_elt('label', div);
+                var icon = crt_elt('i', btn);
+                var btn2 = crt_elt('label', div);
+                var icon2 = crt_elt('i', btn2);
+                btn.className = 'ui label mbutton';
+                icon.className = 'delete icon';
+                btn.onclick = this.deleteBtnClick;
+                btn2.className = 'ui label mbutton handle';
+                icon2.className = 'sort icon';
+                attr(btn2, 'cancel-pdr', true);
+                attr(icon2, 'cancel-pdr', true);
+                attr(btn, 'cat_id', data.id);
+            }
 
             val(img, data.image);
             val(h3, data.text);
             div.className = 'cats_item mtm db';
-            btn.className = 'ui label mbutton';
-            icon.className = 'delete icon';
 
-            btn.onclick = this.deleteBtnClick;
-
-            btn2.className = 'ui label mbutton handle';
-            icon2.className = 'sort icon';
-            attr(btn2, 'cancel-pdr', true);
-            attr(icon2, 'cancel-pdr', true);
-
-            attr(btn, 'cancelclick', '1');
-            attr(icon, 'cancelclick', '1');
-            attr(btn2, 'cancelclick', '1');
-            attr(icon2, 'cancelclick', '1');
-            attr(btn, 'cat_id', data.id);
             attr(div, 'cat_id', data.id);
+
+            if(minimal){
+                return div;
+            }else{
+                attr(btn, 'cancelclick', '1');
+                attr(icon, 'cancelclick', '1');
+                attr(btn2, 'cancelclick', '1');
+                attr(icon2, 'cancelclick', '1');
+            }
+
+            if(this.cps){
+                attr(btn, 'cps', 'true');
+                attr(div, 'cps', 'true');
+            }
             div.onclick = this.panelClick;
             div.id = 'cat_panel_' + data.id;
 
@@ -48,13 +58,14 @@ function categories_init() {
         },
         
         update: function (param) {
-            this.gtype = param;
+            const io = typeof param == 'object';
+            this.gtype = io ? param.gtype : param;
+            this.cps = io && param.cps;
             this.dimc.show();
             val(this.elts.list, '');
-            var _this = this;
-            dm.reloadAsd(function () {
-                _this.loadCats(dm.cats);
-                _this.dimc.hide();
+            dm.reloadAsd(() => {
+                this.loadCats(this.cps ? dm.cps.cats : dm.cats);
+                this.dimc.hide();
             });
         },
 
@@ -116,13 +127,15 @@ function categories_init() {
         // Handlers
         panelClick: function (e) {
             if (attr(e.srcElement, 'cancelclick')) return;
-            navigate('category', { id: attr(this, 'cat_id'), deepLevel: 1, gtype: cats.gtype, parent: 0 });
+            const cat_id = attr(this, 'cat_id');
+            const cps = attr(this, 'cps') == 'true';
+            navigate('category', { id: cat_id, deepLevel: 1, gtype: cats.gtype, parent: 0, cps});
         },
         deleteBtnClick: function () {
             cats.deleteCategory(attr(this, 'cat_id'));
         },
         addBtnClick: function () {
-            navigate('category', {id: 'new', gtype: cats.gtype, deepLevel: 1});
+            navigate('category', {id: 'new', gtype: cats.gtype, deepLevel: 1, cps: cats.cps});
         },
         saveBtnClick: function () {
             cats.saveOrder();
@@ -135,7 +148,8 @@ function categories_init() {
     cats.elts.saveBtn.onclick = cats.saveBtnClick;
 
     registerPage('categories', cats.elt, function (param) {
-        return param == '1' ? 'Brands' : 'Categories';
+        const prefix = param && param.cps ? 'CPS ' : '';
+        return prefix + (param == '1' ? 'Brands' : 'Categories');
     }, function (param) {
         cats.update(param);
     });

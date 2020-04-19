@@ -1,0 +1,58 @@
+#cps_import_pp {
+  width: 400px !important;
+  height: 500px !important;
+  margin-left: -200px !important;
+  margin-top: -250px !important;
+  text-align: center;
+  overflow: hidden;
+}
+
+#cps_import_pp h3 {
+  margin-bottom: 25px;
+}
+
+#cps_import_pp .content {
+  height: 355px;
+  width: 300px;
+  margin: auto;
+}
+
+#cps_import_pp .content .tab {
+  opacity: 0;
+  display: none;
+  float: left;
+  overflow-y: scroll;
+  height: 340px;
+  width: 100%;
+  text-align: left;
+}
+
+#cps_import_pp .conclusion {
+  padding-top: 50px;
+}
+
+#cps_import_pp .conclusion .parent {
+  height: 60px;
+}
+
+#cps_import_pp .conclusion .cats_item {
+  background-color: #f1f1f1;
+}
+
+#cps_import_pp .conclusion .arrow {
+  width: 100%;
+  padding: 5px;
+  text-align: center;
+}
+
+#cps_import_pp .conclusion .arrow i {
+  font-size: 32px;
+  color: #adadad;
+  margin: auto;
+  opacity: 0.8;
+}
+
+#cps_import_pp .conclusion button {
+  margin-top: 25px;
+}
+/*# sourceMappingURL=cps.css.map */

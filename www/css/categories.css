@@ -91,3 +91,10 @@
 #subcats_add:hover{
     background-color: rgb(224, 224, 224);
 }
+
+.cat_namesec .tagInput.input{
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    width: calc(100% - 110px) !important;
+    text-align: left !important;
+}

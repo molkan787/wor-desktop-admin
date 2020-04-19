@@ -4,7 +4,7 @@ class TagInput{
     static get SEARCH_MODE() { return 2 }
 
     constructor(options){
-        const {parent, mode, onSearch, textProp, valueProp, placeholder} = options;
+        const {parent, mode, onSearch, textProp, valueProp, placeholder, classes} = options;
         this.$mode = mode || TagInput.CUSTOM_MODE;
         this.$textProp = textProp || 'name';
         this.$valueProp = valueProp || 'id';
@@ -13,7 +13,7 @@ class TagInput{
         input.placeholder = placeholder || '';
         el.appendChild(input);
         if(parent) parent.appendChild(el);
-        el.className = 'tagInput';
+        el.className = 'tagInput ' + (classes ? classes : '');
         el.onclick = e => this.$rootElClick(e);
 
         this.$el = el;

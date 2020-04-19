@@ -10,7 +10,17 @@ function category_init() {
             name1: get('cat_name_1'),
             name2: get('cat_name_2'),
             imgSec: get('cat_img_sec'),
-            subsSec: get('cat_subs_sec')
+            subsSec: get('cat_subs_sec'),
+            tags1: new TagInput({
+                classes: 'input',
+                placeholder: 'Comma separated',
+                parent: get('cat_tags_1')
+            }),
+            tags2: new TagInput({
+                classes: 'ui input',
+                placeholder: 'Comma separated',
+                parent: get('cat_tags_2')
+            }),
         },
 
         data: {},
@@ -41,6 +51,7 @@ function category_init() {
             this.cat_id = params.id;
             this.gtype = params.gtype;
             this.deepLevel = params.deepLevel;
+            this.cps = params.cps;
 
             if (this.deepLevel == 1) {
                 this.elts.imgSec.style.display = '';
@@ -71,10 +82,14 @@ function category_init() {
                 val(this.elts.img, 'images/document_blank.png');
                 val(this.elts.name1, '');
                 val(this.elts.name2, '');
+                this.elts.tags1.clearItems();
+                this.elts.tags2.clearItems();
             } else {
                 val(this.elts.img, data.image);
                 val(this.elts.name1, data.name[1]);
                 val(this.elts.name2, data.name[2]);
+                this.elts.tags1.setItemsFromString(data.tags[1]);
+                this.elts.tags2.setItemsFromString(data.tags[2]);
                 for (var i = 0; i < data.subs.length; i++) {
                     this.createPanel(data.subs[i]);
                 }
@@ -82,22 +97,27 @@ function category_init() {
         },
 
         getData: function () {
-            var name1 = val(this.elts.name1);
-            var name2 = val(this.elts.name2);
+            let name1 = val(this.elts.name1);
+            let name2 = val(this.elts.name2);
+            let tags1 = this.elts.tags1.getItemsAsString();
+            let tags2 = this.elts.tags2.getItemsAsString();
             return {
                 gtype: this.gtype,
                 parent: this.parent,
                 cat_id: this.currentCat,
-                name1: name1,
-                name2: name2,
+                cps: this.cps,
+                name1,
+                name2,
+                tags1,
+                tags2,
                 childs_order: this.getChildsOrder()
             };
 
         },
 
         save: function () {
-            var name1 = val(this.elts.name1);
-            var name2 = val(this.elts.name2);
+            let name1 = val(this.elts.name1);
+            let name2 = val(this.elts.name2);
             if (name1.length < 2 || name2.length < 2) {
                 msg.show(txt('fill_all_input'));
                 return;
@@ -106,7 +126,7 @@ function category_init() {
             if (this.imgSlt.changed) {
                 this.uploadAction.do(this.imgSlt.getData());
             } else {
-                var data = this.getData();
+                let data = this.getData();
                 this.saveAction.do(data);
             }
         },
@@ -161,7 +181,7 @@ function category_init() {
             this.dimc.hide();
             if (action.status == 'OK') {
                 msg.show(txt('msg_1'));
-                var params = { id: action.data.cat_id, deepLevel: this.deepLevel, gtype: this.gtype, parent: this.parent };
+                var params = { id: action.data.cat_id, deepLevel: this.deepLevel, gtype: this.gtype, parent: this.parent, cps: this.cps };
                 reloadPage(params);
             } else {
                 msg.show(txt('error_2'));
@@ -238,7 +258,7 @@ function category_init() {
                 msg.show(text);
                 return;
             }
-            navigate('category', { id: 'new', deepLevel: category.deepLevel + 1, gtype: category.gtype, parent: category.cat_id });
+            navigate('category', { id: 'new', deepLevel: category.deepLevel + 1, gtype: category.gtype, parent: category.cat_id, cps: category.cps });
         },
 
         saveButtonClick: function () {

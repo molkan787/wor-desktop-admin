@@ -71,6 +71,7 @@
 #pos_table2{
     width: 100%;
     height: 100%;
+    display: block;
 }
 #pos_table2 td:nth-child(1),
 #pos_table2 th:nth-child(1) {

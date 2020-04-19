@@ -27,13 +27,16 @@ function uiis_init() {
                     this.activeTab = this.tabs[btnIndex];
                     class_add(this.activeBtn, 'active');
                     class_add(this.activeTab, 'active');
+                    typeof elt.onTabChanged == 'function' ? elt.onTabChanged(btnIndex) : 0;
                 }
             };
+
 
             for (var i = 0; i < btns.length; i++) {
                 attr(btns[i], 'index', i.toString());
                 btns[i].onclick = function () {
-                    holder.buttonClick(parseInt(attr(this, 'index')));
+                    const index = parseInt(attr(this, 'index'));
+                    holder.buttonClick(index);
                 }
             }
 
